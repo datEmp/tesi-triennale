@@ -1,0 +1,198 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[italian]{babel}
+\usepackage{import}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[margin=1.2in]{geometry}
+\usepackage[12pt]{extsizes}
+\usepackage{color}
+\usepackage{listings}
+\usepackage[bottom,flushmargin,hang,multiple]{footmisc}
+\usepackage{titlesec}
+\usepackage{url}
+\usepackage{upquote}
+\definecolor{purple}{RGB}{91, 72, 181}
+\definecolor{darkviolet}{rgb}{0.58, 0.0, 0.83}
+\definecolor{royalblue}{RGB}{242, 73, 214}
+\definecolor{orange}{RGB}{227, 72, 41}
+\definecolor{lightgreen}{RGB}{164, 194, 14}
+
+\definecolor{mediumgray}{rgb}{0.3, 0.4, 0.4}
+\definecolor{forestgreen}{rgb}{0.13, 0.55, 0.13}
+\definecolor{crimson}{rgb}{0.86, 0.8, 0.24}
+
+\linespread{1.5}
+
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+\titleformat{\paragraph}{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\lstset{aboveskip=30pt,belowskip=30pt}
+
+\lstdefinestyle{JSES6Base}{
+  backgroundcolor=\color{white},
+  basicstyle=\ttfamily,
+  breakatwhitespace=false,
+  breaklines=false,
+  captionpos=b,
+  columns=fullflexible,
+  commentstyle=\color{mediumgray}\upshape,
+  emph={},
+  emphstyle=\color{crimson},
+  extendedchars=true,  % requires inputenc
+  fontadjust=true,
+  frame=single,
+  identifierstyle=\color{black},
+  keepspaces=true,
+  keywordstyle=\color{purple},
+  keywordstyle={[2]\color{darkviolet}},
+  keywordstyle={[3]\color{royalblue}},
+  keywordstyle={[4]\color{orange}},
+  keywordstyle={[5]\color{lightgreen}},
+  numbers=left,
+  numbersep=5pt,
+  numberstyle=\tiny\color{black},
+  rulecolor=\color{black},
+  showlines=true,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  stringstyle=\color{forestgreen},
+  tabsize=2,
+  title=\lstname,
+  upquote=true  % requires textcomp
+}
+
+\lstdefinestyle{JavaScript}{
+  language=JavaScript,
+  style=JSES6Base
+}
+
+\lstdefinestyle{ES6}{
+  language=ES6,
+  style=JSES6Base
+}
+
+\lstdefinelanguage{JavaScript}{
+  morekeywords=[1]{break, continue, delete, else, for, function, if, in,
+    new, return, this, typeof, var, void, while, with, render, getElementById},
+  % Literals, primitive types, and reference types.
+  morekeywords=[2]{false, null, true, boolean, number, undefined,
+    Array, Boolean, Date, Math, Number, String, Object, onClick},
+  morekeywords=[3]{h1, div, p, button},
+  morekeywords=[4]{React, ., Component, Saluto, Convenevoli, Contatore, setContatore, useState, contatore},
+  morekeywords=[5]{},
+  sensitive,
+  morecomment=[s]{/*}{*/},
+  morecomment=[l]//,
+  morecomment=[s]{/**}{*/}, % JavaDoc style comments
+  morestring=[b]',
+  morestring=[b]"
+}[keywords, comments, strings]
+
+\lstalias[]{ES6}[ECMAScript2015]{JavaScript}
+
+\lstdefinelanguage[ECMAScript2015]{JavaScript}[]{JavaScript}{
+  morekeywords=[1]{await, async, case, catch, class, const, default, do,
+    enum, export, extends, finally, from, implements, import, instanceof,
+    let, static, super, switch, throw, try},
+  morestring=[b]` % Interpolation strings.
+}
+
+
+\title{Progettazione e realizzazione di un exchange decentralizzato per lo scambio di token ERC20 per la piattaforma CommonsHood}
+
+\begin{document}
+    \tableofcontents
+    \newpage
+    \section{Prerequisiti}
+    \subsection{Ethereum}
+    \subsection{ReactJS}
+    React è una libreria JavaScript open-source per lo sviluppo di interfacce utente.
+    \subsubsection{Caratteristiche di ReactJS}
+    \paragraph{Componenti}
+    I Componenti permettono di suddividere la UI in parti indipendenti, riutilizzabili e di pensare ad ognuna di esse in modo isolato.
+    Per definire un componente è necessario implementare una funzione JavaScript, ad esempio:
+
+    \begin{lstlisting}[style=ES6, title={Esempio componente}]
+        function Saluto(props) {
+            return <h1>Ciao, {props.nome}</h1>;
+        }\end{lstlisting}
+
+    Questo componente accetta un oggetto parametro contenente dati sotto forma di una singola
+    "props", il quale è un oggetto parametro avente dati al suo interno.
+    Per renderizzare un componente bisogna utilizzare la funzione \emph{ReactDOM.render()},
+    passandole come parametri il componente da visualizzare e il riferimento al componente padre.
+    Se si volesse, quindi, renderizzare il componente \emph{Saluto}, passando "\emph{Martina}" come parametro \emph{nome}, il codice potrebbe essere:
+    
+    \begin{lstlisting}[style=ES6, title={Esempio composizione di componenti}]
+      ReactDOM.render(
+        <Saluto nome="Martina"/>, 
+        document.getElementById('root')
+      );\end{lstlisting}
+    
+    I componenti, inoltre, possono essere composte da altri componenti. In questo caso,
+    renderizzando il componente padre, verranno visulizzati anche i componenti figli. Ad esempio, 
+    si potrebbe avere un componente \emph{Convenevoli} che contiene multipli componenti \emph{Saluto}:
+    \begin{lstlisting}[style=ES6, title={Esempio renderizzazione componente}]
+      function Convenevoli() {
+        return (
+          <div>
+            <Saluto nome="Sara" />
+            <Saluto nome="Cahal" />
+            <Saluto nome="Edite" />
+          </div>
+        );
+      }\end{lstlisting}
+
+      \paragraph{Hook state}
+      Un componente di ReactJS di default è stateless. Usando la funzione \emph{useState()} si può
+      aggiungere uno stato interno ad un componente, React preserverà questo stato tra le ri-renderizzazioni.
+      \emph{useState} ritorna una coppia: il valore dello stato corrente ed una funzione che ci permette di aggiornarlo.
+      La funzione ha un unico parametro ed è il suo stato iniziale. Ad esempio, se si volesse realizzare un contatore con un bottone che, alla sua pressione,
+      aumenti il valore del contatore, si potrebbe scrivere il seguente codice:
+      \begin{lstlisting}[style=ES6, title={Esempio contatore con stato interno}]
+        function Contatore() {
+          const [contatore, setContatore] = useState(0);
+          return (
+            <div>
+              <p>Hai cliccato {contatore} volte</p>
+              <button 
+                onClick={() => setContatore(contatore + 1)}>
+                Cliccami
+              </button>
+            </div>
+          );
+        }
+      \end{lstlisting}
+
+      \paragraph{Hook effect}
+      Il costrutto \emph{useEffect()} permette l'esecuzione di funzioni ad ogni renderizzazione da parte di React.
+      Questa funzione viene utilizzata per effettuare operazioni nei vari stati del ciclo di vita di un componente.
+      \newline
+      Nel seguente esempio il titolo del documento viene aggiornato all'aumentare del valore del contatore, infatti, 
+      ad ogni aggiornamento del DOM da parte di React, viene chiamata la funzione passata a \emph{useEffect()}
+      \begin{lstlisting}[style=ES6, title={Esempio uso di useEffect()}]
+        function ContatoreConTitolo() {
+          const [contatore, setContatore] = useState(0);
+
+          useEffect(() => {
+            document.title = `Hai cliccato ${contatore} volte`;
+          });
+
+          return (
+            <div>
+              <p>Hai cliccato {contatore} volte</p>
+              <button
+                onClick={() => setContatore(contatore + 1)}>
+                Cliccami
+              </button>
+            </div>
+          );
+        }\end{lstlisting}
+
+        \subsection{ReactJS}
+\end{document}
