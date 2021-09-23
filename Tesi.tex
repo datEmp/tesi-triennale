@@ -78,12 +78,13 @@
 
 \lstdefinelanguage{JavaScript}{
   morekeywords=[1]{break, continue, delete, else, for, function, if, in,
-    new, return, this, typeof, var, void, while, with, render, getElementById},
+    new, return, this, typeof, var, void, while, with, render, getElementById, width, height},
   % Literals, primitive types, and reference types.
   morekeywords=[2]{false, null, true, boolean, number, undefined,
     Array, Boolean, Date, Math, Number, String, Object, onClick},
   morekeywords=[3]{h1, div, p, button},
-  morekeywords=[4]{React, ., Component, Saluto, Convenevoli, Contatore, setContatore, useState, contatore},
+  morekeywords=[4]{React, ., Component, Saluto, Convenevoli, Contatore, setContatore, useState, contatore,
+    Button},
   morekeywords=[5]{},
   sensitive,
   morecomment=[s]{/*}{*/},
@@ -110,6 +111,12 @@
     \newpage
     \section{Prerequisiti}
     \subsection{Ethereum}
+    \subsection{Metamask}
+    Metamask è un'estensione del web browser. Questo software permette di connettere il browser con
+    applicazioni decentralizzate basate sulla piattaforma Ethereum. Metamask permette la gestione di
+    wallet Ethereum, la ricezione e l'invio di criptomonete basate su Ethereum, e l'interazione con
+    applicazioni decentralizzate. L'estensione, inoltre, fornisce le API Ethereum web3, in questo
+    modo le applicazioni sono in grado di leggere dati sulla blockchain.
     \subsection{ReactJS}
     React è una libreria JavaScript open-source per lo sviluppo di interfacce utente.
     \subsubsection{Caratteristiche di ReactJS}
@@ -124,9 +131,9 @@
 
     Questo componente accetta un oggetto parametro contenente dati sotto forma di una singola
     "props", il quale è un oggetto parametro avente dati al suo interno.
-    Per renderizzare un componente bisogna utilizzare la funzione \emph{ReactDOM.render()},
+    Per renderizzare un componente bisogna utilizzare la funzione \verb|ReactDOM.render()|,
     passandole come parametri il componente da visualizzare e il riferimento al componente padre.
-    Se si volesse, quindi, renderizzare il componente \emph{Saluto}, passando "\emph{Martina}" come parametro \emph{nome}, il codice potrebbe essere:
+    Se si volesse, quindi, renderizzare il componente \verb|Saluto|, passando "\emph{Martina}" come parametro \verb|nome|, il codice potrebbe essere:
     
     \begin{lstlisting}[style=ES6, title={Esempio composizione di componenti}]
       ReactDOM.render(
@@ -136,7 +143,7 @@
     
     I componenti, inoltre, possono essere composte da altri componenti. In questo caso,
     renderizzando il componente padre, verranno visulizzati anche i componenti figli. Ad esempio, 
-    si potrebbe avere un componente \emph{Convenevoli} che contiene multipli componenti \emph{Saluto}:
+    si potrebbe avere un componente \verb|Convenevoli| che contiene multipli componenti \verb|Saluto|:
     \begin{lstlisting}[style=ES6, title={Esempio renderizzazione componente}]
       function Convenevoli() {
         return (
@@ -149,9 +156,9 @@
       }\end{lstlisting}
 
       \paragraph{Hook state}
-      Un componente di ReactJS di default è stateless. Usando la funzione \emph{useState()} si può
+      Un componente React di default è stateless. Usando la funzione \verb|useState()| si può
       aggiungere uno stato interno ad un componente, React preserverà questo stato tra le ri-renderizzazioni.
-      \emph{useState} ritorna una coppia: il valore dello stato corrente ed una funzione che ci permette di aggiornarlo.
+      \verb|useState| ritorna una coppia: il valore dello stato corrente ed una funzione che ci permette di aggiornarlo.
       La funzione ha un unico parametro ed è il suo stato iniziale. Ad esempio, se si volesse realizzare un contatore con un bottone che, alla sua pressione,
       aumenti il valore del contatore, si potrebbe scrivere il seguente codice:
       \begin{lstlisting}[style=ES6, title={Esempio contatore con stato interno}]
@@ -170,11 +177,11 @@
       \end{lstlisting}
 
       \paragraph{Hook effect}
-      Il costrutto \emph{useEffect()} permette l'esecuzione di funzioni ad ogni renderizzazione da parte di React.
+      Il costrutto \verb|useEffect()| permette l'esecuzione di funzioni ad ogni renderizzazione da parte di React.
       Questa funzione viene utilizzata per effettuare operazioni nei vari stati del ciclo di vita di un componente.
       \newline
       Nel seguente esempio il titolo del documento viene aggiornato all'aumentare del valore del contatore, infatti, 
-      ad ogni aggiornamento del DOM da parte di React, viene chiamata la funzione passata a \emph{useEffect()}
+      ad ogni aggiornamento del DOM da parte di React, viene chiamata la funzione passata a \verb|useEffect()|.
       \begin{lstlisting}[style=ES6, title={Esempio uso di useEffect()}]
         function ContatoreConTitolo() {
           const [contatore, setContatore] = useState(0);
@@ -194,5 +201,30 @@
           );
         }\end{lstlisting}
 
-        \subsection{ReactJS}
+        \subsection{Material-UI}
+        Material-UI è una libreria per ReactJS per creare interfacce utente.
+        La libreria contiene al suo interno numerosi componenti grafici,
+        questi sono forniti di un tema di default, per modificare l'aspetto di
+        un componente si può utilizzare la sua proprietà \verb|className|.
+        \newline
+        Nell'esempio seguente vengono modificati le dimensione di un componente \verb|<Button>|:
+        \begin{lstlisting}[style=ES6, title={Esempio modifica aspetto di un componente}]
+          .Button {
+            width: "100px",
+            height: "100px"
+          }
+
+          <Button className="Button">
+        \end{lstlisting}
+
+        \subsection{Truffle e Ganache}
+        Truffle e Ganache sono entrambi strumenti contenuti all'interno della suite software Truffle.
+        Ganache permette la creazione di una blockchain Ethereum che viene eseguita in locale, semplificando, così,
+        il deploy ed il test degli smart contracts. Truffle è un software che facilita lo sviluppo di smart contracts,
+        i principali comandi di truffle utilizzati sono stati:
+        \begin{itemize}
+          \item \verb|truffle compile|, per compilare gli smart contracts;
+          \item \verb|truffle test|, per eseguire i file di test;
+          \item \verb|truffle deploy|, per eseguire il deploy degli smart contracts.
+        \end{itemize}
 \end{document}
