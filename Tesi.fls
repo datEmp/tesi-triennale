@@ -325,6 +325,7 @@ OUTPUT /home/shaohao/Projects/tesi/Tesi/Tesi.pdf
 INPUT /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
+INPUT /usr/share/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmtt12.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmti12.tfm
 INPUT /usr/share/texmf-dist/tex/latex/base/ts1cmtt.fd
@@ -332,7 +333,11 @@ INPUT /usr/share/texmf-dist/tex/latex/base/ts1cmtt.fd
 INPUT /usr/share/texmf-dist/tex/latex/base/ts1cmtt.fd
 INPUT /usr/share/texmf-dist/tex/latex/base/ts1cmtt.fd
 INPUT /usr/share/texmf-dist/fonts/tfm/jknappen/ec/tctt1200.tfm
-INPUT /usr/share/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm
+INPUT /home/shaohao/Projects/tesi/Tesi/./images//coinsToSell.png
+INPUT /home/shaohao/Projects/tesi/Tesi/./images//coinsToSell.png
+INPUT /home/shaohao/Projects/tesi/Tesi/./images//coinsToSell.png
+INPUT /home/shaohao/Projects/tesi/Tesi/./images//coinsToSell.png
+INPUT /home/shaohao/Projects/tesi/Tesi/./images//coinsToSell.png
 INPUT /home/shaohao/Projects/tesi/Tesi/Tesi.aux
 INPUT /usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb

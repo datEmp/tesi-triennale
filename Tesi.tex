@@ -24,6 +24,8 @@
 
 \linespread{1.5}
 
+\graphicspath{ {./images/} }
+
 \setcounter{secnumdepth}{4}
 \setcounter{tocdepth}{4}
 
@@ -82,9 +84,9 @@
   % Literals, primitive types, and reference types.
   morekeywords=[2]{false, null, true, boolean, number, undefined,
     Array, Boolean, Date, Math, Number, String, Object, onClick},
-  morekeywords=[3]{h1, div, p, button},
+  morekeywords=[3]{h1, div, p, button, TextField},
   morekeywords=[4]{React, ., Component, Saluto, Convenevoli, Contatore, setContatore, useState, contatore,
-    Button},
+    Button, ContatoreConTitolo},
   morekeywords=[5]{},
   sensitive,
   morecomment=[s]{/*}{*/},
@@ -111,6 +113,13 @@
     \newpage
     \section{Prerequisiti}
     \subsection{Ethereum}
+    \subsection{OpenZeppelin}
+    OpenZeppelin è una libreria per lo sviluppo di smart contracts sicuri. Le principali funzionalità fornite da OpenZeppelin sono:
+    \begin{itemize}
+    \item Implementazione dei diversi standard dei token Ethereum;
+    \item Gestione del controllo degli accessi agli smart contracts;
+    \item Componenti Solidity riutilizzabili per creare smart contracts.
+    \end{itemize}
     \subsection{Metamask}
     Metamask è un'estensione del web browser. Questo software permette di connettere il browser con
     applicazioni decentralizzate basate sulla piattaforma Ethereum. Metamask permette la gestione di
@@ -227,4 +236,34 @@
           \item \verb|truffle test|, per eseguire i file di test;
           \item \verb|truffle deploy|, per eseguire il deploy degli smart contracts.
         \end{itemize}
+        \newpage
+        \section{Scrittura e test dei smart contracts}
+        \newpage
+        \section{Implementazione dell'interfaccia grafica}
+        L'interfaccia utente che implementa le funzionalità di scambio di token è stata divisa in due pagine.
+        La prima è chiamata \emph{Create Sale} e, scegliendo i token da vendere e quelli da accettare, permette
+        la creazione di una vendita. La seconda è chiamata \emph{Sales List} e permette di visualizzare una lista di vendite, sia quelle in corso
+        che quelle terminate.
+        \subsection{Create Sale}
+        Il processo di creazione di una vendita è diviso in tre step.
+        Nel primo step viene permessso all'utente di scegliere i token in suo possesso da mettere in vendita.
+        Nel secondo step l'utente sceglie i token che accetta come pagamento per la vendita dei token scelti nel primo step.
+        Nel terzo step viene mostrato all'utente un riassunto delle scelte fatte nei due step precedenti, in questo passo, inoltre, l'utente può
+        impostare una data di scadenza della vendita. Per mostrare graficamente il progresso nei diversi step è presente, in cima alla pagina, un componente
+        \verb|<stepper>|, questo indica all'utente gli step terminati e quelli ancora da completare. 
+        \subsubsection{Step 1: scelta dei token da vendere}
+        \begin{figure}[h]
+          \includegraphics[width=\textwidth]{coinsToSell.png}
+          \caption{Pagina per la scelta dei token in vendita}
+          \centering
+          \label{fig:resume}
+        \end{figure}
+        La pagina contiene una lista, creata usando il componente \verb|<List>|, ed una barra di ricerca, creata usando il componente \verb|<TextField>|.
+        \newline
+        Ogni elemento della lista contiene le informazioni di un token posseduto dall'utente e un componente
+        \verb|<TextField>|, quest'ultimo permette l'inserimento della quantità desiderata del token da mettere in vendita.
+        Gli eventi a cui la pagina reagisce possono essere divisi in tre categorie: caricamento della pagina, inserimento di quantità dei token e
+        inserimento di testo nella barra di ricerca.
+        \paragraph{Caricamento della pagina}
+        Al caricamento della pagina vengono istanziate diverse variabili che gestiscono lo stato della stessa.
 \end{document}

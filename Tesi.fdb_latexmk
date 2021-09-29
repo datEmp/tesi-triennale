@@ -1,7 +1,8 @@
 # Fdb version 3
-["pdflatex"] 1632415269 "/home/shaohao/Projects/tesi/Tesi/Tesi.tex" "/home/shaohao/Projects/tesi/Tesi/Tesi.pdf" "Tesi" 1632415319
-  "/home/shaohao/Projects/tesi/Tesi/Tesi.aux" 1632415269 1193 835ce293b219ebb2cb81c21c76241dd4 ""
-  "/home/shaohao/Projects/tesi/Tesi/Tesi.tex" 1632415319 9244 a82f7dea1fe8260c8e62bb4202e563a7 ""
+["pdflatex"] 1632874212 "/home/shaohao/Projects/tesi/Tesi/Tesi.tex" "/home/shaohao/Projects/tesi/Tesi/Tesi.pdf" "Tesi" 1632874213
+  "./images//coinsToSell.png" 1632856664 35532 43ff2f7d2531804b407b49901d1b7927 ""
+  "/home/shaohao/Projects/tesi/Tesi/Tesi.aux" 1632874213 2085 3839d9930e51dbb26770ba1ea2c268a5 ""
+  "/home/shaohao/Projects/tesi/Tesi/Tesi.tex" 1632874212 12052 7c3bea12aabd7e57ff4d9953013b6413 ""
   "/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1617738065 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1617738065 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1617738065 1536 74b7293ec3713bb7fdca8dd1bd1f469c ""
@@ -65,13 +66,14 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1617738065 39911 2da6c67557ec033436fe5418a70a8a61 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1632256443 334353 c825108cbc13fa4a18a274c473196142 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1631921890 2812676 2f6cdeaaecba5f97973d598ef54273be ""
-  "Tesi.aux" 1632415269 1193 835ce293b219ebb2cb81c21c76241dd4 "pdflatex"
-  "Tesi.tex" 1632415319 9244 a82f7dea1fe8260c8e62bb4202e563a7 ""
-  "Tesi.toc" 1632415269 695 393b7da09dd9386f19fe8177fac28e2f "pdflatex"
+  "Tesi.aux" 1632874213 2085 3839d9930e51dbb26770ba1ea2c268a5 "pdflatex"
+  "Tesi.tex" 1632874212 12052 7c3bea12aabd7e57ff4d9953013b6413 ""
+  "Tesi.toc" 1632874213 1164 39d876baf08332d2f0ca5a799d31dd8e "pdflatex"
+  "images//coinsToSell.png" 1632856664 35532 43ff2f7d2531804b407b49901d1b7927 ""
   (generated)
-  "Tesi.log"
-  "/home/shaohao/Projects/tesi/Tesi/Tesi.pdf"
-  "/home/shaohao/Projects/tesi/Tesi/Tesi.log"
-  "Tesi.pdf"
   "Tesi.aux"
+  "Tesi.pdf"
+  "/home/shaohao/Projects/tesi/Tesi/Tesi.pdf"
+  "Tesi.log"
+  "/home/shaohao/Projects/tesi/Tesi/Tesi.log"
   "Tesi.toc"
