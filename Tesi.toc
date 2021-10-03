@@ -1,18 +1,43 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
 \babel@toc {italian}{}
 \babel@toc {italian}{}
+\defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {1}Prerequisiti}{2}{}%
-\contentsline {subsection}{\numberline {1.1}Ethereum}{2}{}%
-\contentsline {subsection}{\numberline {1.2}OpenZeppelin}{2}{}%
-\contentsline {subsection}{\numberline {1.3}Metamask}{2}{}%
-\contentsline {subsection}{\numberline {1.4}ReactJS}{2}{}%
-\contentsline {subsubsection}{\numberline {1.4.1}Caratteristiche di ReactJS}{3}{}%
-\contentsline {paragraph}{\numberline {1.4.1.1}Componenti}{3}{}%
-\contentsline {paragraph}{\numberline {1.4.1.2}Hook state}{4}{}%
-\contentsline {paragraph}{\numberline {1.4.1.3}Hook effect}{5}{}%
-\contentsline {subsection}{\numberline {1.5}Material-UI}{6}{}%
-\contentsline {subsection}{\numberline {1.6}Truffle e Ganache}{7}{}%
-\contentsline {section}{\numberline {2}Scrittura e test dei smart contracts}{8}{}%
-\contentsline {section}{\numberline {3}Implementazione dell'interfaccia grafica}{9}{}%
-\contentsline {subsection}{\numberline {3.1}Create Sale}{9}{}%
-\contentsline {subsubsection}{\numberline {3.1.1}Step 1: scelta dei token da vendere}{9}{}%
-\contentsline {paragraph}{\numberline {3.1.1.1}Caricamento della pagina}{10}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.1}Blockchain}{2}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {1.1.1}I nodi}{2}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {1.1.2}Le caratteristiche di una blockchain}{3}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {1.1.3}Smart contracts}{4}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.2}Ethereum}{4}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.3}OpenZeppelin}{4}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.4}Metamask}{4}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.5}ReactJS}{5}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {1.5.1}Caratteristiche di ReactJS}{5}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{\numberline {1.5.1.1}Componenti}{5}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{\numberline {1.5.1.2}Hook state}{6}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{\numberline {1.5.1.3}Hook effect}{7}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.6}Material-UI}{8}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.7}Truffle e Ganache}{9}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2}Scrittura e test dei smart contracts}{10}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3}Implementazione dell'interfaccia grafica}{11}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.1}Create Sale}{11}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {3.1.1}Step 1: scelta dei token da vendere}{11}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{\numberline {3.1.1.1}Caricamento della pagina}{12}{}%

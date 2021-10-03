@@ -12,6 +12,7 @@
 \usepackage{titlesec}
 \usepackage{url}
 \usepackage{upquote}
+\usepackage{biblatex}
 \definecolor{purple}{RGB}{91, 72, 181}
 \definecolor{darkviolet}{rgb}{0.58, 0.0, 0.83}
 \definecolor{royalblue}{RGB}{242, 73, 214}
@@ -21,6 +22,8 @@
 \definecolor{mediumgray}{rgb}{0.3, 0.4, 0.4}
 \definecolor{forestgreen}{rgb}{0.13, 0.55, 0.13}
 \definecolor{crimson}{rgb}{0.86, 0.8, 0.24}
+
+\addbibresource{./bibliografia/bibliografia.bib}
 
 \linespread{1.5}
 
@@ -112,6 +115,39 @@
     \tableofcontents
     \newpage
     \section{Prerequisiti}
+    \subsection{Blockchain}
+    Una blockchain è un registro aperto e distribuito di dati, strutturato come una catena di blocchi contenenti le transazioni.
+    I dati risiedono su unità computazionali chiamati \emph{nodi}, questi, come mostrato nell'immagine \ref{fig:node},
+    sono interconnessi e comunicano tra loro per mantenere i dati di tutti i nodi aggiornati.\cite{nodo}
+    \begin{figure}[h]
+      \includegraphics[scale=0.8]{node.png}
+      \centering
+      \caption{Rete di nodi}
+      \centering
+      \label{fig:node}
+    \end{figure}
+    \subsubsection{I nodi}
+    Le responsabilità di un nodo sono principalmente:
+    \begin{itemize}
+      \item Controllo della validità di un nuovo record di dati, chiamato anche transazione, e acctettarlo o rifiutarlo;
+      \item Nel caso di un record valido, salvataggio della transazione nel registro locale del nodo;
+      \item Comunicazione e distribuzione della transazione agli altri nodi. In questo modo tutti i nodi hanno la stessa versione del registro.
+    \end{itemize}
+    \subsubsection{Le caratteristiche di una blockchain}
+    Le caratteristiche principali della tecnologia blockchain sono:
+    \begin{itemize}
+      \item Decentralizzazione: le informazioni contenute nel registro digitale vengono distribuite tra più nodi, così da garantire sicurezza e resilienza dei sistemi anche in caso di attacco ad uno dei nodi o in caso di perdita di un nodo.
+      \item Tracciabilità: ogni elemento salvato nel registro è tracciabile in ogni sua parte e se ne può risalire all’esatta provenienza e alle eventuali modifiche apportate nel corso del tempo, con una precisione assoluta.
+      \item Disintermediazione: i singoli nodi della blockchain certificano le informazioni distribuite, rendendo quindi del tutto inutile la presenza di enti centrali o di aziende per la certificazione dei dati.
+      \item Trasparenza: il contenuto del registro è visibile a tutti ed è facilmente consultabile e verificabile da ogni nodo della rete ma anche tramite servizi che interrogano la blockchain senza apportare modifiche. Nessuno può nascondere o modificare dati senza che l'intera rete venga a saperlo.
+      \item Solidità del registro: dopo aver aggiunto un'informazione al registro, essa non può essere modificata senza il consenso di tutta la rete.
+      \item Programmabilità: le operazioni di transazione possono anche essere programmate nel tempo, così da poter attendere il verificarsi di determinate condizioni prima di procedere con l'inserimento o la modifica.\cite{blockchain1}
+    \end{itemize}
+    \subsubsection{Smart contracts}
+    Le blockchain permettono di implementare codici e funzioni all'interno di esse, questi sono chiamati smart contracts e permettono l'esecuzione di operazioni quando predeterminate condizioni si avverano.
+    Sono tipicamente usate per automatizzare l'esecuzione di un accordo, in questo modo tutti i partecipanti possono verificarne immediatamente i risultati, senza aver bisogno di un itermediario.
+    Possono, inoltre, essere utilizzate per automatizzare workflow, innescando azioni successive al raggiungimento di condizioni.\cite{smartcontracts}
+
     \subsection{Ethereum}
     \subsection{OpenZeppelin}
     OpenZeppelin è una libreria per lo sviluppo di smart contracts sicuri. Le principali funzionalità fornite da OpenZeppelin sono:
@@ -266,4 +302,5 @@
         inserimento di testo nella barra di ricerca.
         \paragraph{Caricamento della pagina}
         Al caricamento della pagina vengono istanziate diverse variabili che gestiscono lo stato della stessa.
+        \printbibliography
 \end{document}
