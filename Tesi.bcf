@@ -2347,6 +2347,11 @@
     <bcf:citekey order="1">nodo</bcf:citekey>
     <bcf:citekey order="2">blockchain1</bcf:citekey>
     <bcf:citekey order="3">smartcontracts</bcf:citekey>
+    <bcf:citekey order="4">ethereum</bcf:citekey>
+    <bcf:citekey order="5">erc20</bcf:citekey>
+    <bcf:citekey order="6">eip20</bcf:citekey>
+    <bcf:citekey order="7">nft</bcf:citekey>
+    <bcf:citekey order="8">nftuse</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">

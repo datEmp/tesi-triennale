@@ -19,6 +19,137 @@
 
 \refsection{0}
   \datalist[entry]{nty/global//global/global}
+    \entry{ethereum}{online}{}
+      \name{author}{1}{}{%
+        {{hash=b3b3a6ac74ecbd56bcdbefa4799fb9df}{%
+           family={Amazon},
+           familyi={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{b3b3a6ac74ecbd56bcdbefa4799fb9df}
+      \strng{fullhash}{b3b3a6ac74ecbd56bcdbefa4799fb9df}
+      \strng{bibnamehash}{b3b3a6ac74ecbd56bcdbefa4799fb9df}
+      \strng{authorbibnamehash}{b3b3a6ac74ecbd56bcdbefa4799fb9df}
+      \strng{authornamehash}{b3b3a6ac74ecbd56bcdbefa4799fb9df}
+      \strng{authorfullhash}{b3b3a6ac74ecbd56bcdbefa4799fb9df}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{What is Ethereum?}
+      \verb{urlraw}
+      \verb https://aws.amazon.com/it/blockchain/what-is-ethereum/
+      \endverb
+      \verb{url}
+      \verb https://aws.amazon.com/it/blockchain/what-is-ethereum/
+      \endverb
+      \keyw{blockchain,ethereum}
+    \endentry
+    \entry{nftuse}{online}{}
+      \name{author}{1}{}{%
+        {{hash=a01db219140df0f177232967cd6e40a4}{%
+           family={Carroll},
+           familyi={C\bibinitperiod},
+           given={Andrew},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{a01db219140df0f177232967cd6e40a4}
+      \strng{fullhash}{a01db219140df0f177232967cd6e40a4}
+      \strng{bibnamehash}{a01db219140df0f177232967cd6e40a4}
+      \strng{authorbibnamehash}{a01db219140df0f177232967cd6e40a4}
+      \strng{authornamehash}{a01db219140df0f177232967cd6e40a4}
+      \strng{authorfullhash}{a01db219140df0f177232967cd6e40a4}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{The art world needs blockchain}
+      \verb{urlraw}
+      \verb https://irishtechnews.ie/the-art-world-needs-blockchain/
+      \endverb
+      \verb{url}
+      \verb https://irishtechnews.ie/the-art-world-needs-blockchain/
+      \endverb
+      \keyw{blockchain,ethereum,nft,tokens}
+    \endentry
+    \entry{erc20}{online}{}
+      \name{author}{1}{}{%
+        {{hash=9a86868fb083033462a7454b56770a3e}{%
+           family={Ethereum.org},
+           familyi={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{9a86868fb083033462a7454b56770a3e}
+      \strng{fullhash}{9a86868fb083033462a7454b56770a3e}
+      \strng{bibnamehash}{9a86868fb083033462a7454b56770a3e}
+      \strng{authorbibnamehash}{9a86868fb083033462a7454b56770a3e}
+      \strng{authornamehash}{9a86868fb083033462a7454b56770a3e}
+      \strng{authorfullhash}{9a86868fb083033462a7454b56770a3e}
+      \field{extraname}{1}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Ethereum Docs}
+      \verb{urlraw}
+      \verb https://ethereum.org/en/developers/docs/standards/tokens/erc-20/
+      \endverb
+      \verb{url}
+      \verb https://ethereum.org/en/developers/docs/standards/tokens/erc-20/
+      \endverb
+      \keyw{blockchain,ethereum,erc20,tokens}
+    \endentry
+    \entry{nft}{online}{}
+      \name{author}{1}{}{%
+        {{hash=9a86868fb083033462a7454b56770a3e}{%
+           family={Ethereum.org},
+           familyi={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{9a86868fb083033462a7454b56770a3e}
+      \strng{fullhash}{9a86868fb083033462a7454b56770a3e}
+      \strng{bibnamehash}{9a86868fb083033462a7454b56770a3e}
+      \strng{authorbibnamehash}{9a86868fb083033462a7454b56770a3e}
+      \strng{authornamehash}{9a86868fb083033462a7454b56770a3e}
+      \strng{authorfullhash}{9a86868fb083033462a7454b56770a3e}
+      \field{extraname}{2}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Non-fungible tokens (NFT)}
+      \verb{urlraw}
+      \verb https://ethereum.org/en/nft/
+      \endverb
+      \verb{url}
+      \verb https://ethereum.org/en/nft/
+      \endverb
+      \keyw{blockchain,ethereum,nft,tokens}
+    \endentry
+    \entry{eip20}{online}{}
+      \name{author}{1}{}{%
+        {{hash=af6062ef602702f565249b12ee5683c8}{%
+           family={Fabian\bibnamedelima Vogelsteller},
+           familyi={F\bibinitperiod\bibinitdelim V\bibinitperiod},
+           given={Vitalik\bibnamedelima Buterin},
+           giveni={V\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+      }
+      \strng{namehash}{af6062ef602702f565249b12ee5683c8}
+      \strng{fullhash}{af6062ef602702f565249b12ee5683c8}
+      \strng{bibnamehash}{af6062ef602702f565249b12ee5683c8}
+      \strng{authorbibnamehash}{af6062ef602702f565249b12ee5683c8}
+      \strng{authornamehash}{af6062ef602702f565249b12ee5683c8}
+      \strng{authorfullhash}{af6062ef602702f565249b12ee5683c8}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{EIP-20: Token Standard}
+      \verb{urlraw}
+      \verb https://eips.ethereum.org/EIPS/eip-20
+      \endverb
+      \verb{url}
+      \verb https://eips.ethereum.org/EIPS/eip-20
+      \endverb
+      \keyw{blockchain,ethereum,erc20,tokens,eip20}
+    \endentry
     \entry{smartcontracts}{online}{}
       \name{author}{1}{}{%
         {{hash=cbf44511d041dc6d1dd73cc0c033122c}{%

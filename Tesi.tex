@@ -146,9 +146,32 @@
     \subsubsection{Smart contracts}
     Le blockchain permettono di implementare codici e funzioni all'interno di esse, questi sono chiamati smart contracts e permettono l'esecuzione di operazioni quando predeterminate condizioni si avverano.
     Sono tipicamente usate per automatizzare l'esecuzione di un accordo, in questo modo tutti i partecipanti possono verificarne immediatamente i risultati, senza aver bisogno di un itermediario.
-    Possono, inoltre, essere utilizzate per automatizzare workflow, innescando azioni successive al raggiungimento di condizioni.\cite{smartcontracts}
+    Possono, inoltre, essere utilizzate per automatizzare workflow, innescando azioni successive al raggiungimento di certe condizioni.\cite{smartcontracts}
 
     \subsection{Ethereum}
+    Ethereum è una piattaforma blockchain decentralizzata che stabilisce una rete peer-to-peer che esegue e verifica smart contracts in modo sicuro.
+    I smart contracts permettono transazioni tra gli utenti senza la necessità di un autorità centrale.
+    Le transazioni sono immutabili, verificabili, e distribuiti in modo sicuro sulla rete. Le transazioni sono inviate e ricevute da account Ethereum creati dagli utenti.
+    Come costo per il processamento di una transazione sulla rete, l'utente deve spendere Ether, la criptovaluta nativa di Ethereum.\cite{ethereum}
+    \subsubsection{Token Ethereum}
+    Ethereum permette la creazione di token crittografici all'interno della sua rete. Questi token non sono altro che smart contracts scritti seguendo specificazioni stabilite
+    dagli sviluppatori della rete. I token possono essere di tipi di differenti, a seconda delle specificazioni seguite. In Ethereum ci sono pricipalmente due tipi di token: token ERC-20 e NFT.
+    \paragraph{Token ERC-20}
+    I token ERC-20 sono il tipo di token più diffuso sulla rete Ethereum, sono lo standard per la definizione di token fungibili\cite{erc20}, ossia i singoli token sono indistinguibili ed itercambiabili tra loro.
+    Un token ERC-20 implementa le specificazioni indicate nell'EIP-20 che richiede nello smart contract del token la presenza di diversi metodi. I più importanti metodi richiesti sono:
+    \begin{itemize}
+      \item \verb|balanceOf(address _owner)|: restituisce la quantità di token posseduto da \verb|_owner|;
+      \item \verb|transfer(address _to, uint256 _value)|: trasferisce una quantità di token indicata da \verb|_value| all'indirizzo \verb|_to|;
+      \item \verb|transferFrom(address _from, address _to, uint256 _value)|: trasferisce una quantità \verb|_value| di token dall'indirizzo \verb|_from| all'indirizzo \verb|_to|;
+      \item \verb|approve(address _spender, uint256 _value)|: permette all'indirizzo \verb|_spender| di ritirare fino a \verb|_value| token dall'account.\cite{eip20}
+    \end{itemize}
+    \paragraph{NFT}
+    I Non Fungible Tokens sono, appunto, token non fungibili, ossia ogni token è univoco e non intercambiabile con un altro. Sono utilizzati per replicare le proprietà tipiche
+    di un oggetto fisico come la scarsità, l'unicità e la possibilità di dimostrare la proprietà del token.\cite{nft}
+    Data la natura del token, l'uso più comune di questi token è la creazione di arte digitale.\cite{nftuse}
+    \newline
+    Gli NFT seguono lo standard dettato dall'EIP-721.
+    
     \subsection{OpenZeppelin}
     OpenZeppelin è una libreria per lo sviluppo di smart contracts sicuri. Le principali funzionalità fornite da OpenZeppelin sono:
     \begin{itemize}
@@ -156,12 +179,14 @@
     \item Gestione del controllo degli accessi agli smart contracts;
     \item Componenti Solidity riutilizzabili per creare smart contracts.
     \end{itemize}
+
     \subsection{Metamask}
     Metamask è un'estensione del web browser. Questo software permette di connettere il browser con
     applicazioni decentralizzate basate sulla piattaforma Ethereum. Metamask permette la gestione di
     wallet Ethereum, la ricezione e l'invio di criptomonete basate su Ethereum, e l'interazione con
     applicazioni decentralizzate. L'estensione, inoltre, fornisce le API Ethereum web3, in questo
     modo le applicazioni sono in grado di leggere dati sulla blockchain.
+
     \subsection{ReactJS}
     React è una libreria JavaScript open-source per lo sviluppo di interfacce utente.
     \subsubsection{Caratteristiche di ReactJS}
@@ -302,5 +327,6 @@
         inserimento di testo nella barra di ricerca.
         \paragraph{Caricamento della pagina}
         Al caricamento della pagina vengono istanziate diverse variabili che gestiscono lo stato della stessa.
+        \newpage
         \printbibliography
 \end{document}
