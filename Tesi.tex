@@ -83,7 +83,7 @@
 
 \lstdefinelanguage{JavaScript}{
   morekeywords=[1]{break, continue, delete, else, for, function, if, in,
-    new, return, this, typeof, var, void, while, with, render, getElementById, width, height},
+    new, return, this, typeof, var, void, while, with, render, getElementById, width, height, contract, address, event, uint256, public, returns, emit, pragma},
   % Literals, primitive types, and reference types.
   morekeywords=[2]{false, null, true, boolean, number, undefined,
     Array, Boolean, Date, Math, Number, String, Object, onClick},
@@ -152,7 +152,7 @@
     Ethereum è una piattaforma blockchain decentralizzata che stabilisce una rete peer-to-peer che esegue e verifica smart contracts in modo sicuro.
     I smart contracts permettono transazioni tra gli utenti senza la necessità di un autorità centrale.
     Le transazioni sono immutabili, verificabili, e distribuiti in modo sicuro sulla rete. Le transazioni sono inviate e ricevute da account Ethereum creati dagli utenti.
-    Come costo per il processamento di una transazione sulla rete, l'utente deve spendere Ether, la criptovaluta nativa di Ethereum.\cite{ethereum}
+    Come costo per il processamento di una transazione sulla rete, l'utente deve spendere Ether (ETH), la criptovaluta nativa di Ethereum.\cite{ethereum}
     \subsubsection{Token Ethereum}
     Ethereum permette la creazione di token crittografici all'interno della sua rete. Questi token non sono altro che smart contracts scritti seguendo specificazioni stabilite
     dagli sviluppatori della rete. I token possono essere di tipi di differenti, a seconda delle specificazioni seguite. In Ethereum ci sono pricipalmente due tipi di token: token ERC-20 e NFT.
@@ -171,7 +171,54 @@
     Data la natura del token, l'uso più comune di questi token è la creazione di arte digitale.\cite{nftuse}
     \newline
     Gli NFT seguono lo standard dettato dall'EIP-721.
-    
+    \paragraph{Smart contracts in Ethereum}
+    In Ethereum gli smart contracts sono considerati come account, questo significa che hanno un saldo e possono inviare transazioni sulla rete. A differenza di un normale account, però,
+    gli smart contracts non sono controllati dagli utenti ma eseguono il codice con cui sono stati programmati. Gli account user possono interagire con uno smart contract inviando una transazione
+    che effettua una chiamata ad una funzione definita nello smart contract. Di default questi contratti non possono essere eliminati e le interazioni con essi sono irreversibili.
+    \newline
+    Il codice di uno smart contract si scrive utilizzando \emph{Solidity}, un linguaggio object-oriented usato per implementare smart contracts su diverse piattaforme blockchain.
+    Di seguito un esempio di uno smart contract semplice:
+    \begin{lstlisting}[style=ES6, title={Esempio codice di uno smart contract}]
+      pragma solidity ^0.5.2;
+
+      contract EsempioContratto() {
+        address public owner;
+        
+        event EsempioEvento(
+          uint256 parametroEvento
+        )
+
+        function esempioFunzione(
+          uint256 _parametro
+        ) public returns (uint256) {
+          emit EsempioEvento(_parametro)
+          return _parametro
+        }
+      }\end{lstlisting}
+      Solitamente uno smart contract inizia con la dichiarazione della versione di solidity usata per la scrittura del codice, in questo modo il compilatore, se di versione superiore, rifiuta la compilazione del codice.
+      Per far questo si scrive: \newline \verb|pragma solidity [versione]|. Nell'esempio precedente la versione è dichiarata nella prima riga, in questo caso la versione indicata è superiore a 0.5.2.
+      \newline
+      Una volta dichiarata la versione, inzia il codice dello smart contract, questo viene indicato con \verb|contract [nome contratto]()|. Prendendo sempre come riferimento l'esempio precedente,
+      alla riga 4 viene dichiarata una variabile chiamata owner con visibilità \verb|public| e tipo \verb|address|, ossia un indirizzo Ethereum. Ci sono 4 livelli di visibilità per le variabili e le funzioni:
+      \begin{itemize}
+        \item \verb|public|: le funzioni possono essere chiamate anche da contratti esterni, per le variabili vengono generate in automatico delle funzioni getter implicite;
+        \item \verb|external|: le funzioni e le variabili possono essere accedute solo dall'esterno e non internamente nel contratto;
+        \item \verb|internal|: le funzioni e le variabili possono essere accedute dentro il contratto stesso e i contratti derivati;
+        \item \verb|private|: visibili solo nel contratto in cui le variabli e le funzioni sono definite.\cite{solidityvisibility}
+      \end{itemize}
+      Solidity fornisce numerosi tipi per le variabili, di cui quelle usate in questa tesi sono:
+      \begin{itemize}
+        \item \verb|bool|: per indicare una variabile booleana;
+        \item \verb|uint|: per indicare un intero senza segno, può avere diverse dimensioni aggiungendo il numero di bits, ad esempio \verb|uint256|;
+        \item \verb|address|: per indicare un indirizzo Ethereum;
+        \item \verb|mapping|: per indicare un dizionario con chiavi di ricerca e valori associati.\cite{soliditytypes}
+      \end{itemize}
+      Alla riga 6 è stato dichiarato un evento, ossia uno strumento utile per fare logging delle transazioni e per permettere agli utenti di mettersi in ascolto di questi eventi.
+      Un evento può contenere dati aggiuntivi, in questo caso l'evento \verb|EsempioEvento| contiene il dato \verb|parametroEvento| di tipo uin256.
+      Per emettere un evento si utilizza \verb|emit [nome evento](dati evento)|, come mostrato alla riga 13.
+      \newline
+      Alla riga 10 è stata dichiarata una funzione di nome \verb|esempioFunzione|, con visibilità \verb|public|, con parametro \verb|_parametro| e che restituisce un valore di tipo \verb|uin256|.
+      Questa funzione esegue solo due operazioni: emette l'evento \verb|EsempioEvento| e restituisce un valore. 
     \subsection{OpenZeppelin}
     OpenZeppelin è una libreria per lo sviluppo di smart contracts sicuri. Le principali funzionalità fornite da OpenZeppelin sono:
     \begin{itemize}

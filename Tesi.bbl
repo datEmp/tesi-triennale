@@ -97,7 +97,7 @@
       \endverb
       \keyw{blockchain,ethereum,erc20,tokens}
     \endentry
-    \entry{nft}{online}{}
+    \entry{soliditytypes}{online}{}
       \name{author}{1}{}{%
         {{hash=9a86868fb083033462a7454b56770a3e}{%
            family={Ethereum.org},
@@ -110,6 +110,58 @@
       \strng{authornamehash}{9a86868fb083033462a7454b56770a3e}
       \strng{authorfullhash}{9a86868fb083033462a7454b56770a3e}
       \field{extraname}{2}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Ethereum Docs Types}
+      \verb{urlraw}
+      \verb https://docs.soliditylang.org/en/v0.4.24/types.html
+      \endverb
+      \verb{url}
+      \verb https://docs.soliditylang.org/en/v0.4.24/types.html
+      \endverb
+      \keyw{blockchain,ethereum,solidity}
+    \endentry
+    \entry{solidityvisibility}{online}{}
+      \name{author}{1}{}{%
+        {{hash=9a86868fb083033462a7454b56770a3e}{%
+           family={Ethereum.org},
+           familyi={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{9a86868fb083033462a7454b56770a3e}
+      \strng{fullhash}{9a86868fb083033462a7454b56770a3e}
+      \strng{bibnamehash}{9a86868fb083033462a7454b56770a3e}
+      \strng{authorbibnamehash}{9a86868fb083033462a7454b56770a3e}
+      \strng{authornamehash}{9a86868fb083033462a7454b56770a3e}
+      \strng{authorfullhash}{9a86868fb083033462a7454b56770a3e}
+      \field{extraname}{3}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Ethereum Docs Visibility and getters}
+      \verb{urlraw}
+      \verb https://docs.soliditylang.org/en/v0.4.24/contracts.html#visibility-and-getters
+      \endverb
+      \verb{url}
+      \verb https://docs.soliditylang.org/en/v0.4.24/contracts.html#visibility-and-getters
+      \endverb
+      \keyw{blockchain,ethereum,solidity}
+    \endentry
+    \entry{nft}{online}{}
+      \name{author}{1}{}{%
+        {{hash=9a86868fb083033462a7454b56770a3e}{%
+           family={Ethereum.org},
+           familyi={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{9a86868fb083033462a7454b56770a3e}
+      \strng{fullhash}{9a86868fb083033462a7454b56770a3e}
+      \strng{bibnamehash}{9a86868fb083033462a7454b56770a3e}
+      \strng{authorbibnamehash}{9a86868fb083033462a7454b56770a3e}
+      \strng{authornamehash}{9a86868fb083033462a7454b56770a3e}
+      \strng{authorfullhash}{9a86868fb083033462a7454b56770a3e}
+      \field{extraname}{4}
       \field{sortinit}{E}
       \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
       \field{labelnamesource}{author}

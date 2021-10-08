@@ -2352,6 +2352,8 @@
     <bcf:citekey order="6">eip20</bcf:citekey>
     <bcf:citekey order="7">nft</bcf:citekey>
     <bcf:citekey order="8">nftuse</bcf:citekey>
+    <bcf:citekey order="9">solidityvisibility</bcf:citekey>
+    <bcf:citekey order="10">soliditytypes</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">
