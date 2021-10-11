@@ -175,33 +175,6 @@
       \endverb
       \keyw{blockchain,ethereum,nft,tokens}
     \endentry
-    \entry{eip20}{online}{}
-      \name{author}{1}{}{%
-        {{hash=af6062ef602702f565249b12ee5683c8}{%
-           family={Fabian\bibnamedelima Vogelsteller},
-           familyi={F\bibinitperiod\bibinitdelim V\bibinitperiod},
-           given={Vitalik\bibnamedelima Buterin},
-           giveni={V\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
-      }
-      \strng{namehash}{af6062ef602702f565249b12ee5683c8}
-      \strng{fullhash}{af6062ef602702f565249b12ee5683c8}
-      \strng{bibnamehash}{af6062ef602702f565249b12ee5683c8}
-      \strng{authorbibnamehash}{af6062ef602702f565249b12ee5683c8}
-      \strng{authornamehash}{af6062ef602702f565249b12ee5683c8}
-      \strng{authorfullhash}{af6062ef602702f565249b12ee5683c8}
-      \field{sortinit}{F}
-      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{EIP-20: Token Standard}
-      \verb{urlraw}
-      \verb https://eips.ethereum.org/EIPS/eip-20
-      \endverb
-      \verb{url}
-      \verb https://eips.ethereum.org/EIPS/eip-20
-      \endverb
-      \keyw{blockchain,ethereum,erc20,tokens,eip20}
-    \endentry
     \entry{smartcontracts}{online}{}
       \name{author}{1}{}{%
         {{hash=cbf44511d041dc6d1dd73cc0c033122c}{%
@@ -226,6 +199,81 @@
       \verb https://www.ibm.com/topics/smart-contracts
       \endverb
       \keyw{blockchain,smartcontracts}
+    \endentry
+    \entry{metamask}{online}{}
+      \name{author}{1}{}{%
+        {{hash=8474fba63c9b3beaffeed43644859546}{%
+           family={Metamask},
+           familyi={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{8474fba63c9b3beaffeed43644859546}
+      \strng{fullhash}{8474fba63c9b3beaffeed43644859546}
+      \strng{bibnamehash}{8474fba63c9b3beaffeed43644859546}
+      \strng{authorbibnamehash}{8474fba63c9b3beaffeed43644859546}
+      \strng{authornamehash}{8474fba63c9b3beaffeed43644859546}
+      \strng{authorfullhash}{8474fba63c9b3beaffeed43644859546}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Metamask docs}
+      \verb{urlraw}
+      \verb https://docs.metamask.io/guide/
+      \endverb
+      \verb{url}
+      \verb https://docs.metamask.io/guide/
+      \endverb
+      \keyw{metamask,blockchain}
+    \endentry
+    \entry{materialui}{online}{}
+      \name{author}{1}{}{%
+        {{hash=10fc227999d95d52cf7b48a1b28688b4}{%
+           family={Mui-org},
+           familyi={M\bibinithyphendelim o\bibinitperiod}}}%
+      }
+      \strng{namehash}{10fc227999d95d52cf7b48a1b28688b4}
+      \strng{fullhash}{10fc227999d95d52cf7b48a1b28688b4}
+      \strng{bibnamehash}{10fc227999d95d52cf7b48a1b28688b4}
+      \strng{authorbibnamehash}{10fc227999d95d52cf7b48a1b28688b4}
+      \strng{authornamehash}{10fc227999d95d52cf7b48a1b28688b4}
+      \strng{authorfullhash}{10fc227999d95d52cf7b48a1b28688b4}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Material-UI docs}
+      \verb{urlraw}
+      \verb https://v4.mui.com/customization/components/
+      \endverb
+      \verb{url}
+      \verb https://v4.mui.com/customization/components/
+      \endverb
+      \keyw{material-ui}
+    \endentry
+    \entry{openzeppelin}{online}{}
+      \name{author}{1}{}{%
+        {{hash=467bbc367f01a6aca8e878d57a66191a}{%
+           family={OpenZeppelin},
+           familyi={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{467bbc367f01a6aca8e878d57a66191a}
+      \strng{fullhash}{467bbc367f01a6aca8e878d57a66191a}
+      \strng{bibnamehash}{467bbc367f01a6aca8e878d57a66191a}
+      \strng{authorbibnamehash}{467bbc367f01a6aca8e878d57a66191a}
+      \strng{authornamehash}{467bbc367f01a6aca8e878d57a66191a}
+      \strng{authorfullhash}{467bbc367f01a6aca8e878d57a66191a}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{OpenZeppelin docs}
+      \verb{urlraw}
+      \verb https://docs.openzeppelin.com/contracts/4.x/
+      \endverb
+      \verb{url}
+      \verb https://docs.openzeppelin.com/contracts/4.x/
+      \endverb
+      \keyw{openzeppelin,smart contracts}
     \endentry
     \entry{nodo}{online}{}
       \name{author}{1}{}{%
@@ -254,6 +302,33 @@
       \endverb
       \keyw{blockchain,node}
     \endentry
+    \entry{truffle}{online}{}
+      \name{author}{1}{}{%
+        {{hash=362fbf4a75b83d74e03554cb9ba81532}{%
+           family={suite},
+           familyi={s\bibinitperiod},
+           given={Truffle},
+           giveni={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{362fbf4a75b83d74e03554cb9ba81532}
+      \strng{fullhash}{362fbf4a75b83d74e03554cb9ba81532}
+      \strng{bibnamehash}{362fbf4a75b83d74e03554cb9ba81532}
+      \strng{authorbibnamehash}{362fbf4a75b83d74e03554cb9ba81532}
+      \strng{authornamehash}{362fbf4a75b83d74e03554cb9ba81532}
+      \strng{authorfullhash}{362fbf4a75b83d74e03554cb9ba81532}
+      \field{sortinit}{s}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Truffle suite docs}
+      \verb{urlraw}
+      \verb https://www.trufflesuite.com/docs
+      \endverb
+      \verb{url}
+      \verb https://www.trufflesuite.com/docs
+      \endverb
+      \keyw{truffle,ganache,blockchain}
+    \endentry
     \entry{blockchain1}{online}{}
       \name{author}{1}{}{%
         {{hash=4ad1f320d8e96257e65ed2bcc46f9649}{%
@@ -280,6 +355,38 @@
       \verb https://www.punto-informatico.it/blockchain-spiegazione/#h222751-0
       \endverb
       \keyw{blockchain}
+    \endentry
+    \entry{eip20}{online}{}
+      \name{author}{2}{}{%
+        {{hash=a852719c42bf388665fe02a8959bba0b}{%
+           family={Vogelsteller},
+           familyi={V\bibinitperiod},
+           given={Fabian},
+           giveni={F\bibinitperiod}}}%
+        {{hash=850981945102d0f671b6762173c8988a}{%
+           family={Buterin},
+           familyi={B\bibinitperiod},
+           given={Vitalik},
+           giveni={V\bibinitperiod}}}%
+      }
+      \strng{namehash}{9561ca52add36fe234d2a87f80bb7336}
+      \strng{fullhash}{9561ca52add36fe234d2a87f80bb7336}
+      \strng{bibnamehash}{9561ca52add36fe234d2a87f80bb7336}
+      \strng{authorbibnamehash}{9561ca52add36fe234d2a87f80bb7336}
+      \strng{authornamehash}{9561ca52add36fe234d2a87f80bb7336}
+      \strng{authorfullhash}{9561ca52add36fe234d2a87f80bb7336}
+      \field{sortinit}{V}
+      \field{sortinithash}{afb52128e5b4dc4b843768c0113d673b}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{EIP-20: Token Standard}
+      \verb{urlraw}
+      \verb https://eips.ethereum.org/EIPS/eip-20
+      \endverb
+      \verb{url}
+      \verb https://eips.ethereum.org/EIPS/eip-20
+      \endverb
+      \keyw{blockchain,ethereum,erc20,tokens,eip20}
     \endentry
   \enddatalist
 \endrefsection

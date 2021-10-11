@@ -12,6 +12,7 @@
 \usepackage{titlesec}
 \usepackage{url}
 \usepackage{upquote}
+\usepackage{csquotes}
 \usepackage{biblatex}
 \definecolor{purple}{RGB}{91, 72, 181}
 \definecolor{darkviolet}{rgb}{0.58, 0.0, 0.83}
@@ -114,12 +115,29 @@
 \begin{document}
     \tableofcontents
     \newpage
-    \section{Prerequisiti}
+    \section{Background}
+    \subsection{CommonsHood}
+    CommonsHood è un’applicazione web basata su smart contract per blockchain Ethereum che ha lo scopo di fornire alla comunità strumenti per l’inclusione finanziaria e per supportare l’economia locale delle comunità di cittadini.
+    Gli utenti, una volta registrati sulla piattaforma, possono creare monete, ossia token crittografici Ethereum basati sullo standard ERC-20, questi possono rappresentare beni di valore o servizi.
+    Un altro asset che gli utenti possono creare e possedere sono i coupon, questi sono rappresentati da token non fungibili basati sullo standard ERC-721, in questo modo ogni singolo coupon è univoco e diverso dagli altri.
+    Gli utenti possono utilizzare i coupon per ottenere prestazioni e servizi.
+    \newline
+    Un'altra funzionalità offerta dall'applicazione è la possibilità di creare crowdsales, questi sono usati per ottenere fondi per finanziare progetti o eventi, dando, in cambio, ai finanziatori monete oppure coupons.
+    Un esempio di un'interazione con la piattaforma potrebbe essere: il negozio di attrezzature da sub \emph{"Sotto il Mar"} crea un account su CommonsHood. Crea, inoltre, una moneta chiamata \emph{"Doblone"}, questa può essere spesa in negozio
+    per acquistare le attrezzature. Oltre alla vendita, il negozio noleggia anche le attrezzature, perciò crea dei coupon che possono essere utilizzati per ottenere i prodotti a noleggio.
+    Inoltre, una stanza ha bisogno di ristrutturazioni perciò viene creata una crowdsale per ottenere il finanziamento necessario, in cambio vengono offerti dei coupon del negozio.
+    
     \subsection{Blockchain}
     Una blockchain è un registro aperto e distribuito di dati, strutturato come una catena di blocchi contenenti le transazioni.
+    Le transazioni solitamente rappresentano uno scambio di monete, chiamate token. Ogni blockchain ha un token proprio.
     I dati risiedono su unità computazionali chiamati \emph{nodi}, questi, come mostrato nell'immagine \ref{fig:node},
-    sono interconnessi e comunicano tra loro per mantenere i dati di tutti i nodi aggiornati.\cite{nodo}
-    \begin{figure}[h]
+    sono interconnessi e comunicano tra loro per mantenere i dati di tutti i nodi aggiornati\cite{nodo}.
+    Un account su una blockchain è costituito da una coppia di chiavi:
+    \begin{itemize}
+      \item pubblico: è un indirizzo sulla blockchain, i token nella rete sono registrati come appartenenti ad un indirizzo;
+      \item privato: è come una password che l'utente utilizza per accedere ai propri fondi.
+    \end{itemize}
+    \begin{figure}[ht]
       \includegraphics[scale=0.8]{node.png}
       \centering
       \caption{Rete di nodi}
@@ -129,52 +147,52 @@
     \subsubsection{I nodi}
     Le responsabilità di un nodo sono principalmente:
     \begin{itemize}
-      \item Controllo della validità di un nuovo record di dati, chiamato anche transazione, e acctettarlo o rifiutarlo;
+      \item Controllo della validità di un nuovo record di dati, chiamato anche transazione, e accettarlo o rifiutarlo;
       \item Nel caso di un record valido, salvataggio della transazione nel registro locale del nodo;
       \item Comunicazione e distribuzione della transazione agli altri nodi. In questo modo tutti i nodi hanno la stessa versione del registro.
     \end{itemize}
     \subsubsection{Le caratteristiche di una blockchain}
     Le caratteristiche principali della tecnologia blockchain sono:
     \begin{itemize}
-      \item Decentralizzazione: le informazioni contenute nel registro digitale vengono distribuite tra più nodi, così da garantire sicurezza e resilienza dei sistemi anche in caso di attacco ad uno dei nodi o in caso di perdita di un nodo.
+      \item Decentralizzazione: le informazioni contenute nel registro digitale vengono distribuite tra più nodi, così da garantire sicurezza e resilienza dei sistemi anche in caso di attacco a uno dei nodi o in caso di perdita di un nodo.
       \item Tracciabilità: ogni elemento salvato nel registro è tracciabile in ogni sua parte e se ne può risalire all’esatta provenienza e alle eventuali modifiche apportate nel corso del tempo, con una precisione assoluta.
       \item Disintermediazione: i singoli nodi della blockchain certificano le informazioni distribuite, rendendo quindi del tutto inutile la presenza di enti centrali o di aziende per la certificazione dei dati.
       \item Trasparenza: il contenuto del registro è visibile a tutti ed è facilmente consultabile e verificabile da ogni nodo della rete ma anche tramite servizi che interrogano la blockchain senza apportare modifiche. Nessuno può nascondere o modificare dati senza che l'intera rete venga a saperlo.
       \item Solidità del registro: dopo aver aggiunto un'informazione al registro, essa non può essere modificata senza il consenso di tutta la rete.
-      \item Programmabilità: le operazioni di transazione possono anche essere programmate nel tempo, così da poter attendere il verificarsi di determinate condizioni prima di procedere con l'inserimento o la modifica.\cite{blockchain1}
+      \item Programmabilità: le operazioni di transazione possono anche essere programmate nel tempo, così da poter attendere il verificarsi di determinate condizioni prima di procedere con l'inserimento o la modifica\cite{blockchain1}.
     \end{itemize}
     \subsubsection{Smart contracts}
-    Le blockchain permettono di implementare codici e funzioni all'interno di esse, questi sono chiamati smart contracts e permettono l'esecuzione di operazioni quando predeterminate condizioni si avverano.
-    Sono tipicamente usate per automatizzare l'esecuzione di un accordo, in questo modo tutti i partecipanti possono verificarne immediatamente i risultati, senza aver bisogno di un itermediario.
-    Possono, inoltre, essere utilizzate per automatizzare workflow, innescando azioni successive al raggiungimento di certe condizioni.\cite{smartcontracts}
-
+    Le blockchain permettono d'implementare codici e funzioni all'interno di esse, questi sono chiamati smart contracts e permettono l'esecuzione di operazioni quando predeterminate condizioni si avverano.
+    Sono tipicamente usate per automatizzare l'esecuzione di un accordo, in questo modo tutti i partecipanti possono verificarne immediatamente i risultati, senza aver bisogno di un intermediario.
+    Possono, inoltre, essere utilizzate per automatizzare workflow, innescando azioni successive al raggiungimento di certe condizioni\cite{smartcontracts}.
+    
     \subsection{Ethereum}
     Ethereum è una piattaforma blockchain decentralizzata che stabilisce una rete peer-to-peer che esegue e verifica smart contracts in modo sicuro.
-    I smart contracts permettono transazioni tra gli utenti senza la necessità di un autorità centrale.
+    Gli smart contracts permettono transazioni tra gli utenti senza la necessità di un autorità centrale.
     Le transazioni sono immutabili, verificabili, e distribuiti in modo sicuro sulla rete. Le transazioni sono inviate e ricevute da account Ethereum creati dagli utenti.
-    Come costo per il processamento di una transazione sulla rete, l'utente deve spendere Ether (ETH), la criptovaluta nativa di Ethereum.\cite{ethereum}
+    Come costo per il processamento di una transazione sulla rete, l'utente deve spendere Ether (ETH), la criptovaluta nativa di Ethereum\cite{ethereum}.
     \subsubsection{Token Ethereum}
     Ethereum permette la creazione di token crittografici all'interno della sua rete. Questi token non sono altro che smart contracts scritti seguendo specificazioni stabilite
-    dagli sviluppatori della rete. I token possono essere di tipi di differenti, a seconda delle specificazioni seguite. In Ethereum ci sono pricipalmente due tipi di token: token ERC-20 e NFT.
+    dagli sviluppatori della rete. I token possono essere di tipi di differenti, a seconda delle specificazioni seguite. In Ethereum ci sono principalmente due tipi di token: token ERC-20 e NFT.
     \paragraph{Token ERC-20}
-    I token ERC-20 sono il tipo di token più diffuso sulla rete Ethereum, sono lo standard per la definizione di token fungibili\cite{erc20}, ossia i singoli token sono indistinguibili ed itercambiabili tra loro.
+    I token ERC-20 sono il tipo di token più diffuso sulla rete Ethereum, sono lo standard per la definizione di token fungibili\cite{erc20}, ossia i singoli token sono indistinguibili e intercambiabili tra loro.
     Un token ERC-20 implementa le specificazioni indicate nell'EIP-20 che richiede nello smart contract del token la presenza di diversi metodi. I più importanti metodi richiesti sono:
     \begin{itemize}
       \item \verb|balanceOf(address _owner)|: restituisce la quantità di token posseduto da \verb|_owner|;
       \item \verb|transfer(address _to, uint256 _value)|: trasferisce una quantità di token indicata da \verb|_value| all'indirizzo \verb|_to|;
       \item \verb|transferFrom(address _from, address _to, uint256 _value)|: trasferisce una quantità \verb|_value| di token dall'indirizzo \verb|_from| all'indirizzo \verb|_to|;
-      \item \verb|approve(address _spender, uint256 _value)|: permette all'indirizzo \verb|_spender| di ritirare fino a \verb|_value| token dall'account.\cite{eip20}
+      \item \verb|approve(address _spender, uint256 _value)|: permette all'indirizzo \verb|_spender| di ritirare fino a \verb|_value| token dall'account\cite{eip20}.
     \end{itemize}
     \paragraph{NFT}
     I Non Fungible Tokens sono, appunto, token non fungibili, ossia ogni token è univoco e non intercambiabile con un altro. Sono utilizzati per replicare le proprietà tipiche
-    di un oggetto fisico come la scarsità, l'unicità e la possibilità di dimostrare la proprietà del token.\cite{nft}
-    Data la natura del token, l'uso più comune di questi token è la creazione di arte digitale.\cite{nftuse}
+    di un oggetto fisico come la scarsità, l'unicità e la possibilità di dimostrare la proprietà del token\cite{nft}.
+    Data la natura del token, l'uso più comune di questi token è la creazione di arte digitale\cite{nftuse}.
     \newline
     Gli NFT seguono lo standard dettato dall'EIP-721.
-    \paragraph{Smart contracts in Ethereum}
+    \subsubsection{Smart contracts in Ethereum}
     In Ethereum gli smart contracts sono considerati come account, questo significa che hanno un saldo e possono inviare transazioni sulla rete. A differenza di un normale account, però,
     gli smart contracts non sono controllati dagli utenti ma eseguono il codice con cui sono stati programmati. Gli account user possono interagire con uno smart contract inviando una transazione
-    che effettua una chiamata ad una funzione definita nello smart contract. Di default questi contratti non possono essere eliminati e le interazioni con essi sono irreversibili.
+    che effettua una chiamata a una funzione definita nello smart contract. Di default questi contratti non possono essere eliminati e le interazioni con essi sono irreversibili.
     \newline
     Il codice di uno smart contract si scrive utilizzando \emph{Solidity}, un linguaggio object-oriented usato per implementare smart contracts su diverse piattaforme blockchain.
     Di seguito un esempio di uno smart contract semplice:
@@ -198,20 +216,20 @@
       Solitamente uno smart contract inizia con la dichiarazione della versione di solidity usata per la scrittura del codice, in questo modo il compilatore, se di versione superiore, rifiuta la compilazione del codice.
       Per far questo si scrive: \newline \verb|pragma solidity [versione]|. Nell'esempio precedente la versione è dichiarata nella prima riga, in questo caso la versione indicata è superiore a 0.5.2.
       \newline
-      Una volta dichiarata la versione, inzia il codice dello smart contract, questo viene indicato con \verb|contract [nome contratto]()|. Prendendo sempre come riferimento l'esempio precedente,
+      Una volta dichiarata la versione, inizia il codice dello smart contract, questo viene indicato con \verb|contract [nome contratto]()|. Prendendo sempre come riferimento l'esempio precedente,
       alla riga 4 viene dichiarata una variabile chiamata owner con visibilità \verb|public| e tipo \verb|address|, ossia un indirizzo Ethereum. Ci sono 4 livelli di visibilità per le variabili e le funzioni:
       \begin{itemize}
         \item \verb|public|: le funzioni possono essere chiamate anche da contratti esterni, per le variabili vengono generate in automatico delle funzioni getter implicite;
         \item \verb|external|: le funzioni e le variabili possono essere accedute solo dall'esterno e non internamente nel contratto;
         \item \verb|internal|: le funzioni e le variabili possono essere accedute dentro il contratto stesso e i contratti derivati;
-        \item \verb|private|: visibili solo nel contratto in cui le variabli e le funzioni sono definite.\cite{solidityvisibility}
+        \item \verb|private|: visibili solo nel contratto in cui le variabili e le funzioni sono definite\cite{solidityvisibility}.
       \end{itemize}
       Solidity fornisce numerosi tipi per le variabili, di cui quelle usate in questa tesi sono:
       \begin{itemize}
         \item \verb|bool|: per indicare una variabile booleana;
         \item \verb|uint|: per indicare un intero senza segno, può avere diverse dimensioni aggiungendo il numero di bits, ad esempio \verb|uint256|;
         \item \verb|address|: per indicare un indirizzo Ethereum;
-        \item \verb|mapping|: per indicare un dizionario con chiavi di ricerca e valori associati.\cite{soliditytypes}
+        \item \verb|mapping|: per indicare un dizionario con chiavi di ricerca e valori associati\cite{soliditytypes}.
       \end{itemize}
       Alla riga 6 è stato dichiarato un evento, ossia uno strumento utile per fare logging delle transazioni e per permettere agli utenti di mettersi in ascolto di questi eventi.
       Un evento può contenere dati aggiuntivi, in questo caso l'evento \verb|EsempioEvento| contiene il dato \verb|parametroEvento| di tipo uin256.
@@ -219,12 +237,13 @@
       \newline
       Alla riga 10 è stata dichiarata una funzione di nome \verb|esempioFunzione|, con visibilità \verb|public|, con parametro \verb|_parametro| e che restituisce un valore di tipo \verb|uin256|.
       Questa funzione esegue solo due operazioni: emette l'evento \verb|EsempioEvento| e restituisce un valore. 
+
     \subsection{OpenZeppelin}
     OpenZeppelin è una libreria per lo sviluppo di smart contracts sicuri. Le principali funzionalità fornite da OpenZeppelin sono:
     \begin{itemize}
     \item Implementazione dei diversi standard dei token Ethereum;
     \item Gestione del controllo degli accessi agli smart contracts;
-    \item Componenti Solidity riutilizzabili per creare smart contracts.
+    \item Componenti Solidity riutilizzabili per creare smart contracts\cite{openzeppelin}.
     \end{itemize}
 
     \subsection{Metamask}
@@ -232,13 +251,14 @@
     applicazioni decentralizzate basate sulla piattaforma Ethereum. Metamask permette la gestione di
     wallet Ethereum, la ricezione e l'invio di criptomonete basate su Ethereum, e l'interazione con
     applicazioni decentralizzate. L'estensione, inoltre, fornisce le API Ethereum web3, in questo
-    modo le applicazioni sono in grado di leggere dati sulla blockchain.
+    modo le applicazioni sono in grado di leggere dati sulla blockchain\cite{metamask}.
 
     \subsection{ReactJS}
-    React è una libreria JavaScript open-source per lo sviluppo di interfacce utente.
+    React è una libreria JavaScript open-source per lo sviluppo d'interfacce utente.
     \subsubsection{Caratteristiche di ReactJS}
+    React fornisce numerosi strumenti che facilitano lo sviluppo di un'interfaccia grafica. Di seguito sono descritti quelli utilizzati in questa tesi.
     \paragraph{Componenti}
-    I Componenti permettono di suddividere la UI in parti indipendenti, riutilizzabili e di pensare ad ognuna di esse in modo isolato.
+    I Componenti permettono di suddividere la UI in parti indipendenti, riutilizzabili e di pensare a ognuna di esse in modo isolato.
     Per definire un componente è necessario implementare una funzione JavaScript, ad esempio:
 
     \begin{lstlisting}[style=ES6, title={Esempio componente}]
@@ -259,7 +279,7 @@
       );\end{lstlisting}
     
     I componenti, inoltre, possono essere composte da altri componenti. In questo caso,
-    renderizzando il componente padre, verranno visulizzati anche i componenti figli. Ad esempio, 
+    renderizzando il componente padre, verranno visualizzati anche i componenti figli. Ad esempio, 
     si potrebbe avere un componente \verb|Convenevoli| che contiene multipli componenti \verb|Saluto|:
     \begin{lstlisting}[style=ES6, title={Esempio renderizzazione componente}]
       function Convenevoli() {
@@ -274,8 +294,8 @@
 
       \paragraph{Hook state}
       Un componente React di default è stateless. Usando la funzione \verb|useState()| si può
-      aggiungere uno stato interno ad un componente, React preserverà questo stato tra le ri-renderizzazioni.
-      \verb|useState| ritorna una coppia: il valore dello stato corrente ed una funzione che ci permette di aggiornarlo.
+      aggiungere uno stato interno a un componente, React preserverà questo stato tra le ri-renderizzazioni.
+      \verb|useState| ritorna una coppia: il valore dello stato corrente e una funzione che ci permette di aggiornarlo.
       La funzione ha un unico parametro ed è il suo stato iniziale. Ad esempio, se si volesse realizzare un contatore con un bottone che, alla sua pressione,
       aumenti il valore del contatore, si potrebbe scrivere il seguente codice:
       \begin{lstlisting}[style=ES6, title={Esempio contatore con stato interno}]
@@ -294,11 +314,11 @@
       \end{lstlisting}
 
       \paragraph{Hook effect}
-      Il costrutto \verb|useEffect()| permette l'esecuzione di funzioni ad ogni renderizzazione da parte di React.
+      Il costrutto \verb|useEffect()| permette l'esecuzione di funzioni a ogni renderizzazione da parte di React.
       Questa funzione viene utilizzata per effettuare operazioni nei vari stati del ciclo di vita di un componente.
       \newline
       Nel seguente esempio il titolo del documento viene aggiornato all'aumentare del valore del contatore, infatti, 
-      ad ogni aggiornamento del DOM da parte di React, viene chiamata la funzione passata a \verb|useEffect()|.
+      a ogni aggiornamento del DOM da parte di React, viene chiamata la funzione passata a \verb|useEffect()|.
       \begin{lstlisting}[style=ES6, title={Esempio uso di useEffect()}]
         function ContatoreConTitolo() {
           const [contatore, setContatore] = useState(0);
@@ -324,7 +344,7 @@
         questi sono forniti di un tema di default, per modificare l'aspetto di
         un componente si può utilizzare la sua proprietà \verb|className|.
         \newline
-        Nell'esempio seguente vengono modificati le dimensione di un componente \verb|<Button>|:
+        Nell'esempio seguente, preso da \cite{materialui}, vengono modificati le dimensione di un componente \verb|<Button>|:
         \begin{lstlisting}[style=ES6, title={Esempio modifica aspetto di un componente}]
           .Button {
             width: "100px",
@@ -337,16 +357,19 @@
         \subsection{Truffle e Ganache}
         Truffle e Ganache sono entrambi strumenti contenuti all'interno della suite software Truffle.
         Ganache permette la creazione di una blockchain Ethereum che viene eseguita in locale, semplificando, così,
-        il deploy ed il test degli smart contracts. Truffle è un software che facilita lo sviluppo di smart contracts,
-        i principali comandi di truffle utilizzati sono stati:
+        il deploy e il test degli smart contracts. Truffle è un software che facilita lo sviluppo di smart contracts.
+        \newline
+        I principali comandi di truffle utilizzati sono stati:
         \begin{itemize}
           \item \verb|truffle compile|, per compilare gli smart contracts;
           \item \verb|truffle test|, per eseguire i file di test;
-          \item \verb|truffle deploy|, per eseguire il deploy degli smart contracts.
+          \item \verb|truffle deploy|, per eseguire il deploy degli smart contracts\cite{truffle}.
         \end{itemize}
         \newpage
+
         \section{Scrittura e test dei smart contracts}
         \newpage
+
         \section{Implementazione dell'interfaccia grafica}
         L'interfaccia utente che implementa le funzionalità di scambio di token è stata divisa in due pagine.
         La prima è chiamata \emph{Create Sale} e, scegliendo i token da vendere e quelli da accettare, permette
@@ -360,7 +383,7 @@
         impostare una data di scadenza della vendita. Per mostrare graficamente il progresso nei diversi step è presente, in cima alla pagina, un componente
         \verb|<stepper>|, questo indica all'utente gli step terminati e quelli ancora da completare. 
         \subsubsection{Step 1: scelta dei token da vendere}
-        \begin{figure}[h]
+        \begin{figure}[ht]
           \includegraphics[width=\textwidth]{coinsToSell.png}
           \caption{Pagina per la scelta dei token in vendita}
           \centering

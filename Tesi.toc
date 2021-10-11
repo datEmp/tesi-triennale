@@ -2,50 +2,52 @@
 \babel@toc {italian}{}
 \babel@toc {italian}{}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {1}Prerequisiti}{3}{}%
+\contentsline {section}{\numberline {1}Background}{3}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.1}Blockchain}{3}{}%
+\contentsline {subsection}{\numberline {1.1}CommonsHood}{3}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {1.1.1}I nodi}{3}{}%
+\contentsline {subsection}{\numberline {1.2}Blockchain}{4}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {1.1.2}Le caratteristiche di una blockchain}{4}{}%
+\contentsline {subsubsection}{\numberline {1.2.1}I nodi}{4}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {1.1.3}Smart contracts}{5}{}%
+\contentsline {subsubsection}{\numberline {1.2.2}Le caratteristiche di una blockchain}{5}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.2}Ethereum}{5}{}%
+\contentsline {subsubsection}{\numberline {1.2.3}Smart contracts}{6}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {1.2.1}Token Ethereum}{5}{}%
+\contentsline {subsection}{\numberline {1.3}Ethereum}{6}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\numberline {1.2.1.1}Token ERC-20}{6}{}%
+\contentsline {subsubsection}{\numberline {1.3.1}Token Ethereum}{6}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\numberline {1.2.1.2}NFT}{6}{}%
+\contentsline {paragraph}{\numberline {1.3.1.1}Token ERC-20}{7}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\numberline {1.2.1.3}Smart contracts in Ethereum}{7}{}%
+\contentsline {paragraph}{\numberline {1.3.1.2}NFT}{7}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.3}OpenZeppelin}{9}{}%
+\contentsline {subsubsection}{\numberline {1.3.2}Smart contracts in Ethereum}{8}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.4}Metamask}{10}{}%
+\contentsline {subsection}{\numberline {1.4}OpenZeppelin}{10}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.5}ReactJS}{10}{}%
+\contentsline {subsection}{\numberline {1.5}Metamask}{11}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {1.5.1}Caratteristiche di ReactJS}{10}{}%
+\contentsline {subsection}{\numberline {1.6}ReactJS}{11}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\numberline {1.5.1.1}Componenti}{10}{}%
+\contentsline {subsubsection}{\numberline {1.6.1}Caratteristiche di ReactJS}{11}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\numberline {1.5.1.2}Hook state}{12}{}%
+\contentsline {paragraph}{\numberline {1.6.1.1}Componenti}{11}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\numberline {1.5.1.3}Hook effect}{13}{}%
+\contentsline {paragraph}{\numberline {1.6.1.2}Hook state}{13}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.6}Material-UI}{14}{}%
+\contentsline {paragraph}{\numberline {1.6.1.3}Hook effect}{14}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.7}Truffle e Ganache}{15}{}%
+\contentsline {subsection}{\numberline {1.7}Material-UI}{15}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2}Scrittura e test dei smart contracts}{16}{}%
+\contentsline {subsection}{\numberline {1.8}Truffle e Ganache}{16}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3}Implementazione dell'interfaccia grafica}{17}{}%
+\contentsline {section}{\numberline {2}Scrittura e test dei smart contracts}{17}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.1}Create Sale}{17}{}%
+\contentsline {section}{\numberline {3}Implementazione dell'interfaccia grafica}{18}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.1.1}Step 1: scelta dei token da vendere}{17}{}%
+\contentsline {subsection}{\numberline {3.1}Create Sale}{18}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\numberline {3.1.1.1}Caricamento della pagina}{18}{}%
+\contentsline {subsubsection}{\numberline {3.1.1}Step 1: scelta dei token da vendere}{18}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{\numberline {3.1.1.1}Caricamento della pagina}{19}{}%

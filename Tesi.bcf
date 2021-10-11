@@ -2354,6 +2354,10 @@
     <bcf:citekey order="8">nftuse</bcf:citekey>
     <bcf:citekey order="9">solidityvisibility</bcf:citekey>
     <bcf:citekey order="10">soliditytypes</bcf:citekey>
+    <bcf:citekey order="11">openzeppelin</bcf:citekey>
+    <bcf:citekey order="12">metamask</bcf:citekey>
+    <bcf:citekey order="13">materialui</bcf:citekey>
+    <bcf:citekey order="14">truffle</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">

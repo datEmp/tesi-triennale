@@ -1,15 +1,15 @@
 [0] Config.pm:312> INFO - This is Biber 2.15
 [0] Config.pm:315> INFO - Logfile is 'Tesi.blg'
-[70] biber:330> INFO - === ven ott  8, 2021, 01:46:57
+[71] biber:330> INFO - === dom ott 10, 2021, 12:40:43
 [84] Biber.pm:415> INFO - Reading 'Tesi.bcf'
-[143] Biber.pm:952> INFO - Found 10 citekeys in bib section 0
-[154] Biber.pm:4334> INFO - Processing section 0
-[163] Biber.pm:4523> INFO - Looking for bibtex format file './bibliografia/bibliografia.bib' for section 0
-[164] bibtex.pm:1682> INFO - LaTeX decoding ...
-[172] bibtex.pm:1494> INFO - Found BibTeX data source './bibliografia/bibliografia.bib'
-[215] UCollate.pm:68> INFO - Overriding locale 'it-IT' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[215] UCollate.pm:68> INFO - Overriding locale 'it-IT' defaults 'variable = shifted' with 'variable = non-ignorable'
-[215] Biber.pm:4162> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'it-IT'
-[215] Biber.pm:4168> INFO - No sort tailoring available for locale 'it-IT'
-[228] bbl.pm:651> INFO - Writing 'Tesi.bbl' with encoding 'UTF-8'
-[233] bbl.pm:754> INFO - Output to Tesi.bbl
+[145] Biber.pm:952> INFO - Found 14 citekeys in bib section 0
+[157] Biber.pm:4334> INFO - Processing section 0
+[167] Biber.pm:4523> INFO - Looking for bibtex format file './bibliografia/bibliografia.bib' for section 0
+[168] bibtex.pm:1682> INFO - LaTeX decoding ...
+[175] bibtex.pm:1494> INFO - Found BibTeX data source './bibliografia/bibliografia.bib'
+[230] UCollate.pm:68> INFO - Overriding locale 'it-IT' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[231] UCollate.pm:68> INFO - Overriding locale 'it-IT' defaults 'variable = shifted' with 'variable = non-ignorable'
+[231] Biber.pm:4162> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'it-IT'
+[231] Biber.pm:4168> INFO - No sort tailoring available for locale 'it-IT'
+[244] bbl.pm:651> INFO - Writing 'Tesi.bbl' with encoding 'UTF-8'
+[251] bbl.pm:754> INFO - Output to Tesi.bbl
