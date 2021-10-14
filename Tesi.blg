@@ -1,15 +1,15 @@
 [0] Config.pm:312> INFO - This is Biber 2.15
-[0] Config.pm:315> INFO - Logfile is 'Tesi.blg'
-[71] biber:330> INFO - === dom ott 10, 2021, 12:40:43
-[84] Biber.pm:415> INFO - Reading 'Tesi.bcf'
-[145] Biber.pm:952> INFO - Found 14 citekeys in bib section 0
-[157] Biber.pm:4334> INFO - Processing section 0
-[167] Biber.pm:4523> INFO - Looking for bibtex format file './bibliografia/bibliografia.bib' for section 0
-[168] bibtex.pm:1682> INFO - LaTeX decoding ...
-[175] bibtex.pm:1494> INFO - Found BibTeX data source './bibliografia/bibliografia.bib'
-[230] UCollate.pm:68> INFO - Overriding locale 'it-IT' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[231] UCollate.pm:68> INFO - Overriding locale 'it-IT' defaults 'variable = shifted' with 'variable = non-ignorable'
-[231] Biber.pm:4162> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'it-IT'
-[231] Biber.pm:4168> INFO - No sort tailoring available for locale 'it-IT'
-[244] bbl.pm:651> INFO - Writing 'Tesi.bbl' with encoding 'UTF-8'
-[251] bbl.pm:754> INFO - Output to Tesi.bbl
+[1] Config.pm:315> INFO - Logfile is 'Tesi.blg'
+[163] biber:330> INFO - === gio ott 14, 2021, 18:27:27
+[194] Biber.pm:415> INFO - Reading 'Tesi.bcf'
+[330] Biber.pm:952> INFO - Found 14 citekeys in bib section 0
+[358] Biber.pm:4334> INFO - Processing section 0
+[379] Biber.pm:4523> INFO - Looking for bibtex format file './bibliografia/bibliografia.bib' for section 0
+[381] bibtex.pm:1682> INFO - LaTeX decoding ...
+[401] bibtex.pm:1494> INFO - Found BibTeX data source './bibliografia/bibliografia.bib'
+[527] UCollate.pm:68> INFO - Overriding locale 'it-IT' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[527] UCollate.pm:68> INFO - Overriding locale 'it-IT' defaults 'variable = shifted' with 'variable = non-ignorable'
+[527] Biber.pm:4162> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'it-IT'
+[527] Biber.pm:4168> INFO - No sort tailoring available for locale 'it-IT'
+[554] bbl.pm:651> INFO - Writing 'Tesi.bbl' with encoding 'UTF-8'
+[564] bbl.pm:754> INFO - Output to Tesi.bbl
