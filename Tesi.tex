@@ -84,7 +84,7 @@
 
 \lstdefinelanguage{JavaScript}{
   morekeywords=[1]{break, continue, delete, else, for, function, if, in,
-    new, return, this, typeof, var, void, while, with, render, getElementById, width, height, contract, address, event, uint256, public, returns, emit, pragma},
+    new, return, this, typeof, var, void, while, with, render, getElementById, width, height, contract, address, event, uint256, public, returns, emit, pragma, describe, it},
   % Literals, primitive types, and reference types.
   morekeywords=[2]{false, null, true, boolean, number, undefined,
     Array, Boolean, Date, Math, Number, String, Object, onClick, Map, onChange},
@@ -92,7 +92,7 @@
   morekeywords=[4]{React, ., Component, Saluto, Convenevoli, Contatore, setContatore, useState, contatore,
     Button, ContatoreConTitolo, handleSearch, searchInput, target, value, setActiveCoinsList, coinsList, coinName, coinSymbol, coin,
     coinsToSellAmounts, setCoinsToSellAmounts, coinsToAcceptAmounts, setCoinsToAcceptAmounts, setCoinsList, activeCoinsList,
-    activeStep, setActiveStep, web3Instance, userAccount, fetchCoins, setLoadingCoinList, newCoinsList},
+    activeStep, setActiveStep, web3Instance, userAccount, fetchCoins, setLoadingCoinList, newCoinsList, Contratto},
   morekeywords=[5]{},
   sensitive,
   morecomment=[s]{/*}{*/},
@@ -363,9 +363,63 @@
         \begin{itemize}
           \item \verb|truffle compile|, per compilare gli smart contracts;
           \item \verb|truffle test|, per eseguire i file di test;
-          \item \verb|truffle deploy|, per eseguire il deploy degli smart contracts\cite{truffle}.
+          \item \verb|truffle deploy|\footnote{oppure truffle migrate}, per eseguire il deploy degli smart contracts\cite{truffle}.
         \end{itemize}
-        \newpage
+        \subsubsection{Creazione di un progetto Truffle}
+        Per creare un progetto con Truffle si utilizza il comando \verb|truffle init| all'interno della sua cartella. Questo genera la struttura del progetto composta da quattro elementi:
+        \begin{itemize}
+          \item \verb|contracts/|: la cartella che conterrà gli smart contracts;
+          \item \verb|migrations/|: la cartella che conterrà gli scripts per il deploy dei contratti;
+          \item \verb|test/|: la cartella che conterrà i file per eseguire i test sui contratti;
+          \item \verb|truffle-config.js|: il file di configurazione di Truffle.
+        \end{itemize}
+        \subsubsection{Compilazione degli smart contracts}
+        Lanciando il comando \verb|truffle compile| nel progetto vengono compilati tutti gli smart contracts, ossia tutti file con estensione \verb|.sol|, presenti all'interno della cartella \verb|contracts/|.
+        Questa operazione genera una nuova directory \verb|build/contracts| contenente un file \verb|.json| per ogni smart contract compilato. Questi file servono per il corretto funzionamento di Truffle quindi la modifica di essi è sconsigliata.
+        Inoltre, contengono le ABI\footnote{Application Binary Interface} degli smart contracts, ossia delle interfacce che stanno tra un programma utente e la blockchain Ethereum. Queste sono necessarie perché gli smart contracts deployati sono sotto forma
+        di codici binari e i loro dati sarebbero difficilmente comprensibili. Un' ABI, quindi, descrive le funzioni del suo smart contract ed interpreta i dati di questi metodi. Le  ABI saranno, perciò, necessarie durante l'implementazione dell'applicazione utente.
+        \subsubsection{Deploy degli smart contracts}
+        Il file \verb|truffle-config.js| permette di definire reti Ethereum che possono essere usate per eseguire il deploy degli smart contracts. Il file ha al suo interno un oggetto \verb|newtorks|, questo contiene la lista delle reti scritte nel seguente formato:
+        \begin{lstlisting}[style=ES6, title={Esempio di definizione di una rete Ethereum}]
+          <nome_rete>: {
+            host: <host>,
+            port: <port>,
+            network_id: <network_id>
+          }\end{lstlisting}
+        Dove \verb|host| e \verb|port| indicano l'indirizzo e la porta della rete. \verb|network_id| è, invece, l'identificativo della rete.
+        \newline
+        Per fare il deploy su una rete specifica si aggiunge l'opzione \verb|--network| al comando \verb|truffle deploy|, perciò, ad esempio,
+        se si volesse fare il deploy degli smart contracts su una rete Ethereum chiamata \verb|main|, il comando completo sarebbe:
+        \begin{lstlisting}[style=ES6, title={Esempio di deploy specificando la rete}]
+          truffle deploy --network main\end{lstlisting}
+        Quest'opzione di specificare la rete di destinazione del deploy è utile perché è possibile effettuare il deploy non sulla rete principale di Ethereum, dove sarebbe presente una tassa di ETH, ma su una rete di test locale. 
+        \subsubsection{Test degli smart contracts}
+        Il comando \verb|truffle test| esegue tutti i file di test inclusi nella cartella \verb|test/|. Per eseguire, invece, un solo file di test lo si specifica nel comando. Quindi ad esempio: \verb|truffle test ./percorso/del/test/file.js|.
+        I file di test sono tutti file presenti nella cartella \verb|test/| con una delle seguenti estensioni: \verb|.js|, \verb|.ts|, \verb|.es6|, \verb|.jsx| e \verb|.sol|.
+        \newline
+        Truffle si avvale di due framework per la scrittura di file di test: \emph{Mocha} e \emph{Chain}\cite{truffleframeworks}. Il primo è un framework per l'esecuzione di test su file Javascript. Il secondo è una libreria per la scrittura di asserzioni,
+        ossia espressioni che indicano i valori attesi alla fine di un test.
+        \newline
+        Un tipico file di test ha la seguente forma:
+        \begin{lstlisting}[style=ES6, title={Esempio di file di test}]
+          const Contratto = artifacts.require(
+            "<smart_contract_da_testare>");
+          contract("Contratto", async accounts => {
+            describe("<Funzionalita_da_testare>", async () => {
+              it("<Comportamento_da_testare>", async () => {
+                assert.equal(
+                  <valore_ottenuto>,
+                  <valore_atteso>,
+                  "<messaggio_da_stampare>"
+                );
+              });
+              it(
+                ....
+              )
+            })
+          })\end{lstlisting}
+        La riga 1 serve per indicare un file di smart contract usato all'interno del test, per far questo si utilizza \verb|artifacts.require()|.
+        
 
         \section{Scrittura e test dei smart contracts}
         \newpage
@@ -419,7 +473,7 @@
         \newline
         \verb|activeCoinsList| è l'array preso come riferimento per mostrare graficamente la lista delle monete.
         \newline
-        \verb|activeStep| è un intero che indica lo step corrente.
+        \verb|activeStep| è un numero intero che indica lo step corrente.
         \newline
         Le variabili di stato hanno, naturalmente, associate le funzioni per modificarne il loro valore.
         \newline
@@ -454,10 +508,10 @@
         onChange={handleSearch}/> \end{lstlisting}
         Il box di ricerca è realizzato usando il componente \verb|<TextField>|, ad ogni inserimento/eliminazione di caratteri viene invocata la funzione \verb|handleSearch|.
         Questa funzione, come visibile alla riga 1, prende come parametro l'evento lanciato. Quest'ultimo contiene il testo presente nel \verb|<TextField>|,
-        la stringa viene, quindi, convertita in caratteri minuscoli ed assegnata alla variabile \verb|searchInput|. Alla riga 4 viene chiamata la funzione filter sull'array \verb|coinsList|,
+        questo viene, quindi, convertito in caratteri minuscoli ed assegnato alla variabile \verb|searchInput|. Alla riga 4 viene chiamata la funzione filter sull'array \verb|coinsList|,
         questo metodo ritorna un nuovo array dopo aver filtrato gli elementi della lista secondo un certo criterio. In questo caso, il criterio, visibile alle righe 7 e 8,
         è che il nome o il simbolo della moneta che si sta controllando contenga la stringa da cercare contenuta in \verb|searchInput|. In caso positivo la moneta viene aggiunta all'array da ritornare.
-        Una volta terminata la funzione di filtro si ha quindi una lista contenete solo monete che includono il termine di ricerca. Questa lista viene, quindi, assegnata alla variabile di stato \verb|activeCoinsList| usando,
+        Una volta terminata la funzione di filtro si ha quindi una lista contenete solo monete che includono il termine di ricerca. Dopodichè questa lista viene assegnata alla variabile di stato \verb|activeCoinsList| usando,
         perciò, la funzione \verb|setActiveCoinsList()|. In questo modo verranno mostrate a video le monete filtrate. 
 
         \subsubsection{Step 1: scelta dei token da vendere}
