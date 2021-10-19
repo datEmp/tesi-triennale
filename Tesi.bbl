@@ -71,6 +71,48 @@
       \endverb
       \keyw{blockchain,ethereum,nft,tokens}
     \endentry
+    \entry{eip1155}{online}{}
+      \name{author}{4}{}{%
+        {{hash=2ec990b78817c295355cb14bb1644ea2}{%
+           family={Entriken},
+           familyi={E\bibinitperiod},
+           given={William},
+           giveni={W\bibinitperiod}}}%
+        {{hash=b6d0242d0ac13e2113c737e3a65c7860}{%
+           family={Shirley},
+           familyi={S\bibinitperiod},
+           given={Dieter},
+           giveni={D\bibinitperiod}}}%
+        {{hash=757b45fde6fb23501b318053820cf0c8}{%
+           family={Evans},
+           familyi={E\bibinitperiod},
+           given={Jacob},
+           giveni={J\bibinitperiod}}}%
+        {{hash=5788ef707ef79a303e86496b33028cfa}{%
+           family={Sachs},
+           familyi={S\bibinitperiod},
+           given={Nastassia},
+           giveni={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{9d161d794bea8e1af56272f3869eeb8e}
+      \strng{fullhash}{3921617b8ef76ff16c7c7c78986ddfb4}
+      \strng{bibnamehash}{9d161d794bea8e1af56272f3869eeb8e}
+      \strng{authorbibnamehash}{9d161d794bea8e1af56272f3869eeb8e}
+      \strng{authornamehash}{9d161d794bea8e1af56272f3869eeb8e}
+      \strng{authorfullhash}{3921617b8ef76ff16c7c7c78986ddfb4}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{EIP-721: Non-Fungible Token Standard}
+      \verb{urlraw}
+      \verb https://eips.ethereum.org/EIPS/eip-721
+      \endverb
+      \verb{url}
+      \verb https://eips.ethereum.org/EIPS/eip-721
+      \endverb
+      \keyw{blockchain,ethereum,nft,tokens,eip1155}
+    \endentry
     \entry{erc20}{online}{}
       \name{author}{1}{}{%
         {{hash=9a86868fb083033462a7454b56770a3e}{%

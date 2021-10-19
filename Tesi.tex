@@ -14,6 +14,7 @@
 \usepackage{upquote}
 \usepackage{csquotes}
 \usepackage{biblatex}
+\usepackage{spverbatim}
 \definecolor{purple}{RGB}{91, 72, 181}
 \definecolor{darkviolet}{rgb}{0.58, 0.0, 0.83}
 \definecolor{royalblue}{RGB}{242, 73, 214}
@@ -27,7 +28,6 @@
 \addbibresource{./bibliografia/bibliografia.bib}
 
 \linespread{1.5}
-
 \graphicspath{ {./images/} }
 
 \setcounter{secnumdepth}{4}
@@ -178,19 +178,27 @@
     dagli sviluppatori della rete. I token possono essere di tipi di differenti, a seconda delle specificazioni seguite. In Ethereum ci sono principalmente due tipi di token: token ERC-20 e NFT.
     \paragraph{Token ERC-20}
     I token ERC-20 sono il tipo di token più diffuso sulla rete Ethereum, sono lo standard per la definizione di token fungibili\cite{erc20}, ossia i singoli token sono indistinguibili e intercambiabili tra loro.
-    Un token ERC-20 implementa le specificazioni indicate nell'EIP-20 che richiede nello smart contract del token la presenza di diversi metodi. I più importanti metodi richiesti sono:
+    Un token ERC-20 implementa le specificazioni indicate nell'EIP-20\footnote{Ethereum Improvement Proposal} che richiede nello smart contract del token la presenza di diversi metodi. I più importanti metodi richiesti sono:
     \begin{itemize}
       \item \verb|balanceOf(address _owner)|: restituisce la quantità di token posseduto da \verb|_owner|;
       \item \verb|transfer(address _to, uint256 _value)|: trasferisce una quantità di token indicata da \verb|_value| all'indirizzo \verb|_to|;
-      \item \verb|transferFrom(address _from, address _to, uint256 _value)|: trasferisce una quantità \verb|_value| di token dall'indirizzo \verb|_from| all'indirizzo \verb|_to|;
+      \item \verb|transferFrom(address _from, address _to, uint256 _value)|:\newline trasferisce una quantità \verb|_value| di token dall'indirizzo \verb|_from| all'indirizzo \verb|_to|;
       \item \verb|approve(address _spender, uint256 _value)|: permette all'indirizzo \verb|_spender| di ritirare fino a \verb|_value| token dall'account\cite{eip20}.
     \end{itemize}
+
     \paragraph{NFT}
     I Non Fungible Tokens sono, appunto, token non fungibili, ossia ogni token è univoco e non intercambiabile con un altro. Sono utilizzati per replicare le proprietà tipiche
     di un oggetto fisico come la scarsità, l'unicità e la possibilità di dimostrare la proprietà del token\cite{nft}.
     Data la natura del token, l'uso più comune di questi token è la creazione di arte digitale\cite{nftuse}.
     \newline
-    Gli NFT seguono lo standard dettato dall'EIP-721.
+    Gli NFT seguono lo standard dettato dall'EIP-721. I metodi più significativi richiesti dall'EIP-721 sono:
+    \begin{itemize}
+      \item \verb|balanceOf(address _owner)|: restituise il numero di NFT posseduti da \verb|_owner|;
+      \item \verb|ownerOf(uint256 _tokenId)|: restituisce il proprietario del NFT identificato da \verb|_tokenId|;
+      \item \verb|safeTransferFrom(address _from,address _to,uint256 _tokenId)|: trasferisce la proprietà del NFT \verb|_tokenId| da \verb|_from| a \verb|_to|.
+            Fallisce se il chiamante della funzione non è il proprietario corrente, un operatore autorizzato o un indirizzato autorizzato per questo NFT.
+            Inoltre, il metodo fallisce se: \verb|_from| non è il proprietario corrente, \verb|_to| è l'indirizzo zero e \verb|_tokenId| non è un NFT valido\cite{eip1155}.
+    \end{itemize}
     \subsubsection{Smart contracts in Ethereum}
     In Ethereum gli smart contracts sono considerati come account, questo significa che hanno un saldo e possono inviare transazioni sulla rete. A differenza di un normale account, però,
     gli smart contracts non sono controllati dagli utenti ma eseguono il codice con cui sono stati programmati. Gli account user possono interagire con uno smart contract inviando una transazione
@@ -376,7 +384,7 @@
         \subsubsection{Compilazione degli smart contracts}
         Lanciando il comando \verb|truffle compile| nel progetto vengono compilati tutti gli smart contracts, ossia tutti file con estensione \verb|.sol|, presenti all'interno della cartella \verb|contracts/|.
         Questa operazione genera una nuova directory \verb|build/contracts| contenente un file \verb|.json| per ogni smart contract compilato. Questi file servono per il corretto funzionamento di Truffle quindi la modifica di essi è sconsigliata.
-        Inoltre, contengono le ABI\footnote{Application Binary Interface} degli smart contracts, ossia delle interfacce che stanno tra un programma utente e la blockchain Ethereum. Queste sono necessarie perché gli smart contracts deployati sono sotto forma
+        Inoltre, contengono le ABI\footnote{Application Binary Interface} degli smart contracts, ossia delle interfacce che stanno tra un programma utente e la blockchain Ethereum. Queste sono necessarie perché gli smart contracts, di cui sono stati fatti il deploy, sono sotto forma
         di codici binari e i loro dati sarebbero difficilmente comprensibili. Un' ABI, quindi, descrive le funzioni del suo smart contract ed interpreta i dati di questi metodi. Le  ABI saranno, perciò, necessarie durante l'implementazione dell'applicazione utente.
         \subsubsection{Deploy degli smart contracts}
         Il file \verb|truffle-config.js| permette di definire reti Ethereum che possono essere usate per eseguire il deploy degli smart contracts. Il file ha al suo interno un oggetto \verb|newtorks|, questo contiene la lista delle reti scritte nel seguente formato:
@@ -397,7 +405,7 @@
         Il comando \verb|truffle test| esegue tutti i file di test inclusi nella cartella \verb|test/|. Per eseguire, invece, un solo file di test lo si specifica nel comando. Quindi ad esempio: \verb|truffle test ./percorso/del/test/file.js|.
         I file di test sono tutti file presenti nella cartella \verb|test/| con una delle seguenti estensioni: \verb|.js|, \verb|.ts|, \verb|.es6|, \verb|.jsx| e \verb|.sol|.
         \newline
-        Truffle si avvale di due framework per la scrittura di file di test: \emph{Mocha} e \emph{Chain}\cite{truffleframeworks}. Il primo è un framework per l'esecuzione di test su file Javascript. Il secondo è una libreria per la scrittura di asserzioni,
+        Truffle si avvale di due framework per la scrittura di file di test: \emph{Mocha} e \emph{Chai}\cite{truffleframeworks}. Il primo è un framework per l'esecuzione di test su file Javascript. Il secondo è una libreria per la scrittura di asserzioni,
         ossia espressioni che indicano i valori attesi alla fine di un test.
         \newline
         Un tipico file di test ha la seguente forma:
@@ -407,6 +415,7 @@
           contract("Contratto", async accounts => {
             describe("<Funzionalita_da_testare>", async () => {
               it("<Comportamento_da_testare>", async () => {
+                ....
                 assert.equal(
                   <valore_ottenuto>,
                   <valore_atteso>,
@@ -419,7 +428,17 @@
             })
           })\end{lstlisting}
         La riga 1 serve per indicare un file di smart contract usato all'interno del test, per far questo si utilizza \verb|artifacts.require()|.
-        
+        Il metodo \verb|contract()| alla riga 3 serve per indicare il contratto da testare. Il comando ha due funzionalità:
+        \begin{itemize}
+          \item prima di ogni esecuzione di \verb|contract()|, viene rifatto il deploy dei contratti. In questo modo i diversi file di test vengono eseguiti in modo indipendente tra loro;
+          \item la funzione \verb|contract()| fornisce una lista di account resi disponibili dalla rete Ethereum usata, questi account possono essere usati nei diversi test.
+        \end{itemize}
+        Il metodo \verb|describe()| alla riga 4 serve per indicare una funzionalità del contratto che si vuole testare.
+        La funzione \verb|it()| indica un comportamento della funzionalità che si vuole controllare.
+        \newline
+        Per effettuare il controllo di un valore ottenuto rispetto ad un valore atteso, si può utilizzare il comando \verb|assert|, questo fornisce numerosi metodi che eseguono controlli di diverso tipo.
+        Nell'esempio si è utilizzato \verb|assert.equal()|, questo controlla che i due parametri passati siano uguali, in caso negativo il test fallisce e viene stampato il messaggio passato come terzo parametro.
+        \newpage
 
         \section{Scrittura e test dei smart contracts}
         \newpage

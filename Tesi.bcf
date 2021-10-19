@@ -2352,13 +2352,14 @@
     <bcf:citekey order="6">eip20</bcf:citekey>
     <bcf:citekey order="7">nft</bcf:citekey>
     <bcf:citekey order="8">nftuse</bcf:citekey>
-    <bcf:citekey order="9">solidityvisibility</bcf:citekey>
-    <bcf:citekey order="10">soliditytypes</bcf:citekey>
-    <bcf:citekey order="11">openzeppelin</bcf:citekey>
-    <bcf:citekey order="12">metamask</bcf:citekey>
-    <bcf:citekey order="13">materialui</bcf:citekey>
-    <bcf:citekey order="14">truffle</bcf:citekey>
-    <bcf:citekey order="15">truffleframeworks</bcf:citekey>
+    <bcf:citekey order="9">eip1155</bcf:citekey>
+    <bcf:citekey order="10">solidityvisibility</bcf:citekey>
+    <bcf:citekey order="11">soliditytypes</bcf:citekey>
+    <bcf:citekey order="12">openzeppelin</bcf:citekey>
+    <bcf:citekey order="13">metamask</bcf:citekey>
+    <bcf:citekey order="14">materialui</bcf:citekey>
+    <bcf:citekey order="15">truffle</bcf:citekey>
+    <bcf:citekey order="16">truffleframeworks</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">
