@@ -42,7 +42,7 @@
   backgroundcolor=\color{white},
   basicstyle=\ttfamily,
   breakatwhitespace=false,
-  breaklines=false,
+  breaklines=true,
   captionpos=b,
   columns=fullflexible,
   commentstyle=\color{mediumgray}\upshape,
@@ -87,12 +87,13 @@
     new, return, this, typeof, var, void, while, with, render, getElementById, width, height, contract, address, event, uint256, public, returns, emit, pragma, describe, it},
   % Literals, primitive types, and reference types.
   morekeywords=[2]{false, null, true, boolean, number, undefined,
-    Array, Boolean, Date, Math, Number, String, Object, onClick, Map, onChange},
+    Array, Boolean, Date, Math, Number, String, Object, onClick, Map, onChange, SMART_CONTRACTS, TKN_TMPLT_ABI, SALE_FCTRY_ADDR, SALE_FCTRY_ABI},
   morekeywords=[3]{h1, div, p, button, TextField},
   morekeywords=[4]{React, ., Component, Saluto, Convenevoli, Contatore, setContatore, useState, contatore,
     Button, ContatoreConTitolo, handleSearch, searchInput, target, value, setActiveCoinsList, coinsList, coinName, coinSymbol, coin,
     coinsToSellAmounts, setCoinsToSellAmounts, coinsToAcceptAmounts, setCoinsToAcceptAmounts, setCoinsList, activeCoinsList,
-    activeStep, setActiveStep, web3Instance, userAccount, fetchCoins, setLoadingCoinList, newCoinsList, Contratto},
+    activeStep, setActiveStep, web3Instance, userAccount, fetchCoins, setLoadingCoinList, newCoinsList, Contratto, saleCreate, web3,
+    sellerAddress, coinsOnSaleAddr, amountsOnSale, coinsToAcceptAddr, amountsToAccept, expirationDate, coinInstance, SaleFactoryInstance, creationResponse, saleAddr},
   morekeywords=[5]{},
   sensitive,
   morecomment=[s]{/*}{*/},
@@ -448,10 +449,81 @@
         La prima è chiamata \emph{Create Sale} e, scegliendo i token da vendere e quelli da accettare, permette
         la creazione di una vendita. La seconda è chiamata \emph{Sales List} e permette di visualizzare la lista di tutte le vendite, sia quelle in corso
         che quelle terminate.
+        \subsection{File sale.js}
+        All'interno della directory \verb|src/APIs/| è stato creato un file chiamato \verb|sale.js|, lo scopo di questo file è quello di contenere tutti i metodi che effettuano le chiamate alle funzioni degli smart contracts
+        relative alla vendita di token. Per far questo il file importa l'oggetto \verb|SMART_CONTRACTS| da \verb|config.js|.
+        \subsubsection{saleCreate}
+        \begin{lstlisting}[style=ES6, title={Esempio di file di test}]
+export const saleCreate = async (web3, sellerAddress, coinsOnSaleAddr, amountsOnSale, coinsToAcceptAddr, amountsToAccept, expirationDate) => {
+  try {
+    for(let i = 0; i < coinsOnSaleAddr.length; i++) {
+      const coinInstance = new web3.eth.Contract(
+        SMART_CONTRACTS.TKN_TMPLT_ABI,
+        coinsOnSaleAddr[i],
+      );
+
+      await coinInstance.methods.approve(
+        SMART_CONTRACTS.SALE_FCTRY_ADDR,
+        amountsOnSale[i]
+      ).send({from: sellerAddress, gasPrice: "0"});
+    }
+
+    const SaleFactoryInstance = new web3.eth.Contract(
+      SMART_CONTRACTS.SALE_FCTRY_ABI,
+      SMART_CONTRACTS.SALE_FCTRY_ADDR,
+    );
+
+    const creationResponse = await 
+      SaleFactoryInstance.methods.createSale(
+      coinsOnSaleAddr,
+      coinsToAcceptAddr,
+      amountsOnSale,
+      amountsToAccept,
+      expirationDate
+    ).send({from: sellerAddress, gasPrice: "0"});
+
+    return creationResponse.events.SaleAdded.returnValues.saleAddr;
+  } catch (error) {
+    for(let i = 0; i < coinsOnSaleAddr.length; i++) {
+      const coinInstance = new web3.eth.Contract(
+        SMART_CONTRACTS.TKN_TMPLT_ABI,
+        coinsOnSaleAddr[i],
+      );
+
+      await coinInstance.methods.approve(
+        SMART_CONTRACTS.SALE_FCTRY_ADDR, 0
+      ).send({from: sellerAddress, gasPrice: "0"});
+    }
+    return false;
+  }
+}\end{lstlisting}
+        Questo metodo permette la creazione di una vendita. Prende come parametri l'istanza di \verb|web3|, l'indirizzo del venditore, la lista dei token in vendita e le loro quantità,
+        la lista dei token accettati come pagamento e la loro quantità e la data di scadenza della vendita.
+        \newline
+        Il corpo della funzione è racchiuso all'interno di un blocco \verb|try/catch|, in questo modo, in caso di fallimento delle chiamate alle funzioni degli smart contracts, si può gestire l'errore e comunicarlo al chiamante.
+        \newline
+        Il blocco \verb|for| da riga 3 a riga 13 serve per ottenere le istanze dei contratti di ogni token in vendita \verb|coinsOnSaleAddr| e, successivamente, chiamare il metodo \verb|approve()| su essi.
+        Alle chiamate del metodo \verb|approve()| vengono passati come parametri l'indirizzo del contratto \verb|SaleFactory| e la quantità associata al token sulla cui istanza si sta effettuando la chiamata.
+        In questo modo si permette all'utente di approvare \verb|SaleFactory| a spendere per ogni moneta in vendita la loro quantità in vendita.
+        \newline
+        Le chiamate ad \verb|approve()|, inoltre, hanno bisogno alla fine del metodo \verb|send()|,
+        questo perché le funzioni che modificano lo stato del contratto hanno bisogno di inviare una transazione. Questo viene eseguito, appunto, con \verb|send()|\cite{soliditysend}.
+        \newline
+        Alla riga 15 si ottiene l'istanza del smart contraact \verb|SaleFactory|. Questo viene effettuato creando un nuovo ogggetto di tipo \verb|web3.eth.Contract|, passando come parametri l'ABI e l'indirizzo del contratto.
+        Questo funziona, naturalmente, solo se è già stato fatto il deploy del contratto di cui si sta cercando di ottenere l'istanza.
+        \newline
+        Ottenuto l'istanza di \verb|SaleFactory|, si può creare la vendita. Questo è realizzato chiamando alla riga 20 il metodo \verb|SaleFactoryInstance.methods.createSale()|, passando come parametri le opzioni della vendita,
+        ossia le monete in vendita e da accettare, le loro quantità e la data di scadenza.
+        \newline
+        Infine viene restituito al chiamante l'indirizzo della vendita appena creata. Questo è ottenuto dall'evento \verb|SaleAdded|, preso dalla lista degli eventi nella risposta della chiamata a \verb|SaleFactoryInstance.methods.createSale()|.
+        \newline
+        In caso di fallimento di un'operazione in questo blocco \verb|try|, l'errore verrebbe gestito dal blocco \verb|catch| alla riga 30. Questo ottiene nuovamente le istanze delle varie monete in vendita e, dunque, per ogni moneta effettua il reset della
+        \verb|allowance| di \verb|SaleFactory|. Questo significa che \verb|SaleFactory| non ha più il permesso di spendere le monete in vendita del venditore. Questo viene effettuato semplicemente usando sempre il metodo \verb|approve()| ma, in questo caso,
+        come quantità viene passato 0.
         \subsection{Create Sale}
         Il processo di creazione di una vendita è diviso in tre step.
         \begin{itemize}
-          \item Nel primo step l'utente sceglie i token in suo possesso da mettere in vendita;
+          \item Nel primo step l'utente sceglie i token in suo \verb||\verb||sesso da mettere in vendita;
           \item Nel secondo step l'utente sceglie i token che accetta come pagamento per la vendita dei token scelti nel primo step;
           \item Nel terzo step viene mostrato all'utente un riassunto delle scelte fatte nei due step precedenti. In questo passo, inoltre, l'utente può
                 impostare una data di scadenza della vendita.
