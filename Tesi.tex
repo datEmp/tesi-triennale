@@ -453,7 +453,7 @@
         All'interno della directory \verb|src/APIs/| è stato creato un file chiamato \verb|sale.js|, lo scopo di questo file è quello di contenere tutti i metodi che effettuano le chiamate alle funzioni degli smart contracts
         relative alla vendita di token. Per far questo il file importa l'oggetto \verb|SMART_CONTRACTS| da \verb|config.js|.
         \subsubsection{saleCreate}
-        \begin{lstlisting}[style=ES6, title={Esempio di file di test}]
+        \begin{lstlisting}[style=ES6, title={Funzione saleCreate()}]
 export const saleCreate = async (web3, sellerAddress, coinsOnSaleAddr, amountsOnSale, coinsToAcceptAddr, amountsToAccept, expirationDate) => {
   try {
     for(let i = 0; i < coinsOnSaleAddr.length; i++) {
@@ -512,7 +512,7 @@ export const saleCreate = async (web3, sellerAddress, coinsOnSaleAddr, amountsOn
         Alla riga 15 si ottiene l'istanza del smart contraact \verb|SaleFactory|. Questo viene effettuato creando un nuovo ogggetto di tipo \verb|web3.eth.Contract|, passando come parametri l'ABI e l'indirizzo del contratto.
         Questo funziona, naturalmente, solo se è già stato fatto il deploy del contratto di cui si sta cercando di ottenere l'istanza.
         \newline
-        Ottenuto l'istanza di \verb|SaleFactory|, si può creare la vendita. Questo è realizzato chiamando alla riga 20 il metodo \verb|SaleFactoryInstance.methods.createSale()|, passando come parametri le opzioni della vendita,
+        Ottenuto l'istanza di \verb|SaleFactory|, si può creare la vendita. Questo è realizzato chiamando alla riga 20 il metodo \spverb|SaleFactoryInstance.methods .createSale()|, passando come parametri le opzioni della vendita,
         ossia le monete in vendita e da accettare, le loro quantità e la data di scadenza.
         \newline
         Infine viene restituito al chiamante l'indirizzo della vendita appena creata. Questo è ottenuto dall'evento \verb|SaleAdded|, preso dalla lista degli eventi nella risposta della chiamata a \verb|SaleFactoryInstance.methods.createSale()|.
@@ -520,10 +520,182 @@ export const saleCreate = async (web3, sellerAddress, coinsOnSaleAddr, amountsOn
         In caso di fallimento di un'operazione in questo blocco \verb|try|, l'errore verrebbe gestito dal blocco \verb|catch| alla riga 30. Questo ottiene nuovamente le istanze delle varie monete in vendita e, dunque, per ogni moneta effettua il reset della
         \verb|allowance| di \verb|SaleFactory|. Questo significa che \verb|SaleFactory| non ha più il permesso di spendere le monete in vendita del venditore. Questo viene effettuato semplicemente usando sempre il metodo \verb|approve()| ma, in questo caso,
         come quantità viene passato 0.
+        \subsubsection{saleGetAll}
+        \begin{lstlisting}[style=ES6, title={Funzione saleGetAll}]
+export const saleGetAll = async (web3, accountAddress) => {
+  let salesList = [];
+
+  try {
+    const SaleFactoryInstance = new web3.eth.Contract(
+      SMART_CONTRACTS.SALE_FCTRY_ABI,
+      SMART_CONTRACTS.SALE_FCTRY_ADDR,
+    );
+
+    const salesAddresses = await SaleFactoryInstance.methods.getAllSalesAddresses().call({ from: accountAddress, gasPrice: "0"});
+
+    if(salesAddresses.length !== 0) {
+      const salesInstances = [];
+
+      for(let i = 0; i < salesAddresses.length; i++) {
+        salesInstances.push(new web3.eth.Contract(
+          SMART_CONTRACTS.SALE_TMPLT_ABI,
+          salesAddresses[i],
+        ));
+      }
+
+      for(let i = 0; i < salesInstances.length; i++) {
+        const saleInfo = await salesInstances[i].methods.getSaleInfo().call({ from: accountAddress, gasPrice: "0"});
+
+        let tokensOnSaleData = [];
+        let tokensToAcceptData = [];
+        const saleOwner = saleInfo[0];
+        const saleEnded = saleInfo[1];
+        const saleExpiration = saleInfo[6];
+
+        const tokensOnSaleAddr = saleInfo[2];
+        const amountsOnSale = saleInfo[3];
+        for(let i = 0; i < tokensOnSaleAddr.length; i++) {
+          const tokenData = await coinGetFullData(web3, accountAddress, tokensOnSaleAddr[i]);
+          tokenData['address'] = tokensOnSaleAddr[i];
+          tokenData['amount'] = amountsOnSale[i];
+          tokensOnSaleData.push(tokenData);
+        }
+
+        const tokensToAcceptAddr = saleInfo[4];
+        const amountsToAccept = saleInfo[5];
+        for(let i = 0; i < tokensToAcceptAddr.length; i++) {
+          const tokenData = await coinGetFullData(web3, accountAddress, tokensToAcceptAddr[i]);
+          tokenData['address'] = tokensToAcceptAddr[i];
+          tokenData['amount'] = amountsToAccept[i];
+          tokensToAcceptData.push(tokenData);
+        }
+
+        const saleCompleted = await salesInstances[i].getPastEvents("SaleCompleted");
+
+        const buyer = saleCompleted[0]?.returnValues.buyer;
+
+        const saleData = {
+          address: salesAddresses[i],
+          owner: saleOwner,
+          ended: saleEnded,
+          buyer: buyer,
+          tokensOnSaleData: tokensOnSaleData,
+          amountsOnSale: amountsOnSale,
+          tokensToAcceptData: tokensToAcceptData,
+          amountsToAccept: amountsToAccept,
+          expiration: saleExpiration
+        }
+        salesList.push(saleData);
+      }
+    }
+    return salesList;
+  } catch(error) { 
+    return [];
+  }
+}\end{lstlisting}
+        La funzione \verb|saleGetAll()| restituisce al chiamante la lista di tutte le vendite. Prende come parametri l'istanza di \verb|web3|, l'indirizzo del venditore.
+        \newline
+        Viene creato inizialmente l'array di ritorno \verb|salesList| vuoto.
+        Alla riga 5 viene presa l'istanza di \verb|SaleFactory|, questa viene usata per ottenere la lista degli indirizzi di tutte le vendite usando la funzione \spverb|SaleFactoryInstance. methods.getAllSalesAddresses()|.
+        Quest'ultima ha bisogno alla fine del metodo \verb|call()|. Viene usato questo metodo al posto di \verb|send()| perché la funzione \verb|getAllSalesAddresses()| non altera lo stato dello smart contract,
+        perciò non c'è necessità di inviare una transazione\cite{soliditycall}.
+        \newline
+        Se la lista degli indirizzi delle vendite è di lunghezza 0, ovvero è vuota, la funzione termina restituendo al chiamante l'array vuoto. Altrimenti la funzione prosegue con le operazioni sucessive.
+        \newline
+        Alla riga 15 vengono ottenute le istanze di tutti gli indirizzi delle vendite, queste vengono memorizzate all'interno di un array chiamato \verb|salesInstances|. Successivamente viene chiamata la funzione \verb|getAllSalesAddresses()| per ogni istanza di vendita,
+        questa restituisce le informazioni della vendita che vengono salvate in alcune variabili. Tra queste informazioni sono presenti anche gli indirizzi dei token in vendita e da accettare, da questi si devono ottenere anche le informazioni sulle monete.
+        Questo viene eseguito nel blocco \verb|for| alla riga 33: su ogni indirizzo delle monete in vendita viene richiamato il metodo \verb|coinGetFullData()| che restituisce i dati della moneta passata come paramentro.
+        L'operazione precedente viene ripetuta nel \verb|for| alla riga 42 per le monete da accettare.
+        Alla riga 49 viene chiamata la funzione \verb|getPastEvents()| su un'istanza di vendita passando come parametro "\emph{SaleCompleted}". Questa funzione restituisce l'evento specificato come parametro, se esiste, altrimenti restituisce \verb|null|.
+        Alla riga 51 alla variabile \verb|buyer| viene assegnato l'indirizzo del compratore della vendita, in caso l'evento \verb|saleCompleted| esista, altrimenti ottiene il valore \verb|null|.
+        \newline
+        Alla riga 53 viene costruito l'oggetto \verb|saleData| contenente tutte le informazioni sulla vendita e sulle monete. Infine \verb|saleData| viene inserito nell'array \verb|salesList| e quest'ultimo viene restituito al chiamante.
+        \newline
+        In caso di errore nel blocco \verb|try|, la funzione restituisce una lista vuota.
+
+        \subsubsection{saleAccept}
+        \begin{lstlisting}[style=ES6, title={Funzione saleAccept}]
+export const saleAccept = async (web3, accountAddress, saleAddress, coinsToAccept) => {
+  try {
+    for(let coin of coinsToAccept) {
+      const {address: coinAddress, symbol, amount} = coin;
+
+      const tokenInstance = new web3.eth.Contract(
+        SMART_CONTRACTS.TKN_TMPLT_ABI,
+        coinAddress,
+      );
+
+      await tokenInstance.methods.approve(saleAddress, amount).send({from: accountAddress, gasPrice: '0'});
+    }
+
+    const saleInstance = new web3.eth.Contract(
+      SMART_CONTRACTS.SALE_TMPLT_ABI,
+      saleAddress,
+    );
+    const res = await saleInstance.methods.acceptSale().send({from: accountAddress, gasPrice: '0'});
+    return true;
+  } catch(error) {
+    for(let i = 0; i < coinsToAccept.length; i++) {
+      const coinInstance = new web3.eth.Contract(
+        SMART_CONTRACTS.TKN_TMPLT_ABI,
+        coinsToAccept[i],
+      );
+
+      await coinInstance.methods.approve(saleAddress, 0).send({from: accountAddress, gasPrice: "0"});
+    }
+    return false;
+  }
+}\end{lstlisting}
+        La funzione \verb|saleAccept| permette di accettare una vendita. Prende come parametri l'istanza di \verb|web3|, l'indirizzo del compratore, l'indirizzo della vendita e la lista delle monete accettate come pagamento per la vendita.
+        \newline
+        Per ogni moneta della lista passata come parametro vengono estratte le informazione di indirizzo della moneta, il simbolo della moneta e la quantità della moneta necessaria per accettare la vendita.
+        Viene, poi, ottenuta l'istanza del token e viene chiamata la funzione \verb|approve| sull'istanza, passando come parametri l'indirizzo della vendita e la quantità della moneta. In questo modo il contratto della vendita ottiene il permesso
+        di spendere la quantità di quella moneta.
+        \newline
+        Successivamente si ottiene l'istanza della vendita e su questa viene chiamato il metodo \verb|acceptSale()| che conclude l'accettamento della vendita. Viene, quindi, resituito il valore \verb|true| al chiamante.
+        In caso di fallimento viene restituito, invece, \verb|false| e viene fatto il reset della \emph{allowance} del contratto della vendita a 0 per tutte le monete passate in input.
+
+        \subsubsection{saleCancel}
+        \begin{lstlisting}[style=ES6, title={Funzione saleCancel}]
+export const saleCancel = async (web3, accountAddress, saleAddress) => {
+try {
+    const saleInstance = new web3.eth.Contract(
+      SMART_CONTRACTS.SALE_TMPLT_ABI,
+      saleAddress,
+    );
+
+    const res = await saleInstance.methods.cancelSale().send({from: accountAddress, gasPrice: '0'});
+    return true;
+  } catch(error) {
+    return false;
+  }
+}\end{lstlisting}
+        La funzione \verb|saleCancel| permette di cancellare una vendita. Prende in input l'istanza di \verb|web3|, l'indirizzo del proprietario della vendita e l'indirizzo della vendita da cancellare.
+        Inizialmente viene ottenuta l'istanza della vendita e, successivamente, su di essa viene richiamata la funzione \verb|cancelSale()|. In caso di successo viene restituito \verb|true| altrimenti \verb|false|.
+
+        \subsubsection{saleCancelBatch}
+        \begin{lstlisting}[style=ES6, title={Funzione saleCancelBatch}]
+export const saleCancelBatch = async (web3, accountAddress, saleAddresses) => {
+  try {
+    const SaleFactoryInstance = new web3.eth.Contract(
+      SMART_CONTRACTS.SALE_FCTRY_ABI,
+      SMART_CONTRACTS.SALE_FCTRY_ADDR,
+    );
+
+    const res = await SaleFactoryInstance.methods.cancelBatchSales(saleAddresses).send({from: accountAddress, gasPrice: '0'});
+    return true;
+  } catch(error) {
+    return false;
+  }
+}\end{lstlisting}
+        La funzione \verb|saleCancel| permette di cancellare multiple vendite. Prende in input l'istanza di \verb|web3|, l'indirizzo del proprieario delle vendite e la lista degli indirizzi delle vendite da cancellare.
+        \newline
+        Viene ottenuta l'istanza di \verb|saleFactory| e su questa viene richiamato il metodo \verb|cancelBatchSales| passando la lista delle vendite. In caso di successo viene restituito \verb|true|, altrimenti \verb|false|.
+
         \subsection{Create Sale}
         Il processo di creazione di una vendita è diviso in tre step.
         \begin{itemize}
-          \item Nel primo step l'utente sceglie i token in suo \verb||\verb||sesso da mettere in vendita;
+          \item Nel primo step l'utente sceglie i token in suo possesso da mettere in vendita;
           \item Nel secondo step l'utente sceglie i token che accetta come pagamento per la vendita dei token scelti nel primo step;
           \item Nel terzo step viene mostrato all'utente un riassunto delle scelte fatte nei due step precedenti. In questo passo, inoltre, l'utente può
                 impostare una data di scadenza della vendita.

@@ -191,7 +191,7 @@
       \endverb
       \keyw{blockchain,ethereum,solidity}
     \endentry
-    \entry{soliditysend}{online}{}
+    \entry{soliditycall}{online}{}
       \name{author}{1}{}{%
         {{hash=9a86868fb083033462a7454b56770a3e}{%
            family={Ethereum.org},
@@ -204,6 +204,32 @@
       \strng{authornamehash}{9a86868fb083033462a7454b56770a3e}
       \strng{authorfullhash}{9a86868fb083033462a7454b56770a3e}
       \field{extraname}{4}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Ethereum Docs - web3.eth.Contract - methods.myMethod.call}
+      \verb{urlraw}
+      \verb https://web3js.readthedocs.io/en/v1.2.11/web3-eth-contract.html#methods-mymethod-call
+      \endverb
+      \verb{url}
+      \verb https://web3js.readthedocs.io/en/v1.2.11/web3-eth-contract.html#methods-mymethod-call
+      \endverb
+      \keyw{blockchain,ethereum,solidity}
+    \endentry
+    \entry{soliditysend}{online}{}
+      \name{author}{1}{}{%
+        {{hash=9a86868fb083033462a7454b56770a3e}{%
+           family={Ethereum.org},
+           familyi={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{9a86868fb083033462a7454b56770a3e}
+      \strng{fullhash}{9a86868fb083033462a7454b56770a3e}
+      \strng{bibnamehash}{9a86868fb083033462a7454b56770a3e}
+      \strng{authorbibnamehash}{9a86868fb083033462a7454b56770a3e}
+      \strng{authornamehash}{9a86868fb083033462a7454b56770a3e}
+      \strng{authorfullhash}{9a86868fb083033462a7454b56770a3e}
+      \field{extraname}{5}
       \field{sortinit}{E}
       \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
       \field{labelnamesource}{author}
@@ -229,7 +255,7 @@
       \strng{authorbibnamehash}{9a86868fb083033462a7454b56770a3e}
       \strng{authornamehash}{9a86868fb083033462a7454b56770a3e}
       \strng{authorfullhash}{9a86868fb083033462a7454b56770a3e}
-      \field{extraname}{5}
+      \field{extraname}{6}
       \field{sortinit}{E}
       \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
       \field{labelnamesource}{author}

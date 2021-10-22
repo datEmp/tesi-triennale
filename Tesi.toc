@@ -58,12 +58,20 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.1.1}saleCreate}{23}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.2}Create Sale}{26}{}%
+\contentsline {subsubsection}{\numberline {3.1.2}saleGetAll}{26}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.2.1}Caricamento della pagina}{27}{}%
+\contentsline {subsubsection}{\numberline {3.1.3}saleAccept}{31}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.2.2}Box di ricerca}{29}{}%
+\contentsline {subsubsection}{\numberline {3.1.4}saleCancel}{33}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.2.3}Step 1: scelta dei token da vendere}{31}{}%
+\contentsline {subsubsection}{\numberline {3.1.5}saleCancelBatch}{34}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\numberline {3.2.3.1}Caricamento della pagina}{31}{}%
+\contentsline {subsection}{\numberline {3.2}Create Sale}{35}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {3.2.1}Caricamento della pagina}{36}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {3.2.2}Box di ricerca}{38}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {3.2.3}Step 1: scelta dei token da vendere}{39}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{\numberline {3.2.3.1}Caricamento della pagina}{40}{}%

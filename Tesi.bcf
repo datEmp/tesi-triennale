@@ -2361,6 +2361,7 @@
     <bcf:citekey order="15">truffle</bcf:citekey>
     <bcf:citekey order="16">truffleframeworks</bcf:citekey>
     <bcf:citekey order="17">soliditysend</bcf:citekey>
+    <bcf:citekey order="18">soliditycall</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">
