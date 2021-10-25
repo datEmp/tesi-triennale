@@ -452,6 +452,34 @@
       \endverb
       \keyw{truffle,ganache,blockchain}
     \endentry
+    \entry{trufflechain}{online}{}
+      \name{author}{1}{}{%
+        {{hash=362fbf4a75b83d74e03554cb9ba81532}{%
+           family={suite},
+           familyi={s\bibinitperiod},
+           given={Truffle},
+           giveni={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{362fbf4a75b83d74e03554cb9ba81532}
+      \strng{fullhash}{362fbf4a75b83d74e03554cb9ba81532}
+      \strng{bibnamehash}{362fbf4a75b83d74e03554cb9ba81532}
+      \strng{authorbibnamehash}{362fbf4a75b83d74e03554cb9ba81532}
+      \strng{authornamehash}{362fbf4a75b83d74e03554cb9ba81532}
+      \strng{authorfullhash}{362fbf4a75b83d74e03554cb9ba81532}
+      \field{extraname}{3}
+      \field{sortinit}{s}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Truffle suite docs - Truffle Teams - Connecting to a sandbox}
+      \verb{urlraw}
+      \verb https://www.trufflesuite.com/docs/teams/contract-manager/connecting-to-a-sandbox
+      \endverb
+      \verb{url}
+      \verb https://www.trufflesuite.com/docs/teams/contract-manager/connecting-to-a-sandbox
+      \endverb
+      \keyw{truffle,ganache}
+    \endentry
     \entry{blockchain1}{online}{}
       \name{author}{1}{}{%
         {{hash=4ad1f320d8e96257e65ed2bcc46f9649}{%

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2021.9.18)  21 OCT 2021 19:56
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2021.9.18)  22 OCT 2021 18:55
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -558,76 +558,76 @@ Overfull \hbox (8.76407pt too wide) in paragraph at lines 199--202
 LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 289.
  (/usr/share/texmf-dist/tex/latex/base/ts1cmtt.fd
 File: ts1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
-) [13] [14] [15] [16] [17] [18] [19] [20] [21] [22] [23] [24] [25] [26] [27] [28] [29] [30] [31] [32] [33] [34]
-<./images//commonComponents.png, id=121, 788.9475pt x 194.97844pt>
+) [13] [14] [15] [16] [17] [18] [19] [20] [21] [22] [23] [24] [25] [26] [27] [28] [29] [30] [31] [32] [33] [34] [35]
+<./images//commonComponents.png, id=124, 788.9475pt x 194.97844pt>
 File: ./images//commonComponents.png Graphic file (type png)
 <use ./images//commonComponents.png>
-Package pdftex.def Info: ./images//commonComponents.png  used on input line 705.
+Package pdftex.def Info: ./images//commonComponents.png  used on input line 715.
 (pdftex.def)             Requested size: 390.0pt x 96.38222pt.
- [35 </home/shaohao/Projects/tesi/Tesi/./images//commonComponents.png (PNG copy)>] [36] [37] [38]
-<./images//coinsToSell.png, id=135, 1047.915pt x 498.86375pt>
+ [36 </home/shaohao/Projects/tesi/Tesi/./images//commonComponents.png (PNG copy)>] [37] [38] [39]
+<./images//coinsToSell.png, id=138, 1047.915pt x 498.86375pt>
 File: ./images//coinsToSell.png Graphic file (type png)
 <use ./images//coinsToSell.png>
-Package pdftex.def Info: ./images//coinsToSell.png  used on input line 782.
+Package pdftex.def Info: ./images//coinsToSell.png  used on input line 792.
 (pdftex.def)             Requested size: 390.0pt x 185.65761pt.
- [39 </home/shaohao/Projects/tesi/Tesi/./images//coinsToSell.png>] [40]
-Overfull \hbox (44.77728pt too wide) in paragraph at lines 797--797
+ [40 </home/shaohao/Projects/tesi/Tesi/./images//coinsToSell.png>] [41]
+Overfull \hbox (44.77728pt too wide) in paragraph at lines 807--807
 []\OT1/cmr/m/n/12 Andrew Car-roll. \OT1/cmr/m/it/12 The art world needs bloc-k-chain\OT1/cmr/m/n/12 . \OT1/cmr/m/sc/12 url\OT1/cmr/m/n/12 : $\OT1/cmtt/m/n/12 https : / / irishtechnews .
  []
 
 
-Overfull \hbox (22.6021pt too wide) in paragraph at lines 797--797
+Overfull \hbox (22.6021pt too wide) in paragraph at lines 807--807
 []\OT1/cmr/m/n/12 Ethereum.org. \OT1/cmr/m/it/12 Ethe-reum Docs - Ty-pes\OT1/cmr/m/n/12 . \OT1/cmr/m/sc/12 url\OT1/cmr/m/n/12 : $\OT1/cmtt/m/n/12 https : / / docs . soliditylang .
  []
 
 
-Overfull \hbox (3.10277pt too wide) in paragraph at lines 797--797
+Overfull \hbox (3.10277pt too wide) in paragraph at lines 807--807
 \OT1/cmtt/m/n/12 docs . soliditylang . org / en / v0 . 4 . 24 / contracts . html # visibility -[]
  []
 
 
-Overfull \hbox (24.07904pt too wide) in paragraph at lines 797--797
+Overfull \hbox (24.07904pt too wide) in paragraph at lines 807--807
 []\OT1/cmr/m/n/12 Ethereum.org. \OT1/cmr/m/it/12 Ethe-reum Docs - web3.eth.Contract - me-thods.myMethod.call\OT1/cmr/m/n/12 .
  []
 
 
-Overfull \hbox (29.47913pt too wide) in paragraph at lines 797--797
+Overfull \hbox (29.47913pt too wide) in paragraph at lines 807--807
 []\OT1/cmr/m/n/12 Ethereum.org. \OT1/cmr/m/it/12 Ethe-reum Docs - web3.eth.Contract - me-thods.myMethod.send\OT1/cmr/m/n/12 .
  []
 
 
-Overfull \hbox (0.51854pt too wide) in paragraph at lines 797--797
+Overfull \hbox (0.51854pt too wide) in paragraph at lines 807--807
 []\OT1/cmr/m/n/12 Metamask. \OT1/cmr/m/it/12 Me-ta-ma-sk docs\OT1/cmr/m/n/12 . \OT1/cmr/m/sc/12 url\OT1/cmr/m/n/12 : $\OT1/cmtt/m/n/12 https : / / docs . metamask . io / guide/$\OT1/cmr/m/n/12 . 
  []
 
-[41]
-Overfull \hbox (6.6577pt too wide) in paragraph at lines 797--797
+[42]
+Overfull \hbox (6.6577pt too wide) in paragraph at lines 807--807
 []\OT1/cmr/m/n/12 Mui-org. \OT1/cmr/m/it/12 Material-UI docs\OT1/cmr/m/n/12 . \OT1/cmr/m/sc/12 url\OT1/cmr/m/n/12 : $\OT1/cmtt/m/n/12 https : / / v4 . mui . com / customization /
  []
 
 
-Overfull \hbox (2.62685pt too wide) in paragraph at lines 797--797
+Overfull \hbox (2.62685pt too wide) in paragraph at lines 807--807
 []\OT1/cmr/m/n/12 OpenZeppelin. \OT1/cmr/m/it/12 Open-Zep-pe-lin docs\OT1/cmr/m/n/12 . \OT1/cmr/m/sc/12 url\OT1/cmr/m/n/12 : $\OT1/cmtt/m/n/12 https : / / docs . openzeppelin .
  []
 
-[42] (/home/shaohao/Projects/tesi/Tesi/Tesi.aux)
+[43] (/home/shaohao/Projects/tesi/Tesi/Tesi.aux)
 Package logreq Info: Writing requests to 'Tesi.run.xml'.
 \openout1 = `Tesi.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 13580 strings out of 478994
- 236529 string characters out of 5864751
- 1229936 words of memory out of 5000000
- 30912 multiletter control sequences out of 15000+600000
+ 13583 strings out of 478994
+ 236626 string characters out of 5864751
+ 1230989 words of memory out of 5000000
+ 30915 multiletter control sequences out of 15000+600000
  409135 words of font info for 46 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  73i,7n,74p,770b,1883s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on /home/shaohao/Projects/tesi/Tesi/Tesi.pdf (42 pages, 258593 bytes).
+Output written on /home/shaohao/Projects/tesi/Tesi/Tesi.pdf (43 pages, 262267 bytes).
 PDF statistics:
- 191 PDF objects out of 1000 (max. 8388607)
- 130 compressed objects within 2 object streams
+ 195 PDF objects out of 1000 (max. 8388607)
+ 133 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  16 words of extra memory for PDF output out of 10000 (max. 10000000)
 

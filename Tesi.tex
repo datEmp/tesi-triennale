@@ -449,6 +449,16 @@
         La prima è chiamata \emph{Create Sale} e, scegliendo i token da vendere e quelli da accettare, permette
         la creazione di una vendita. La seconda è chiamata \emph{Sales List} e permette di visualizzare la lista di tutte le vendite, sia quelle in corso
         che quelle terminate.
+
+        \subsection{Azioni preliminari}
+        Prima di iniziare la fase d'implementazione dell'interfaccia grafica, è necessario impostare correttamente \emph{Metamask} e cambiare i parametri del file di configurazione \verb|config.js| della web app presente nella cartella \verb|src/config|.
+        \subsubsection{Impostazione di Metamask}
+        È necessario impostare correttamente \emph{Metamask} per permettere la corretta connessione con la \emph{blockchain} di test utilizzato nella fase precedente.
+        Per far questo si prende l'informazione di \verb|RPC SERVER| da Ganache. Successivamente è necessario creare una nuova rete su \emph{Metamask}. Per far ciò, si entra nelle impostazioni delle reti dell'estensione del browser, si seleziona la voce "\emph{Aggiungi Reti}".
+        Nella pagina successiva, alla voce "\emph{Nuovo URL RPC}" si inserisce l'indirizzo \verb|RPC SERVER| dato da Ganache, invece alla voce "\emph{Chain ID}" si inserisce il numero 1337, come descritto dalla documentazion di \emph{Truffle}\cite{trufflechain}.
+        Terminata questa operazione è possibile connettersi alla nuova rete collegata, ma è ancora necessario importare almeno un account fornito da \emph{Ganache}. Quindi, dalla pagina "\emph{I miei account}" di \emph{Metamask} si seleziona la voce "\emph{Importa account}".
+        Alla voce "\emph{Incolla la tua chiave privata qui:}", si inserisce la chiave privata di un account di \emph{Ganache}. Per trovare questa chiave è necessario, dalla pagina principale di \emph{Ganache}, selezionare il simbolo di chiave associato a un account, nella finestra che si apre è presente la chiave privata alla voce "\verb|private key|".
+
         \subsection{File sale.js}
         All'interno della directory \verb|src/APIs/| è stato creato un file chiamato \verb|sale.js|, lo scopo di questo file è quello di contenere tutti i metodi che effettuano le chiamate alle funzioni degli smart contracts
         relative alla vendita di token. Per far questo il file importa l'oggetto \verb|SMART_CONTRACTS| da \verb|config.js|.
