@@ -15,6 +15,11 @@
 \usepackage{csquotes}
 \usepackage{biblatex}
 \usepackage{spverbatim}
+\usepackage{dirtree}
+\usepackage{dirtree}
+\usepackage{etoolbox}
+\apptocmd{\dirtree}{\bigskip}{}{}
+\pretocmd{\dirtree}{\bigskip}{}{}
 \definecolor{purple}{RGB}{91, 72, 181}
 \definecolor{darkviolet}{rgb}{0.58, 0.0, 0.83}
 \definecolor{royalblue}{RGB}{242, 73, 214}
@@ -383,6 +388,7 @@
           \item \verb|truffle-config.js|: il file di configurazione di Truffle.
         \end{itemize}
         \subsubsection{Compilazione degli smart contracts}
+        \label{trufflecompile}
         Lanciando il comando \verb|truffle compile| nel progetto vengono compilati tutti gli smart contracts, ossia tutti file con estensione \verb|.sol|, presenti all'interno della cartella \verb|contracts/|.
         Questa operazione genera una nuova directory \verb|build/contracts| contenente un file \verb|.json| per ogni smart contract compilato. Questi file servono per il corretto funzionamento di Truffle quindi la modifica di essi è sconsigliata.
         Inoltre, contengono le ABI\footnote{Application Binary Interface} degli smart contracts, ossia delle interfacce che stanno tra un programma utente e la blockchain Ethereum. Queste sono necessarie perché gli smart contracts, di cui sono stati fatti il deploy, sono sotto forma
@@ -449,6 +455,32 @@
         La prima è chiamata \emph{Create Sale} e, scegliendo i token da vendere e quelli da accettare, permette
         la creazione di una vendita. La seconda è chiamata \emph{Sales List} e permette di visualizzare la lista di tutte le vendite, sia quelle in corso
         che quelle terminate.
+        \newline
+        Per implementare l'interfaccia si è utilizzato un progetto 
+
+        \subsection{Struttura dell'applicazione web}
+        \dirtree{%
+          .1 Commmonshood-frontend/.
+          .2 src/.
+          .3 APIs/.
+          .4 coin.js.
+          .3 assets/.
+          .3 components/.
+          .3 config/.
+          .4 config.js.
+          .3 theme/.
+          .4 theme.js.
+        }
+        Questo albero rappresenta la struttura del progetto che implementa l'interfaccia grafica. La cartella \verb|APIs/| contiene i file che implementano i metodi per comunicare con la blockchain.
+        Inizialmente è presente il solo file \verb|coin.js|, ossia il file che contiene le funzioni che gestiscono i token.
+        \newline
+        \verb|assets/| contiene le immmagini utilizzate dall'applicazione.
+        \newline
+        \verb|components/| contiene tutti i componenti \emph{ReactJS} creati e utilizzati nelle pagine dell'applicazione.
+        \newline
+        \verb|config/| è una cartella che contiene il file \verb|config.js|. Quest'ultimo è un file di configurazione che contiene i parametri di \emph{Ganache} per comunicare con la blockchain e gli indirizzi e le ABI degli smart contracts utilizzati.
+        \newline
+        \verb|theme/| contiene il file \verb|theme.js| che definisce lo schema dei colori utilizzati dall'app.
 
         \subsection{Azioni preliminari}
         Prima di iniziare la fase d'implementazione dell'interfaccia grafica, è necessario impostare correttamente \emph{Metamask} e cambiare i parametri del file di configurazione \verb|config.js| della web app presente nella cartella \verb|src/config|.
@@ -458,9 +490,20 @@
         Nella pagina successiva, alla voce "\emph{Nuovo URL RPC}" si inserisce l'indirizzo \verb|RPC SERVER| dato da Ganache, invece alla voce "\emph{Chain ID}" si inserisce il numero 1337, come descritto dalla documentazion di \emph{Truffle}\cite{trufflechain}.
         Terminata questa operazione è possibile connettersi alla nuova rete collegata, ma è ancora necessario importare almeno un account fornito da \emph{Ganache}. Quindi, dalla pagina "\emph{I miei account}" di \emph{Metamask} si seleziona la voce "\emph{Importa account}".
         Alla voce "\emph{Incolla la tua chiave privata qui:}", si inserisce la chiave privata di un account di \emph{Ganache}. Per trovare questa chiave è necessario, dalla pagina principale di \emph{Ganache}, selezionare il simbolo di chiave associato a un account, nella finestra che si apre è presente la chiave privata alla voce "\verb|private key|".
+        \subsubsection{Impostazione del file di configurazione}
+        Per configurare correttamente il file \verb|config.js|, si modificano le variabili \verb|ETH_POA_NETWORK_ID| e \verb|RPC_ENDPOINT| con le informazioni di "\emph{Network ID}" e "\emph{RPC Server}" di \emph{Ganache}.
+        Inoltre, all'oggetto \verb|SMART_CONTRACTS| si aggiungono tre nuove voci:
+        \begin{itemize}
+          \item \verb|SALE_FCTRY_ADDR|: contiene l'indirizzo del contratto di \verb|saleFactory|;
+          \item \verb|SALE_FCTRY_ABI|: contiene l'ABI di \verb|saleFactory|;
+          \item \verb|SALE_TMPLT_ABI|: contiene l'ABI di \verb|saleTemplate|.
+        \end{itemize}
+        L'informazione dell'indirizzo si prende da Ganache nella sezione "\emph{Contracts}". Le ABI, invece, si prendono dall'output del comando \verb|truffle compile|, come descritto in \ref{trufflecompile}.
+        \newline
+        Infine, si deve cambiare anche il valore di \verb|TKN_FCTRY_ADDR| con l'indirizzo di \verb|tokenFactory|, preso, sempre, da \emph{Ganache}.
 
         \subsection{File sale.js}
-        All'interno della directory \verb|src/APIs/| è stato creato un file chiamato \verb|sale.js|, lo scopo di questo file è quello di contenere tutti i metodi che effettuano le chiamate alle funzioni degli smart contracts
+        All'interno della directory \verb|src/APIs/| è stato creato un file chiamato \verb|sale.js|. Lo scopo di questo file è quello di contenere tutti i metodi che effettuano le chiamate alle funzioni degli smart contracts
         relative alla vendita di token. Per far questo il file importa l'oggetto \verb|SMART_CONTRACTS| da \verb|config.js|.
         \subsubsection{saleCreate}
         \begin{lstlisting}[style=ES6, title={Funzione saleCreate()}]
@@ -792,16 +835,46 @@ export const saleCancelBatch = async (web3, accountAddress, saleAddresses) => {
           \includegraphics[width=\textwidth]{coinsToSell.png}
           \caption{Pagina per la scelta dei token in vendita}
           \centering
-          \label{fig:resume}
+          \label{fig:selectCoinsToSell}
         \end{figure}
-        La pagina contiene una lista, creata usando il componente \verb|<List>|, ed una barra di ricerca, creata usando il componente \verb|<TextField>|.
+        La pagina, visibile in figura \ref{fig:selectCoinsToSell}, contiene un componente custom chiamato \verb|SelectCoins|, questo ha come props l'array \verb|activeCoinsList| e genera, usando il componente \verb|<List>|, una lista contenente tutte le monete della lista.
         \newline
-        Ogni elemento della lista contiene le informazioni di un token posseduto dall'utente e un componente
+        Ogni elemento della lista contiene le informazioni di un token all'interno di \verb|activeCoinsList| e un componente
         \verb|<TextField>|, quest'ultimo permette l'inserimento della quantità desiderata del token da mettere in vendita.
-        Gli eventi a cui la pagina reagisce possono essere divisi in tre categorie: caricamento della pagina, inserimento di quantità dei token e
-        inserimento di testo nella barra di ricerca.
-        \paragraph{Caricamento della pagina}
-        Al caricamento della pagina vengono istanziate diverse variabili che gestiscono lo stato della stessa.
+        \paragraph{Inserimento di una quantità di una moneta}
+        \begin{lstlisting}[style=ES6, title={Funzione handleAmountChange}]
+const handleAmountChange = (coin, amount) => {
+  const isInputEmpty = amount.length === 0;
+  amount = parseInt(amount);
+
+  if(isInputEmpty || amount === 0) {
+    const newMap = new Map(coinsToSellAmounts);
+    newMap.delete(coin);
+    setCoinsToSellAmounts(newMap);
+  } else {
+    setCoinsToSellAmounts(prev => new Map(prev.set(coin, amount)));
+  }
+
+  if(amount > coin.balance) {
+    setErrorsAmounts(prev => new Set(prev.add(coin)));
+  } else {
+    const newSet = new Set(errorsAmounts);
+    newSet.delete(coin);
+    setErrorsAmounts(newSet);
+  }
+}\end{lstlisting}
+        All'inserimento della quantità di una moneta viene richiamata la funzione \verb|handleAmountChange(coin, amount)| passando, come paramentri, la moneta interessata e la quantità inserita.
+        \newline
+        La funzione inizia assegnando alla variabile \verb|isInputEmpty| il valore \verb|true| in caso il parametro \verb|amount| sia una stringa vuota, \verb|false| altrimenti. Inoltre, siccome \verb|amount| è una stringa, converte questo in un valore intero.
+        \newline
+        Successivamente, in caso \verb|isInputEmpty| sia \verb|true| oppure \verb|amount| sia 0, viene eliminato da \verb|coinsToSellAmounts| la voce con chiave di ricerca \verb|coin|. Altrimenti inserisce, sempre in \verb|coinsToSellAmounts|, una voce con chiave \verb|coin| e valore \verb|amount|.
+        In questo modo \verb|coinsToSellAmounts| contiene sempre le monete e le quantità associate inserite dall'utente.
+        \newline
+        La funzione, inoltre, controlla che la quantità inserita non ecceda la quantità posseduta dall'utente, ossia confronta \verb|amount| e il parametro \verb|balance| all'interno di \verb|coin|.
+        \newline
+        Nel caso di \verb|amount| maggiore di \verb|coin.balance|, cioè l'utente non possiede la quantità inserita, viene aggiunto a \verb|errorsAmounts| il valore l'oggetto \verb|coin|.
+        Nel caso opposto viene eliminato \verb|coin| da \verb|errorsAmounts|.
+        \paragraph{Quantità errata}
         \newpage
         \printbibliography
 \end{document}

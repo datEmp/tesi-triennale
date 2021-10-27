@@ -54,28 +54,34 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {3}Implementazione dell'interfaccia grafica}{23}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.1}Azioni preliminari}{23}{}%
+\contentsline {subsection}{\numberline {3.1}Struttura dell'applicazione web}{23}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.1.1}Impostazione di Metamask}{23}{}%
+\contentsline {subsection}{\numberline {3.2}Azioni preliminari}{24}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.2}File sale.js}{24}{}%
+\contentsline {subsubsection}{\numberline {3.2.1}Impostazione di Metamask}{24}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.2.1}saleCreate}{24}{}%
+\contentsline {subsubsection}{\numberline {3.2.2}Impostazione del file di configurazione}{25}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.2.2}saleGetAll}{27}{}%
+\contentsline {subsection}{\numberline {3.3}File sale.js}{25}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.2.3}saleAccept}{31}{}%
+\contentsline {subsubsection}{\numberline {3.3.1}saleCreate}{25}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.2.4}saleCancel}{34}{}%
+\contentsline {subsubsection}{\numberline {3.3.2}saleGetAll}{29}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.2.5}saleCancelBatch}{35}{}%
+\contentsline {subsubsection}{\numberline {3.3.3}saleAccept}{33}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.3}Create Sale}{36}{}%
+\contentsline {subsubsection}{\numberline {3.3.4}saleCancel}{35}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.3.1}Caricamento della pagina}{37}{}%
+\contentsline {subsubsection}{\numberline {3.3.5}saleCancelBatch}{36}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.3.2}Box di ricerca}{38}{}%
+\contentsline {subsection}{\numberline {3.4}Create Sale}{37}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.3.3}Step 1: scelta dei token da vendere}{40}{}%
+\contentsline {subsubsection}{\numberline {3.4.1}Caricamento della pagina}{38}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\numberline {3.3.3.1}Caricamento della pagina}{41}{}%
+\contentsline {subsubsection}{\numberline {3.4.2}Box di ricerca}{40}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {3.4.3}Step 1: scelta dei token da vendere}{41}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{\numberline {3.4.3.1}Inserimento di una quantità di una moneta}{42}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{\numberline {3.4.3.2}Quantità errata}{44}{}%
