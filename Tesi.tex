@@ -766,7 +766,7 @@ export const saleCancelBatch = async (web3, accountAddress, saleAddresses) => {
         Al di sotto, al punto 2, sono presenti due pulsanti per la navigazione nei vari step. Il primo permette di tornare allo step 1 azzerando tutti i parametri inseriti.
         Il secondo serve per avanzare allo step successivo.
         \newline
-        Al punto 3 è presente un campo di inserimento per cercare una moneta in particolare.
+        Al punto 3 è presente un campo di inserimento per cercare una moneta in particolare. Questo componente è presente solo nel primo e secondo step
         \subsubsection{Caricamento della pagina}
         Al caricamento della pagina vengono inizializzate alcune variabili, tra cui le più significative sono le seguenti:
         \begin{lstlisting}[style=ES6, title={Inizializzazione delle variabili al caricamento della pagina Create Sale}]
@@ -831,7 +831,7 @@ export const saleCancelBatch = async (web3, accountAddress, saleAddresses) => {
         perciò, la funzione \verb|setActiveCoinsList()|. In questo modo verranno mostrate a video le monete filtrate. 
 
         \subsubsection{Step 1: scelta dei token da vendere}
-        \begin{figure}[ht]
+        \begin{figure}[H]
           \includegraphics[width=\textwidth]{coinsToSell.png}
           \caption{Pagina per la scelta dei token in vendita}
           \centering
@@ -842,6 +842,7 @@ export const saleCancelBatch = async (web3, accountAddress, saleAddresses) => {
         Ogni elemento della lista contiene le informazioni di un token all'interno di \verb|activeCoinsList| e un componente
         \verb|<TokenListItem>| contenente un componente \verb|<TextField>|. Quest'ultimo permette l'inserimento della quantità desiderata del token da mettere in vendita.
         \paragraph{Inserimento di una quantità di una moneta}
+        \label{insertCoinsToSell}
         \begin{lstlisting}[style=ES6, title={Funzione handleAmountChange}]
 const handleAmountChange = (coin, amount) => {
   const isInputEmpty = amount.length === 0;
@@ -876,6 +877,7 @@ const handleAmountChange = (coin, amount) => {
         Nel caso opposto viene eliminato \verb|coin| da \verb|errorsAmounts|. \verb|errorsAmounts| viene poi utilizzato, in caso di errore nell'inserimento di una quantità, per disabilitare il bottone per passare al prossimo step.
         Per far questo basta controllare che \verb|errorsAmounts| non sia vuoto.
         \paragraph{Quantità errata}
+        \label{quantityerror}
         \begin{figure}[ht]
           \includegraphics[scale=0.5]{errorMessage.png}
           \centering
@@ -927,6 +929,14 @@ setActiveCoinsList(newCoinsList);\end{lstlisting}
         Questo codice genera un array \verb|newCoinsList| contenente tutte le monete tranne quelle che l'utente ha selezionato di vendere al passo 1. Questo array viene, quindi, assegnato a \verb|coinsList| e \verb|activeCoinsList|.
 
         \subsubsection{Step 2: scelta dei token da accettare}
+        Il processo di scelta dei token da accettare come pagamento è molto simile a quello della scelta dei token da vendere del primo step. La principale differenza è l'array \verb|activeCoinsList| passato a \verb|SelectCoins|.
+        Questo, infatti, nel passo 2 non contiene solo le monete possedute dall'utente, ma contiene tutte le monete tranne quelle che l'utente ha selezionato nello step 1.
+        \newline
+        Inoltre non è più necessario controllare la quantità inserita perché non c'è la restrizione del bilancio dell'utente, perciò il sistema descritto in \ref{quantityerror} non è applicato in questo step.
+        Naturalmente la funzione \verb|handleAmountChange()|, richiamata ad ogni inserimento/modifica di una quantità, non modifica più \verb|coinsToSellAmounts|, come in \ref{insertCoinsToSell}, ma modifica \verb|coinsToAcceptAmounts|.
+
+        \subsubsection{Step 3: sommario finale}
+
         \newpage
         \printbibliography
 \end{document}

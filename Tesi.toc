@@ -89,3 +89,5 @@
 \contentsline {paragraph}{\numberline {3.4.3.3}Avanzamento al passo 2}{46}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.4.4}Step 2: scelta dei token da accettare}{47}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {3.4.5}Step 3: sommario finale}{47}{}%
