@@ -480,6 +480,31 @@
       \endverb
       \keyw{truffle,ganache}
     \endentry
+    \entry{boilerplate}{online}{}
+      \name{author}{1}{}{%
+        {{hash=369677d557b1d374e87e16bae08d762b}{%
+           family={UTBI},
+           familyi={U\bibinitperiod}}}%
+      }
+      \strng{namehash}{369677d557b1d374e87e16bae08d762b}
+      \strng{fullhash}{369677d557b1d374e87e16bae08d762b}
+      \strng{bibnamehash}{369677d557b1d374e87e16bae08d762b}
+      \strng{authorbibnamehash}{369677d557b1d374e87e16bae08d762b}
+      \strng{authornamehash}{369677d557b1d374e87e16bae08d762b}
+      \strng{authorfullhash}{369677d557b1d374e87e16bae08d762b}
+      \field{sortinit}{U}
+      \field{sortinithash}{6901a00e45705986ee5e7ca9fd39adca}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Commonshood Dapp Extension Boilerplate}
+      \verb{urlraw}
+      \verb https://gitlab.di.unito.it/utbi/commonshood-dapp-extension-boilerplate
+      \endverb
+      \verb{url}
+      \verb https://gitlab.di.unito.it/utbi/commonshood-dapp-extension-boilerplate
+      \endverb
+      \keyw{boilerplate}
+    \endentry
     \entry{blockchain1}{online}{}
       \name{author}{1}{}{%
         {{hash=4ad1f320d8e96257e65ed2bcc46f9649}{%

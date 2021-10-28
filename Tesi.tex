@@ -456,7 +456,7 @@
         la creazione di una vendita. La seconda è chiamata \emph{Sales List} e permette di visualizzare la lista di tutte le vendite, sia quelle in corso
         che quelle terminate.
         \newline
-        Per implementare l'interfaccia si è utilizzato un progetto 
+        Per implementare l'interfaccia si è utilizzato un boilerplate avente solo la funzionalità di creazione di monete\cite{boilerplate}. Da questa base, quindi, è stata sviluppata la funzionalità di vendita di monete. 
 
         \subsection{Struttura dell'applicazione web}
         \dirtree{%
@@ -840,7 +840,7 @@ export const saleCancelBatch = async (web3, accountAddress, saleAddresses) => {
         La pagina, visibile in figura \ref{fig:selectCoinsToSell}, contiene un componente custom chiamato \verb|SelectCoins|, questo ha come props l'array \verb|activeCoinsList| e genera, usando il componente \verb|<List>|, una lista contenente tutte le monete della lista.
         \newline
         Ogni elemento della lista contiene le informazioni di un token all'interno di \verb|activeCoinsList| e un componente
-        \verb|<TextField>|, quest'ultimo permette l'inserimento della quantità desiderata del token da mettere in vendita.
+        \verb|<TokenListItem>| contenente un componente \verb|<TextField>|. Quest'ultimo permette l'inserimento della quantità desiderata del token da mettere in vendita.
         \paragraph{Inserimento di una quantità di una moneta}
         \begin{lstlisting}[style=ES6, title={Funzione handleAmountChange}]
 const handleAmountChange = (coin, amount) => {
@@ -873,8 +873,60 @@ const handleAmountChange = (coin, amount) => {
         La funzione, inoltre, controlla che la quantità inserita non ecceda la quantità posseduta dall'utente, ossia confronta \verb|amount| e il parametro \verb|balance| all'interno di \verb|coin|.
         \newline
         Nel caso di \verb|amount| maggiore di \verb|coin.balance|, cioè l'utente non possiede la quantità inserita, viene aggiunto a \verb|errorsAmounts| il valore l'oggetto \verb|coin|.
-        Nel caso opposto viene eliminato \verb|coin| da \verb|errorsAmounts|.
+        Nel caso opposto viene eliminato \verb|coin| da \verb|errorsAmounts|. \verb|errorsAmounts| viene poi utilizzato, in caso di errore nell'inserimento di una quantità, per disabilitare il bottone per passare al prossimo step.
+        Per far questo basta controllare che \verb|errorsAmounts| non sia vuoto.
         \paragraph{Quantità errata}
+        \begin{figure}[ht]
+          \includegraphics[scale=0.5]{errorMessage.png}
+          \centering
+          \caption{Sopra un inserimento di quantità errata, sotto un inserimento corretto}
+          \label{fig:errorMessage}
+        \end{figure}
+        Il componente \verb|SelectCoins| ha una props chiamata \verb|showCoinError| a cui viene passato il riferimento ad una funzione chiamata \verb|showCoinError()|.
+        \begin{lstlisting}[style=ES6, title={Funzione showCoinError}]
+const showCoinError = (coin, balance) => {
+  if(activeStep === 0) 
+    if(coinsToSellAmounts.has(coin) && coinsToSellAmounts.get(coin) > balance)
+      return true;
+  return false;
+}\end{lstlisting}
+        Questa funzione prende in input due parametri: \verb|coin|, ossia una moneta, e \verb|balance|, la quantità di \verb|coin| che l'utente possiede. La funzione inizia controllando che l'attuale step sia lo 0,
+        questo perché è solo nello step iniziale che possono presentarsi errori nell'inserimento di quantità. La funzione prosegue, quindi, controllando che \verb|coinsToSellAmounts| abbia l'oggetto \verb|coin|, e che il valore associato a \verb|coin| in \verb|coinsToSellAmounts| sia superiore a \verb|balance|.
+        In questo caso vuol dire che l'utente ha inserito \verb|coin| tra le monete da vendere, ma ha inserito una quantita che non possiede, quindi la funzione restituisce \verb|true|.
+        \newline
+        Il componente \verb|<SelectCoins>| quando genera i vari \verb|<TokenListItem>| di ogni moneta, ossia i componenti che contengono i box di inserimento delle quantità, aggiunge loro una props \verb|showError| contenente la chiamata alla funzione \verb|showCoinError()|,
+        passando la moneta e il bilancio della moneta.
+        \begin{lstlisting}[style=ES6, title={Funzione showCoinError}]
+  <TokenListItem 
+  showError={props.showCoinError(coin, coin.balance)}
+  ... 
+  />
+\end{lstlisting}
+        Dove \verb|coin| è ottenuto facendo ciclo sull'array \verb|activeCoinsList|.
+        \newline
+        Ogni \verb|<TokenListItem>| ha un valore di tipo boolean all'interno della proprietà \verb|showError|. Questo viene usato per scegliere se mostrare la \verb|<TextField>| di inserimento con messaggio di errore oppure normale, come visibile in figura \ref{fig:errorMessage}.
+\begin{lstlisting}[style=ES6, title={Scelta di TextField da mostrare}]
+(props.showError) ?
+<TextField error={true} helperText={errorMessage} .../>
+:
+<TextField .../>\end{lstlisting}
+        \paragraph{Avanzamento al passo 2}
+        Cliccando sul pulsante \verb|next|, oltre a passare al passo successivo, vengono effettuate le seguenti operazioni.
+\begin{lstlisting}[style=ES6, title={Codice eseguito passando al passo 2}]
+let newCoinsList = await coinGetListAll(web3Instance, userAccount);
+const selectedCoins = Array.from(coinsToSellAmounts.keys());
+newCoinsList = newCoinsList.filter(coin => {
+    for(let c of selectedCoins) {
+        if(c.address === coin.address) return false;
+    }
+    return true;
+});
+setLoadingCoinList(false);
+setCoinsList(newCoinsList);
+setActiveCoinsList(newCoinsList);\end{lstlisting}
+        Questo codice genera un array \verb|newCoinsList| contenente tutte le monete tranne quelle che l'utente ha selezionato di vendere al passo 1. Questo array viene, quindi, assegnato a \verb|coinsList| e \verb|activeCoinsList|.
+
+        \subsubsection{Step 2: scelta dei token da accettare}
         \newpage
         \printbibliography
 \end{document}

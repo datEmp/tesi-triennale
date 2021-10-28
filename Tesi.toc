@@ -80,8 +80,12 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.4.2}Box di ricerca}{40}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.4.3}Step 1: scelta dei token da vendere}{41}{}%
+\contentsline {subsubsection}{\numberline {3.4.3}Step 1: scelta dei token da vendere}{42}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {paragraph}{\numberline {3.4.3.1}Inserimento di una quantità di una moneta}{42}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {paragraph}{\numberline {3.4.3.2}Quantità errata}{44}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{\numberline {3.4.3.3}Avanzamento al passo 2}{46}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {3.4.4}Step 2: scelta dei token da accettare}{47}{}%
