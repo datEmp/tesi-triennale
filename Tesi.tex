@@ -745,7 +745,7 @@ export const saleCancelBatch = async (web3, accountAddress, saleAddresses) => {
         \newline
         Viene ottenuta l'istanza di \verb|saleFactory| e su questa viene richiamato il metodo \verb|cancelBatchSales| passando la lista delle vendite. In caso di successo viene restituito \verb|true|, altrimenti \verb|false|.
 
-        \subsection{Create Sale}
+        \subsection{Pagina "Create Sale"}
         Il processo di creazione di una vendita è diviso in tre step.
         \begin{itemize}
           \item Nel primo step l'utente sceglie i token in suo possesso da mettere in vendita;
@@ -935,7 +935,130 @@ setActiveCoinsList(newCoinsList);\end{lstlisting}
         Inoltre non è più necessario controllare la quantità inserita perché non c'è la restrizione del bilancio dell'utente, perciò il sistema descritto in \ref{quantityerror} non è applicato in questo step.
         Naturalmente la funzione \verb|handleAmountChange()|, richiamata ad ogni inserimento/modifica di una quantità, non modifica più \verb|coinsToSellAmounts|, come in \ref{insertCoinsToSell}, ma modifica \verb|coinsToAcceptAmounts|.
 
-        \subsubsection{Step 3: sommario finale}
+        \subsubsection{Step 3: riepilogo finale}
+        \begin{figure}[H]
+          \includegraphics[width=\textwidth]{resume.png}
+          \caption{Pagina di riepilogo della creazione di una vendita}
+          \centering
+          \label{fig:resume}
+        \end{figure}
+        In questo step viene mostrato un riepilogo delle scelte fatte dall'utente nei due step precedenti. Questo sommario è implementato da un componente custom chiamato \verb|<ResumePage>| che contiene due componenti \verb|<List>|.
+        I dati delle due liste sono passate a \verb|<ResumePage>| attraverso due sue props: \verb|coinsToSell| e \verb|coinsToAccept|. Al primo viene passato \verb|coinsToSellAmounts|, al secondo viene passato \verb|coinsToAcceptAmounts|.
+        Siccome questi due sono \verb|Map|, prima di utilizzare i loro valori, \verb|<ResumePage>| deve convertirli in \verb|Array|, per fare ciò utilizza la funzione \verb|Array.from()| passando una \verb|Map|.
+        Questa funzione restituisce una lista contenente tutte le voci, quindi le coppie chiave-valore, della \verb|Map| passata.
+        \newline
+        Il componente \verb|<ResumePage>| contiene, inoltre, un selettore di data, implementato con il componente \verb|<DateTimePicker>| fornito da \emph{MaterialUI}, e un pulsante per abilitarne o disabilitarne l'inserimento.
+        La data inserita rappresenta la data di scadenza della vendita in corso di creazione, ovvero la data oltre la quale un utente non potrà più accettare la vendita. L'inserimento di una data modifica il valore della variabile di stato \verb|selectedExpirationDate| con il
+        valore della data selezionata sotto forma di "\emph{unix timestamp}", ovvero la data viene rappresentata come i numeri di secondi passati dal 1° Gennaio 1970 (UTC).
+        \paragraph{Creazione di una vendita}
+        Premendo il pulsante "\emph{Create Sale}" viene richiamata la funzione \verb|createSale()|.
+\begin{lstlisting}[style=ES6, title={Scelta di TextField da mostrare}]
+const createSale = async () => {
+  const coinsToSellAddr = [];
+  const coinsToSell = Array.from(coinsToSellAmounts.keys());
+  for(let coin of coinsToSell) coinsToSellAddr.push(coin.address);
+
+  const amountsToSell= Array.from(coinsToSellAmounts.values());
+
+  const coinsToAcceptAddr = [];
+  const coinsToAccept= Array.from(coinsToAcceptAmounts.keys());
+  for(let coin of coinsToAccept) coinsToAcceptAddr.push(coin.address);
+
+  const amountsToAccept = Array.from(coinsToAcceptAmounts.values());
+  
+  const saleAddr = await saleCreate(web3Instance, userAccount, coinsToSellAddr, amountsToSell, coinsToAcceptAddr, amountsToAccept, selectedExpirationDate);
+
+  let creationMessage = saleAddr ? "Sale created successfully" : "Sale was not created. Something went wrong...";
+              
+  handleReset();
+  
+  setAlertState({
+    result: saleAddr,
+    creationMessage,
+    open: true,
+  });
+}\end{lstlisting}
+        La funzione, come visibile dalla riga 2 alla riga 6, costruisce due array a partire dal \verb|Map| \verb|coinsToSellAmounts|: \verb|coinsToSellAddr| e \verb|amountsToSell|.
+        Il primo contiene gli indirizzi delle monete in vendita, il secondo contiene le quantità delle monete in vendita. Questa operazione viene ripetuta anche per \verb|coinsToAcceptAmounts|.
+        Una volta creati gli array, viene richiamata la funzione \verb|saleCreate| contenuta nel file \verb|sale.js|. Vengono passati come parametri l'istanza di \verb|web3|, l'indirizzo dell'utente, l'array degli indirizzi delle monete in vendita,
+        l'array delle quantità in vendita, l'array degli indirizzi delle monete da accettare, l'array delle quantità da accettare e la data di scadenza.
+        In base al risultato della chiamata viene, quindi, mostrato un messaggio di risposta. Infine viene azzerata la pagina, tornando, perciò, allo step 1.
+
+        \subsection{Pagina "Sales List"}
+        \begin{figure}[H]
+          \includegraphics[width=\textwidth]{salesList.png}
+          \caption{Pagina con la lista delle vendita}
+          \centering
+          \label{fig:salesList}
+        \end{figure}
+        Questa pagina permette di visualizzare la lista di tutte le vendite. Inoltre, consente, utilizzando i pulsanti e il selettore in cima alla pagina, di filtrare le vendite secondo diversi parametri.
+        Prima di mostrare le vendite, in caso l'utente possieda delle vendite scadute, la pagina mostra un \emph{pop-up} che elenca le monete e le loro quantità che l'utente può ottenere indietro.
+        \subsubsection{Caricamento della pagina}
+        \label{expiredSales}
+        Le variabili più significative inizializzate al caricamento della pagina sono le seguenti.
+\begin{lstlisting}[style=ES6, title={Variabili significative di "Sales List"}]
+const [hasExpiredSales, setHasExpiredSales] = useState(false);
+const [onGoingSalesList, setOnGoingSalesList] = useState([]);
+const [endedSalesList, setEndedSalesList] = useState([]);
+const [expiredSalesList, setExpiredSalesList] = useState([]);
+const [showingSalesList, setShowingSalesList] = useState([]);
+const [selectedFilter, setSelectedFilter] = useState(0);
+const [isEndedStatusSelected, setIsEndedStatusSelected] = useState(false);
+const [selectedSale, setSelectedSale] = useState();\end{lstlisting}
+        Tutte queste variabili sono variabili con stato. \verb|hasExpiredSales| è un \verb|boolean| che indica la presenza di vendite scadute possedute dall'attuale utente. Le loro funzioni sono le seguenti.
+        \newline
+        \verb|onGoingSalesList| è un array che contiene le vendite ancora in corso, mentre \verb|endedSalesList| contiene tutte le vendite terminate, sia quelle accettate che quelle cancellate, e quelle scadute.
+        Invece, \verb|expiredSalesList| contiene solo le vendite scadute.
+        \verb|showingSalesList| è l'array contenente le vendite visualizzate a video. \verb|selectedFilter| indica il filtro attuale selezionato, mentre \verb|isEndedStatusSelected| indica se si è selezionato di mostrare solo le vendite terminate.
+        \verb|selectedSale| contiene la vendita di cui mostrare le informazioni dettagliate.
+        Al caricamento della pagina viene chiamata la funzione \verb|useEffect()| che, a sua volta, richiama la funzione \verb|fetchSales()|.
+\begin{lstlisting}[style=ES6, title={Funzione fetchSales()}]
+const fetchSales = async () => {
+  setLoadingSaleList(true);
+  const onGoingSales = [];
+  const endedSales = [];
+  const expiredSales = [];
+  let ownerHasExpiredSales = false;
+  let allSalesList = await saleGetAll(web3Instance, userAccount);
+  
+  for(let sale of allSalesList) {
+    const isExpired = !sale.ended && sale.expiration !== '0' ? isAfter(new Date(), fromUnixTime(sale.expiration)) : false;
+
+    sale.ended || isExpired ? endedSales.push(sale) : onGoingSales.push(sale);
+
+    const isExpiredAndOwned = sale.owner === userAccount && isExpired;
+
+    isExpiredAndOwned && expiredSales.push(sale);
+
+    ownerHasExpiredSales = isExpiredAndOwned || ownerHasExpiredSales;
+  }
+
+  setOnGoingSalesList(onGoingSales);
+  setEndedSalesList(endedSales);
+  setExpiredSalesList(expiredSales);
+  setHasExpiredSales(ownerHasExpiredSales);
+  setShowingSalesList(onGoingSales);
+  setLoadingSaleList(false);
+}\end{lstlisting}
+        Questa funzione genera inizialmente una variabile \verb|boolean| \verb|ownerHasExpiredSales| inzializzata a false, e tre array: \verb|onGoingSales|, \verb|endedSales| e \verb|expiredSales|.
+        Viene assegnata, chiamando la funzione \verb|saleGetAll()|, alla variabile \verb|allSalesList| la lista di tutte le vendite. Per ogni vendita si controlla se è scaduta. Questa verifica, visibile alla riga 10, avviene controllando
+        che la vendita non sia terminata e che la data di scadenza sia diversa da 0 e che l'attuale data sia sucessiva alla data di scadenza. Nel caso di vendita scaduta oppure terminata, questa viene inserita in \verb|endedSales|, altrimenti
+        in \verb|onGoingSales|. Sucessivamente la funzione controlla se la vendita è scaduta ed è posseduta dall'utente, in questo caso la vendita viene inserita anche in \verb|expiredSales|. Viene poi aggioranto il valore di \verb|ownerHasExpiredSales|
+        con il risultato dell'operazione "\emph{OR}" tra il vecchio valore della variabile e ed il controllo della vendita scaduta e posseduta dall'utente. Questa variabile, infatti, avrà valore \verb|true| se l'utente possiede almeno una vendita scaduta, \verb|false| altrimenti.
+        Infine i tre array ed il valore boolean vengono assegnati alle rispettive variabili di stato.
+        \subsubsection{Pop-up delle vendite scadute}
+        \begin{figure}[H]
+          \includegraphics[scale=0.5]{expiredSales.png}
+          \centering
+          \caption{Pop-up mostrato se l'utente ha venite scadute}
+          \centering
+          \label{fig:Pop-up}
+        \end{figure}
+        Il pop-up in figura \ref{fig:Pop-up} viene visualizzato al caricamento della pagina nel caso l'utente abbia vendite scadute, ossia nel caso \verb|ownerHasExpiredSales|, il cui valore è stato calcolato in  \ref{expiredSales}, abbia valore \verb|true|.
+        Il componente custom che realizza il pop-up è \verb|<SaleExpiredDialog>|. A questo viene passato attraverso la props \verb|expiredSales| l'array \verb|expiredSalesList|. Per realizzare la finestra di dialogo, \verb|<SaleExpiredDialog>| si basa sul componente
+        \verb|<Dialog>| di \emph{Material-UI}. A quest'ultimo è stato inserito un titolo, una lista e un pulsante. Il titolo mostra all'utente il numero, ottenuto con la lunghezza dell'array passato nella props \verb|expiredSales|, di vendite scadute che possiede.
+        La lista elenca le monete e le quantità associate che l'utente può richiedere come rimborso. L'utente ottiene il rimborso premendo il pulsante "\emph{Accept}".
+        \paragraph{Calcolo del rimborso}
 
         \newpage
         \printbibliography

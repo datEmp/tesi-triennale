@@ -74,7 +74,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.3.5}saleCancelBatch}{36}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.4}Create Sale}{37}{}%
+\contentsline {subsection}{\numberline {3.4}Pagina "Create Sale"}{37}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.4.1}Caricamento della pagina}{38}{}%
 \defcounter {refsection}{0}\relax 
@@ -90,4 +90,14 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.4.4}Step 2: scelta dei token da accettare}{47}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.4.5}Step 3: sommario finale}{47}{}%
+\contentsline {subsubsection}{\numberline {3.4.5}Step 3: riepilogo finale}{48}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{\numberline {3.4.5.1}Creazione di una vendita}{49}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.5}Pagina "Sales List"}{51}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {3.5.1}Caricamento della pagina}{51}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {3.5.2}Pop-up delle vendite scadute}{55}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{\numberline {3.5.2.1}Calcolo del rimborso}{55}{}%
