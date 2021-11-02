@@ -105,3 +105,11 @@
 \contentsline {paragraph}{\numberline {3.5.2.2}Accettazione del rimborso}{58}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {3.5.3}Filtro delle vendite}{59}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {3.5.4}Rappresentazione grafica di una vendita}{62}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {3.5.5}Finestra di dialogo di una vendita}{63}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{\numberline {3.5.5.1}Eliminazione della vendita}{64}{}%
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{\numberline {3.5.5.2}Accettazione della vendita}{65}{}%

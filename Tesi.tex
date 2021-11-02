@@ -1040,7 +1040,7 @@ const fetchSales = async () => {
   setShowingSalesList(onGoingSales);
   setLoadingSaleList(false);
 }\end{lstlisting}
-        Questa funzione genera inizialmente una variabile \verb|boolean| \verb|ownerHasExpiredSales| inzializzata a false, e tre array: \verb|onGoingSales|, \verb|endedSales| e \verb|expiredSales|.
+        Questa funzione genera inizialmente una variabile \verb|ownerHasExpiredSales| di tipo \verb|boolean| inzializzata a false, e tre array: \verb|onGoingSales|, \verb|endedSales| e \verb|expiredSales|.
         Viene assegnata, chiamando la funzione \verb|saleGetAll()|, alla variabile \verb|allSalesList| la lista di tutte le vendite. Per ogni vendita si controlla se è scaduta. Questa verifica, visibile alla riga 10, avviene controllando
         che la vendita non sia terminata e che la data di scadenza sia diversa da 0 e che l'attuale data sia sucessiva alla data di scadenza. Nel caso di vendita scaduta oppure terminata, questa viene inserita in \verb|endedSales|, altrimenti
         in \verb|onGoingSales|. Sucessivamente la funzione controlla se la vendita è scaduta ed è posseduta dall'utente, in questo caso la vendita viene inserita anche in \verb|expiredSales|. Viene poi aggioranto il valore di \verb|ownerHasExpiredSales|
@@ -1159,12 +1159,75 @@ const changeShowingSales = (selectedFilter, salesStatus) => {
   }
 
   setLoadingSaleList(false);
-}
-\end{lstlisting}
+}\end{lstlisting}
         \verb|changeShowingSales()| ha due parametri: \verb|selectedFilter|, ossia il filtro selezionato, e \verb|salesStatus|, ossia lo stato delle vendite selezionato.
         In base al valore di \verb|salesStatus|, viene assegnato all'array \verb|toFilterList| la lista \verb|endedSalesList|, se si vuole visualizzare le vendite terminate, altrimenti \verb|onGoingSalesList|.
         In caso di \verb|selectedFilter| con valore 0, ossia è stato selezionato di visualizzare tutte le vendite, viene assegnato \verb|toFilterList| a \verb|showingSalesList|. Altrimenti, se ha valore 1, vengono filtrate le vendite in \verb|toFilterList|
         assegnando a \verb|setShowingSalesList| solo quelle possedute dall'utente.
+        \subsubsection{Rappresentazione grafica di una vendita}
+        \label{moreInfo}
+        \begin{figure}[H]
+          \includegraphics[scale=0.7]{sale.png}
+          \centering
+          \caption{Informazioni di base di una vendita}
+          \centering
+          \label{fig:sale}
+        \end{figure}
+        Nell'immagine \ref{fig:sale} è rappresentata l'interfaccia di una vendita della lista presente nella pagina "\emph{Sales List}". Questa presenta alcune informazioni di base della vendita.
+        Al punto 1 è illustrata un'immagine stock in tema di criptomonete. Al punto 2 è presente il nome del proprietario della vendita, questa funzionalità è ancora incompleta in quanto è prima necessaria l'integrazione con l'applicazione di CommonsHood.
+        Al punto 3 sono rappresentate, nella colonna a sinistra, le monete in vendita e, nella colonna a destra, le monete accettate come pagamento dalla vendita. Infine al punto 4 è presente un pulsante che, alla pressione, apre una finestra di dialogo in cui l'utente può interagire con la vendita.
+        \subsubsection{Finestra di dialogo di una vendita}
+        \begin{figure}[H]
+          \includegraphics[scale=0.5]{saleInfo.png}
+          \centering
+          \caption{Informazioni di base di una vendita}
+          \centering
+          \label{fig:sale}
+        \end{figure}
+        Come descritto in \ref{moreInfo}, premendo il pulsante "\emph{More Info}" di una vendita viene aperta una finestra di dialogo. Questa mostra maggiori informazioni sulla vendita. Le informazioni visualizzate sono: il nome del venditore, che, come descritto in \ref{moreInfo}, non è ancora implementato;
+        l'indirizzo della vendita, lo stato della vendita e la data di scadenza della vendita. La finestra contiene, inoltre, le liste delle monete in vendita e quelle come pagamento e le loro quantità. In fondo sono presenti due pulsanti. Il primo, colorato di rosso, permette all'utente di eliminare la vendita.
+        Questo pulsante non viene mostrato in caso la vendita non appartenga all'utente. Il secondo pulsante, colorato di verde, permette all'utente di accettare la vendita. Questo è disabilitato in caso la vendita appartenga all'utente oppure in caso l'utente non abbia abbastanza monete per il pagamento.
+        In caso la vendita sia già terminata, entrambi i pulsanti non vengono visualizzati.
+        \paragraph{Eliminazione della vendita}
+        Premendo il pulsante di eliminazione della vendita viene chiamata la funzione \verb|handleCancelSale()|.
+\begin{lstlisting}[style=ES6, title={Funzione handleCancelSale()}]
+const handleCancelSale = async () => {
+  const cancelResult = await saleCancel(web3Instance, userAccount, saleAddress);
+
+  const cancelMessage = cancelResult ? "Sale cancelled successfully" : "Sale was not cancelled. Something went wrong...";
+
+  setAlertState({
+    result: cancelResult,
+    message: cancelMessage,
+    open: true,
+  })
+
+  props.onSaleOperation();
+
+  setShouldClose(true);
+}\end{lstlisting}
+        La funzione richiama il metodo \verb|saleCancel()| passando \verb|saleAddress|, ossia l'indirizzo della vendita, come parametro. Successivamente mostra un messaggio di risposta all'utente ed infine chiude la finestra di dialogo.
+        \paragraph{Accettazione della vendita}
+        Premendo il pulsante per accettre la vendita viene chiamata la funzione \verb|handleAcceptSale()|.
+\begin{lstlisting}[style=ES6, title={Funzione handleAcceptSale()}]
+const handleAcceptSale = async () => {
+  const acceptResult = await saleAccept(web3Instance, userAccount, saleAddress, coinsToAccept);
+
+  const acceptMessage = acceptResult ? "Sale accepted successfully" : "Sale was not accepted. Something went wrong...";
+
+  console.log("SALE ACCEPT: ", acceptResult);
+  setAlertState({
+    result: acceptResult,
+    message: acceptMessage,
+    open: true,
+  });
+
+  props.onSaleOperation();
+
+  setShouldClose(true);
+}\end{lstlisting}
+        La funzione esegue la chiamata al metodo \verb|saleAccept()|, funzione importata dal file \verb|sale.js|, passando come parametri \verb|saleAddress|, ossia l'indirizzo della vendita, e \verb|coinsToAccept|, ovvero la lista delle monete che la vendita necessita come pagamento.
+        Infine mostra all'utente il risultato dell'accettazione e chiude la finestra.
 
         \newpage
         \printbibliography
