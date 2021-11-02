@@ -1050,7 +1050,7 @@ const fetchSales = async () => {
         \begin{figure}[H]
           \includegraphics[scale=0.5]{expiredSales.png}
           \centering
-          \caption{Pop-up mostrato se l'utente ha venite scadute}
+          \caption{Pop-up mostrato se l'utente ha vendite scadute}
           \centering
           \label{fig:Pop-up}
         \end{figure}
@@ -1059,6 +1059,112 @@ const fetchSales = async () => {
         \verb|<Dialog>| di \emph{Material-UI}. A quest'ultimo è stato inserito un titolo, una lista e un pulsante. Il titolo mostra all'utente il numero, ottenuto con la lunghezza dell'array passato nella props \verb|expiredSales|, di vendite scadute che possiede.
         La lista elenca le monete e le quantità associate che l'utente può richiedere come rimborso. L'utente ottiene il rimborso premendo il pulsante "\emph{Accept}".
         \paragraph{Calcolo del rimborso}
+        Al caricamento del componente \verb|<SaleExpiredDialog>| viene richiamata la funzione \verb|calcRefund()|.
+        \begin{lstlisting}[style=ES6, title={Funzione calcRefund()}]
+const calcRefund = () => {
+  const tmpRefundMap = new Map();
+
+  for(let sale of expiredSales) {
+    for(let coin of sale.tokensOnSaleData) {
+      tmpRefundMap.get(coin.symbol) ?
+        tmpRefundMap.set(
+          coin.symbol,
+          parseInt(tmpRefundMap.get(coin.symbol)) + parseInt(coin.amount))
+        :
+        tmpRefundMap.set(coin.symbol, coin.amount);
+    }
+  }
+
+  setCoinsToRefund(Array.from(tmpRefundMap.entries()));
+}\end{lstlisting}
+        La funzione genera la \verb|Map| \verb|tmpRefundMap|, sucessivamente per ogni moneta in vendita di ogni vendita all'interno di \verb|expiredSales|, ossia l'array contenente le vendite scadute dell'utente, controlla se l'indirizzo della moneta è presente come chiave
+        all'interno di \verb|tmpRefundMap|. Se non è presente inserisce il simbolo come chiave e il la quantità della moneta in vendita come valore associato. Altrimenti aggiunge la quantità al valore già presente.
+        Alla fine delle iterazioni, \verb|tmpRefundMap| conterrà le monete e le loro quantità totali da rimborsare. Infine, \verb|tmpRefundMap| viene convertito in array e assegnato a \verb|coinsToRefund|, ossia l'array utilizzato dalla lista in \verb|SaleExpiredDialog|.
+        \paragraph{Accettazione del rimborso}
+        Premendo sul pulsante "\emph{Accept}" viene richiamata la funzione \verb|acceptRefund()|.
+\begin{lstlisting}[style=ES6, title={Funzione acceptRefund()}]
+const acceptRefund = async () => {
+  const salesAddresses = [];
+
+  for(let sale of expiredSales) {
+    salesAddresses.push(sale.address);
+  }
+
+  const result = await saleCancelBatch(web3Instance, userAccount, salesAddresses);
+
+  const alertMessage = result ? "Sales refunded successfully" : "Sales not refunded. Something went wrong...";
+
+  setAlertState({
+    result: result,
+    message: alertMessage,
+    open: true,
+  });
+  props.onClose();
+}\end{lstlisting}
+        La funzione crea un array chiamato \verb|salesAddresses| contenente tutti gli indirizzi delle vendite scadute contenute in \verb|expiredSales|. Questo array viene poi passato come parametro alla chiamata della funzione \verb|saleCancelBatch|.
+        Viene, quindi, mostrato un messaggio che comunica all'utente il risultato dell'operazione e, infine, il pop-up viene chiuso.
+        \subsubsection{Filtro delle vendite}
+        \begin{figure}[ht]
+          \includegraphics[scale=0.7]{saleFilter.png}
+          \centering
+          \caption{Filtro delle vendite}
+          \centering
+          \label{fig:salesFilter}
+        \end{figure}
+        L'utente può filtrare la lista delle vendite per visualizzarle tutte oppure solo quelle che possiede. Per entrambi possono essere visualizzate quelle in corso oppure quelle terminate.
+        Il filtro è composto da due pulsanti, realizzati con due \verb|<ToggleButton>| contenuti all'interno di un \verb|<ToggleButtonGroup>|, entrambi i componenti forniti da \emph{Material-UI}. Questi componenti permettono che, alla pressione di un pulsante, venga graficamente selezionato il pulsante selezionato e vengano deselezionati gli altri.
+        Il filtro è composto, inoltre, da un selettore, realizzato con il componente \emph{Material-UI} \verb|<Select>| contenente due \verb|<MenuItem>| che rappresentano le due opzioni possibili.
+        Premendo un \verb|<ToggleButton>| viene richiamata la funzione \verb|handleChangeFilter()|.
+\begin{lstlisting}[style=ES6, title={Funzione handleChangeFilter()}]
+const handleChangeFilter = (event, filter) => {
+  if(filter !== null) { 
+    setSelectedFilter(filter);
+
+    changeShowingSales(filter, isEndedStatusSelected);
+    }
+}\end{lstlisting}
+        La funzione ha come parametro \verb|filter| che rappresenta l'indice del filtro selezionato, questo viene assegnato alla variabile \verb|selectedFilter|.
+        Viene infine chiamato il metodo \verb|changeShowingSales()| passando il parametro \verb|filter| e la variabile \verb|isEndedStatusSelected|.
+        \newline
+        Selezionando, invece, un'opzione di \verb|<Select>| viene chiamata la funzione \verb|handleSalesStatusSelection()|.
+\begin{lstlisting}[style=ES6, title={Funzione handleSalesStatusSelection()}]
+const handleSalesStatusSelection = (status) => {
+  setLoadingSaleList(true);
+  const statusEnded = status === "Ended" ? true : false;
+  setIsEndedStatusSelected(statusEnded);
+  changeShowingSales(selectedFilter, statusEnded);
+  setLoadingSaleList(false);
+}\end{lstlisting}
+        Questa funzione prende come parametro \verb|status| che è una stringa che contiene il valore "\emph{On going}" se è stato selezionato di visualizzare le vendite in corso, "\emph{Ended}" altrimenti.
+        Viene assegnato a \verb|isEndedStatusSelected| il valore \verb|true| se \verb|status| ha valore "\emph{Ended}", altrimenti il valore \verb|false|. Infine, anche questa funzione richiama \verb|changeShowingSales()| passando
+        \verb|selectedFilter| e il valore assegnato a \verb|isEndedStatusSelected|.
+        Entrambe le funzioni descritte utilizzano il metodo \verb|changeShowingSales()|, questo ha il compito di cambiare, in base ai filtri, la lista visualizzata dall'utente.
+\begin{lstlisting}[style=ES6, title={Funzione changeShowingSales()}]
+const changeShowingSales = (selectedFilter, salesStatus) => {
+  setLoadingSaleList(true);
+
+  const toFilterList = salesStatus ? endedSalesList : onGoingSalesList;
+
+  if(selectedFilter === 0) {
+    setShowingSalesList(toFilterList);
+  }
+
+  if(selectedFilter === 1) {
+    const filteredSales = toFilterList.filter((sale) => {
+      if(sale.owner === userAccount) return true;
+      return false;
+    });
+
+    setShowingSalesList(filteredSales);
+  }
+
+  setLoadingSaleList(false);
+}
+\end{lstlisting}
+        \verb|changeShowingSales()| ha due parametri: \verb|selectedFilter|, ossia il filtro selezionato, e \verb|salesStatus|, ossia lo stato delle vendite selezionato.
+        In base al valore di \verb|salesStatus|, viene assegnato all'array \verb|toFilterList| la lista \verb|endedSalesList|, se si vuole visualizzare le vendite terminate, altrimenti \verb|onGoingSalesList|.
+        In caso di \verb|selectedFilter| con valore 0, ossia è stato selezionato di visualizzare tutte le vendite, viene assegnato \verb|toFilterList| a \verb|showingSalesList|. Altrimenti, se ha valore 1, vengono filtrate le vendite in \verb|toFilterList|
+        assegnando a \verb|setShowingSalesList| solo quelle possedute dall'utente.
 
         \newpage
         \printbibliography
