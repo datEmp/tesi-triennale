@@ -447,9 +447,117 @@
         Nell'esempio si è utilizzato \verb|assert.equal()|, questo controlla che i due parametri passati siano uguali, in caso negativo il test fallisce e viene stampato il messaggio passato come terzo parametro.
         \newpage
 
-        \section{Scrittura e test dei smart contracts}
-        \newpage
+        \section{Scrittura e test degli smart contracts}
+        In questa fase sono stati, inizialmente, implementati gli smart contracts che realizzano la funzionalità dell'exchange. Sucessivamente sono stati realizzati i test per verificare il corretto funzionamento dei contratti implementati.
+        \subsection{Scrittura degli smart contracts}
+        Per la scrittura degli smart contracts è stato usato come codice di base i contratti di CommonsHood che implementano la funzionalità della crezione di monete.
+        Gli smart contracts sono stati realizzati seguendo il modello "\emph{Factory Pattern}" per seguire lo standard utilizzato dagli altri contratti di CommonsHood. Quindi, seguendo il pattern, sono stati realizzati
+        due smart contracts: la fabbrica \verb|SaleFactory|, il quale ha il compito di creare le vendite, e il prodotto \verb|TokenSale|, ossia la vendita vera e propria.
+        \subsubsection{Smart Contract SaleFactory}
+        Questo contratto ha il compito di creare e tener traccia delle vendite.
+        \paragraph{Variabili ed eventi}
+\begin{lstlisting}[style=ES6, title={Variabili ed eventi di SaleFactory}]
+address[] internal saleAddresses;
+mapping(address => address[]) salesByOwner;
 
+event SaleAdded(
+    address indexed _from,
+    uint256[] amountsOnSale,
+    uint256[] amountsToAccept,
+    address owner,
+    address saleAddr
+);
+\end{lstlisting}
+        Per tener traccia delle vendite create, \verb|SaleFactory| si avvale di due variabili:
+        \begin{itemize}
+          \item \verb|saleAddresses|: è un array che contiene gli indirizzi di tutte le vendite create;
+          \item \verb|salesByOwner|: è un dizionario con chiave di ricerca l'indirizzo di un utente e con valore associato la lista degli indirizzi delle vendite possedute dall'utente.
+        \end{itemize}
+        Alla creazione di una vendita viene generato un evento \verb|SaleAdded| che ha come dati l'indirizzo del creatore della vendita, le quantità in vendita e le quantità da accettare come pagamento, l'indirizzo del proprietario della vendita e l'indirizzo della vendita.
+        \paragraph{Funzione createSale}
+\begin{lstlisting}[style=ES6, title={Funzione createSale()}]
+function createSale(
+  address[] memory _tokensOnSale,
+  address[] memory _tokensToAccept,
+  uint256[] memory _amountsOnSale,
+  uint256[] memory _amountsToAccept,
+  uint256 _expiration
+) public returns(address) {
+  require(_tokensOnSale.length == _amountsOnSale.length, "All tokens on sale must have an amount on sale");
+
+  require(_tokensToAccept.length == _amountsToAccept.length, "All tokens to accept must have an amount to accept");
+
+  for(uint256 i = 0; i < _tokensOnSale.length; i++) {
+    require(_amountsOnSale[i] > 0, "Amounts on sale must be higher than 0");
+
+    require(TokenTemplate(_tokensOnSale[i]).allowance(msg.sender, address(this)) >= _amountsOnSale[i], "Seller has approved tokens on sale");
+
+    for(uint256 j = i+1; j < _tokensOnSale.length; j++) {
+      require(_tokensOnSale[i] != _tokensOnSale[j], "Tokens on sale must be different");
+    }
+  }
+  
+  for(uint256 i = 0; i < _tokensToAccept.length; i++) {
+    require(_amountsToAccept[i] > 0, "Amounts to accept must be higher than 0");
+
+    for(uint256 j = i+1; j < _tokensToAccept.length; j++) {
+      require(_tokensToAccept[i] != _tokensToAccept[j], "Tokens to accept must be different");
+    }
+  }
+
+  for(uint256 i = 0; i < _tokensOnSale.length; i++) {
+    for(uint256 j = 0; j < _tokensToAccept.length; j++) {
+      require(_tokensOnSale[i] != _tokensToAccept[j], "Tokens on sale must be different from tokens to accept");
+    }
+  }
+
+  address saleAddr = address(new TokenSale(
+    _tokensOnSale,
+    _tokensToAccept,
+    msg.sender,
+    _amountsOnSale,
+    _amountsToAccept,
+    _expiration,
+    address(this)
+  ));
+
+  for(uint256 i = 0; i < _tokensOnSale.length; i++) {
+    TokenTemplate(_tokensOnSale[i]).transferFrom(msg.sender, saleAddr, _amountsOnSale[i]);
+  }
+
+  saleAddresses.push(saleAddr);
+
+
+  address[] storage ownedSales = salesByOwner[msg.sender];
+  ownedSales.push(saleAddr);
+  salesByOwner[msg.sender] = ownedSales;
+
+  emit SaleAdded(msg.sender, _amountsOnSale, _amountsToAccept, msg.sender, saleAddr);
+  return saleAddr;
+}\end{lstlisting}
+        Questa funzione permette la creazione di una vendita. Prende in input i dati della vendita da creare, ossia gli indirizzi delle monete da vendere e da accettare, le loro quantità associate e la data di scadenza della vendita.
+        Prima di creare la vendita vengono effettuati diversi controlli. Viene controllato che la lista delle monete in vendita sia di lunghezza uguale a quella della lista delle quantità delle monete in vendita. Lo stesso controllo viene eseguito poi sulle monete da accettare.
+        Successivamente, viene controllato che tutte le quantità delle monete in vendita siano maggiori di 0, che il venditore abbia approvato la spesa, ossia che \verb|SaleFactory| abbia la \verb|allowance| necessaria, e che le monete i vendita siano diverse tra loro.
+        Gli ultimi tre controlli, tranne quello della \verb|allowance|, vengono eseguiti anche per le monete da accettare. L'ultimo controllo verifica che le monete in vendita siano diverse da quelle da accettare.
+        Superati i controlli viene effettivamente creata la vendita creando una nuova istanza del contratto \verb|TokenSale|, passando come parametri i parametri di \verb|createSale()|, l'indirizzo del venditore e l'indirizzo di \verb|SaleFactory|.
+        Viene salvato, inoltre, nella variabile \verb|saleAddr| l'indirizzo della vendita appena creata. Questa sarà utile per le operazioni successive. Una volta creata la vendita, a questa vengono trasferite le quantità di monete in vendita. In questo modo si impedisce al venditore di utilizzare le monete in vendita
+        mentre è ancora in corso la vendita. L'indirizzo della vendita viene, quindi, memorizzata in \verb|saleAddresses|, mediante la funzione \verb|push()| dell'array, e in \verb|ownedSales|, con chiave l'indirizzo del venditore e come valore l'array già presente ma con l'aggiunta della nuova vendita.
+        Viene infine generato l'evento \verb|SaleAdded|.
+        \paragraph{Funzioni getAllSalesAddresses e getPossesedSalesAddresses}
+\begin{lstlisting}[style=ES6, title={Funzione getAllSalesAddresses}]
+function getAllSalesAddresses() public view returns(address[] memory) {
+  return saleAddresses;
+}
+\end{lstlisting}
+\begin{lstlisting}[style=ES6, title={Funzione getPossesedSalesAddresses}]
+function getPossesedSalesAddresses(address _possessor) public view returns(address[] memory) {
+    return salesByOwner[_possessor];
+}
+\end{lstlisting}
+        Entrambe queste funzioni hanno la dicitura \verb|view| in quanto non modificano i dati nella blockchain, ma semplicemente restituiscono delle informazioni.
+        \verb|getAllSalesAddresses| restituisce la lista di tutti gli indirizzi delle vendite. \verb|getPossesedSalesAddresses| prende come parametro un indirizzo e restituisce gli indirizzi delle vendite appartenenti a questo.
+        
+        \newpage
         \section{Implementazione dell'interfaccia grafica}
         L'interfaccia utente che implementa le funzionalità di scambio di token è stata divisa in due pagine.
         La prima è chiamata \emph{Create Sale} e, scegliendo i token da vendere e quelli da accettare, permette
