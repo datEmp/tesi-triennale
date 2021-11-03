@@ -539,24 +539,111 @@ function createSale(
         Prima di creare la vendita vengono effettuati diversi controlli. Viene controllato che la lista delle monete in vendita sia di lunghezza uguale a quella della lista delle quantità delle monete in vendita. Lo stesso controllo viene eseguito poi sulle monete da accettare.
         Successivamente, viene controllato che tutte le quantità delle monete in vendita siano maggiori di 0, che il venditore abbia approvato la spesa, ossia che \verb|SaleFactory| abbia la \verb|allowance| necessaria, e che le monete i vendita siano diverse tra loro.
         Gli ultimi tre controlli, tranne quello della \verb|allowance|, vengono eseguiti anche per le monete da accettare. L'ultimo controllo verifica che le monete in vendita siano diverse da quelle da accettare.
-        Superati i controlli viene effettivamente creata la vendita creando una nuova istanza del contratto \verb|TokenSale|, passando come parametri i parametri di \verb|createSale()|, l'indirizzo del venditore e l'indirizzo di \verb|SaleFactory|.
+        Superati i controlli viene effettivamente creata la vendita creando una nuova istanza del contratto \verb|TokenSale|, passando al costruttore di \verb|TokenSale| i parametri di \verb|createSale()|, l'indirizzo del mittente della richiesta di creazione, ossia colui che sarà il proprietario della vendita, e l'indirizzo di \verb|SaleFactory|.
         Viene salvato, inoltre, nella variabile \verb|saleAddr| l'indirizzo della vendita appena creata. Questa sarà utile per le operazioni successive. Una volta creata la vendita, a questa vengono trasferite le quantità di monete in vendita. In questo modo si impedisce al venditore di utilizzare le monete in vendita
         mentre è ancora in corso la vendita. L'indirizzo della vendita viene, quindi, memorizzata in \verb|saleAddresses|, mediante la funzione \verb|push()| dell'array, e in \verb|ownedSales|, con chiave l'indirizzo del venditore e come valore l'array già presente ma con l'aggiunta della nuova vendita.
         Viene infine generato l'evento \verb|SaleAdded|.
         \paragraph{Funzioni getAllSalesAddresses e getPossesedSalesAddresses}
-\begin{lstlisting}[style=ES6, title={Funzione getAllSalesAddresses}]
+\begin{lstlisting}[style=ES6, title={Funzione getAllSalesAddresses()}]
 function getAllSalesAddresses() public view returns(address[] memory) {
   return saleAddresses;
-}
-\end{lstlisting}
-\begin{lstlisting}[style=ES6, title={Funzione getPossesedSalesAddresses}]
+}\end{lstlisting}
+\begin{lstlisting}[style=ES6, title={Funzione getPossesedSalesAddresses()}]
 function getPossesedSalesAddresses(address _possessor) public view returns(address[] memory) {
     return salesByOwner[_possessor];
-}
-\end{lstlisting}
+}\end{lstlisting}
         Entrambe queste funzioni hanno la dicitura \verb|view| in quanto non modificano i dati nella blockchain, ma semplicemente restituiscono delle informazioni.
         \verb|getAllSalesAddresses| restituisce la lista di tutti gli indirizzi delle vendite. \verb|getPossesedSalesAddresses| prende come parametro un indirizzo e restituisce gli indirizzi delle vendite appartenenti a questo.
-        
+        \paragraph{Funzione cancelBatchSales}
+\begin{lstlisting}[style=ES6, title={Funzione cancelBatchSales()}]
+function cancelBatchSales(address[] memory _salesToCancel) public {
+  for(uint256 i = 0; i < _salesToCancel.length; i++) {
+    require(msg.sender == TokenSale(_salesToCancel[i]).getSaleOwner(), "User must be the owner of the sale");
+    TokenSale(_salesToCancel[i]).cancelSale();
+  }
+}\end{lstlisting}
+        Questa funzione permette la cencallazione di multiple vendite in una volta sola. Prende come parametro la lista delle vendite da eliminare e, per ognuna di queste,
+        Viene quindi chiamato il metodo di eliminazione su ogni vendita.
+        \subsubsection{Smart Contract TokenSale}
+        Il contratto \verb|TokenSale| rappresenta la struttura di una vendita e contiene le funzioni che consentono l'interazione con essa.
+        \paragraph{Variabili ed eventi}
+\begin{lstlisting}[style=ES6, title={Variabili ed eventi di TokenSale}]
+TokenTemplate[] tokensOnSale;
+TokenTemplate[] tokensToAccept;
+
+address[] public tokensOnSaleAddr;
+address[] public tokensToAcceptAddr;
+
+mapping(address => uint256) amountsOnSale;
+mapping(address => uint256) amountsToAccept;
+
+address public owner;
+uint256 public expiration;
+bool public saleEnded;
+
+address public factoryAddress;
+
+event SaleCompleted(
+    address indexed seller,
+    address indexed buyer
+);
+
+event SaleCancelled(
+    address indexed cancelledBy,
+    uint256 indexed date
+);\end{lstlisting}
+        Le variabili utilizzate da \verb|TokenSale| sono le seguenti:
+        \begin{itemize}
+          \item \verb|tokensOnSale|: array delle monete in vendita;
+          \item \verb|tokensToAccept|: array delle monete da accettare;
+          \item \verb|tokensOnSaleAddr|: array degli indirizzi delle monete in vendita;
+          \item \verb|tokensToAcceptAddr|: array degli indirizzi delle monete da accettare;
+          \item \verb|amountsOnSale|: \verb|mapping| che, dato l'indirizzo di una moneta in vendita ne restituisce la quantità in vendita;
+          \item \verb|amountsToAccept|: \verb|mapping| che, dato l'indirizzo di una moneta da accettare ne restituisce la quantità da accettare;
+          \item \verb|owner|: indirizzo del proprietario della vendita;
+          \item \verb|expiration|: data di scadenza della vendita sotto forma di \emph{unix timestamp}, ovvero il numero di secondi passanti dal 1° Gennaio 1970;
+          \item \verb|saleEnded|: variabile di tipo \verb|boolean| che ha valore \verb|true| se la vendita è terminata, \verb|false| altrimenti;
+          \item \verb|factoryAddress|: indirizzo di \verb|SaleFactory|.
+        \end{itemize}
+        \verb|TokenSale| può generare due tipi eventi:
+        \begin{itemize}
+          \item \verb|SaleCompleted|: viene creato questo evento quando la vendita è completata, ossia quando un utente accetta la vendita. Le informazioni contenute nell'evento sono l'indirizzo del proprietario della vendita e l'indirizzo del compratore;
+          \item \verb|SaleCancelled|: questo evento viene generato quando la vendita viene eliminata. Le informazioni contenute sono l'indirizzo dell'utente che ha cancellato la vendita e la data di cancellazione.
+        \end{itemize}
+        \paragraph{Funzione costruttore}
+\begin{lstlisting}[style=ES6, title={Funzione cancelBatchSales()}]
+constructor(
+  address[] memory _tokensOnSale,
+  address[] memory _tokensToAccept,
+  address _owner,
+  uint256[] memory _amountsOnSale,
+  uint256[] memory _amountsToAccept,
+  uint256 _expiration,
+  address _factoryAddress
+) public{
+  for(uint256 i = 0; i < _tokensOnSale.length; i++) {
+    tokensOnSale.push(TokenTemplate(_tokensOnSale[i]));
+    tokensOnSaleAddr.push(_tokensOnSale[i]);
+    amountsOnSale[_tokensOnSale[i]] = _amountsOnSale[i];
+  }
+  for(uint256 i = 0; i < _tokensToAccept.length; i++) {
+    tokensToAccept.push(TokenTemplate(_tokensToAccept[i]));
+    tokensToAcceptAddr.push(_tokensToAccept[i]);
+    amountsToAccept[_tokensToAccept[i]] = _amountsToAccept[i];
+  }
+
+  owner = _owner;
+  expiration = _expiration;
+  factoryAddress = _factoryAddress;
+  saleEnded = false;
+}\end{lstlisting}
+        Questa funzione rappresenta il costruttore di \verb|TokenSale|, ossia è il metodo eseguito alla creazione di una nuova istanza di \verb|TokenSale|, ovvero alla creazione di una vendita.
+        Prende come parametri la lista degli indirizzi delle monete in vendita e da accettare, le loro quantità, l'indirizzo del proprietario della vendita, la data di scadenza sotto forma di \emph{timestamp}
+        e l'indirizzo di \verb|SaleFactory|. Non è necesario fare i controlli sui parametri in quanto sono già stati verificati nel metodo chiamante \verb|createSale()| contenuto in \verb|SaleFactory|.
+        Per ogni indirizzo delle monete in vendita si ottiene l'istanza della moneta e questa viene inserita nell'array \verb|tokensOnSale|, l'indirizzo viene invece inserito in \verb|tokensOnSaleAddr|, nel \verb|mapping| \verb|amountsOnSale|
+        viene associato all'indirizzo la quantità in vendita della moneta. Lo stesso viene eseguito anche per gli indirizzi delle monete da accettare. Successivamente vengono assegnati i valori alle variabili \verb|owner|, \verb|expiration| e \verb|factoryAddress| con i parametri passati.
+        In quanto una vendita nuova per definizione non è completata, \verb|saleEnded| è inizializzato a \verb|false|.
+
         \newpage
         \section{Implementazione dell'interfaccia grafica}
         L'interfaccia utente che implementa le funzionalità di scambio di token è stata divisa in due pagine.
