@@ -801,6 +801,7 @@ const buyer = accounts[1];\end{lstlisting}
         Sono state definite quattro monete da utilizzare per le vendite, due per le monete da vendere e due per le monete accettate. Le quantità delle monete in vendita e accettate sono state impostate a 1 e indicate da
         \verb|amountsOnSale| e \verb|amountsToAccept|. \verb|seller| e \verb|buyer| contengono due indirizzi forniti dall'ambiente di test, il primo verrà usato per creare le vendite mentre il secondo per accettarle.
         \paragraph{Funzioni di supporto}
+        \label{supportFun}
 \begin{lstlisting}[style=ES6, title={Funzioni di supporto nel test}]
 async function setupContracts(seller, buyer, tokenOnSaleOne, tokenOnSaleTwo, tokenToAcceptOne, tokenToAcceptTwo) {
   TokenFactoryInstance = await TokenFactory.new();
@@ -881,8 +882,147 @@ const assertFailError = error => {
         Per far questo, sulle istanze delle monete viene chiamata la funzione \verb|approve| e indicando, usando la dicitura \verb|from|, l'indirizzo del venditore come mittente della chiamata. Per comodità la data di scadenza è stata impostata a 0, ossia la vendita non ha data di scadenza.
         Viene quindi creata la vendita con il metodo \verb|createSale()| fornito da \verb|SaleFactory| e ne viene restituito l'indirizzo.
         \newline
-        La funzione \verb|assertFailError()| genera un errore nel test e stampa l'errore passato come parametro.
+        La funzione \verb|assertFailError()| provoca il fallimento del test e stampa l'errore passato come parametro.
         \subsubsection{Test sulla creazione di una vendita}
+        I test della funzionalità di creazione di una vendita sono tutte all'interno di \verb|describe("Sale Creation", ...)|. Prima di iniziare i test vengono istanziate le monete interessate dalla vendita chiamando la funzione \verb|setupContracts()| descritta in \ref{supportFun}.
+        Il principale comportamento del contratto da verificare è che crei correttamente la vendita.
+\begin{lstlisting}[style=ES6, title={Il contratto crea correttamente una vendita}]
+it("Creates Sale", async () => {
+  try {
+    saleAddr = await createSale(seller, tokensOnSaleAddr, tokensToAcceptAddr, amountsOnSale, amountsToAccept);
+
+    const tokenSaleInstance = await TokenSale.at(saleAddr);
+    const toCheckTokensOnSaleAddr = await tokenSaleInstance.getTokensOnSaleAddr();
+    const toCheckTokensToAcceptAddr = await tokenSaleInstance.getTokensToAcceptAddr();
+
+    for(const tokenOnSaleAddr of tokensOnSaleAddr) {
+      let tokenOnSaleInstance = await TokenTemplate.at(tokenOnSaleAddr);
+
+      assert(toCheckTokensOnSaleAddr.includes(tokenOnSaleAddr), "Sale should have the correct tokens on sale");
+      assert.equal(await tokenOnSaleInstance.balanceOf(saleAddr), amountsOnSale[0], "Sale contract should have received the amount of tokens on sale");
+    }
+
+    for(const tokenToAcceptAddr of tokensToAcceptAddr) {
+      assert(toCheckTokensToAcceptAddr.includes(tokenToAcceptAddr), "Sale should have the correct tokens to be accepted");
+    }
+  } catch(error) {
+    assertFailError(error);
+  }
+});\end{lstlisting}
+        Questo test crea una vendita e verifica che il contratto della vendita abbia ricevuto le corrette quantità di monete da vendere dal venditore. Controlla inoltre che la vendita abbia impostate correttamente le monete da accettare.
+        In caso di errore nel processo di creazione viene eseguito il blocco \verb|catch| che cattura l'errore e richiama \verb|assertFailError()| che provoca il fallimento del test.
+        Gli altri test eseguiti sono:
+        \begin{itemize}
+          \item \spverb|it("Should not allow the creation of a sale with duplicate   token on sale")|: controlla che venga correttamente impedita la creazione di una vendita con monete in vendita duplicate;
+          \item \spverb|it("Should not allow the creation of a sale with duplicate   token to accept")|: effettua lo stesso controllo precedente ma per le monete da accettare;
+          \item \spverb|it("Should not allow the creation of a sale with same token  on sale and to accept")|: controlla che venga impedita la creazione di una vendita con una stessa moneta sia in vendita che da accettare.
+        \end{itemize}
+        \subsubsection{Test sul completamento di una vendita}
+        Questi test, posizionati all'interno di \verb|describe("Sale completed", ...)|, verificano che una vendita venga accettata dal compratore in modo corretto.
+\begin{lstlisting}[style=ES6, title={Il compratore accetta correttamente una vendita}]
+it("Sells the tokens", async () => {
+try {
+  let initialSellerBalance = [];
+  let initialBuyerBalance = [];
+
+  for(const tokenOnSaleAddr of tokensOnSaleAddr) {
+      let tokenOnSaleInstance = await TokenTemplate.at(tokenOnSaleAddr);
+      
+      initialSellerBalance.push(await tokenOnSaleInstance.balanceOf(seller));
+  }
+
+  for(const tokenToAcceptAddr of tokensToAcceptAddr) {
+      let tokenToAcceptInstance = await TokenTemplate.at(tokenToAcceptAddr);
+
+      initialBuyerBalance.push(await tokenToAcceptInstance.balanceOf(buyer));
+  }
+
+  saleAddr = await createSale(seller, tokensOnSaleAddr, tokensToAcceptAddr, amountsOnSale, amountsToAccept);
+
+  const tokenSaleInstance = await TokenSale.at(saleAddr);
+
+  let i = 0;
+  for(const tokenToAcceptAddr of tokensToAcceptAddr) {
+      let tokenToAcceptInstance = await TokenTemplate.at(tokenToAcceptAddr);
+
+      await tokenToAcceptInstance.approve(saleAddr, amountsToAccept[i], { from: buyer});
+      i++;
+  }
+
+  await tokenSaleInstance.acceptSale({ from: buyer});
+  i = 0;
+  for(const tokenOnSaleAddr of tokensOnSaleAddr) {
+      let tokenOnSaleInstance = await TokenTemplate.at(tokenOnSaleAddr);
+      
+      assert.equal(await tokenOnSaleInstance.balanceOf(seller, { from: seller}), initialSellerBalance[i]-amountsOnSale[i], "[POST-SALE] Seller has the correct amount of tokens on sale after the sale");
+      assert.equal(await tokenOnSaleInstance.balanceOf(buyer, { from: buyer}), amountsOnSale[i], "[POST-SALE] Buyer has bought the correct number of tokens");
+      i++;
+  }
+  
+  i = 0;
+  for(const tokenToAcceptAddr of tokensToAcceptAddr) {
+      let tokenToAcceptInstance = await TokenTemplate.at(tokenToAcceptAddr);
+
+      assert.equal(await tokenToAcceptInstance.balanceOf(buyer, { from: buyer}), initialBuyerBalance[i]-amountsToAccept[i], "[POST-SALE] Buyer has the correct amount of tokens after the sale");
+      assert.equal(await tokenToAcceptInstance.balanceOf(seller, { from: seller}), amountsToAccept[i], "[POST-SALE] Seller has received the payment");
+      i++;
+  }
+
+  assert.equal(await tokenSaleInstance.saleEnded(), true, "[POST-SALE] Sale has ended");
+} catch(error) {
+  assertFailError(error);
+}
+});
+\end{lstlisting}
+        In questo test il venditore crea la vendita, il compratore approva il contratto della vendita a spendere le monete in vendita e, quindi, accetta la vendita. Il test verifica che il venditore e il compratore abbiano ricevuto le corrette quantità di monete e controlla che la vendita sia nello stato "terminato".
+        I test secondari sono:
+        \begin{itemize}
+          \item \spverb|it("Should not allow the seller to accept the sale")|: controlla che il venditore non possa accettare la sua stessa vendita;
+          \item \spverb|it("Should not allow the buyer to accept an ended sale")|: \newline controlla che il compratore non possa accettare una vendita già terminata;
+          \item \spverb|it("Should not complete the sale if the buyer has not yet    approved the sale contract for the trasfer of the tokens to  accept")|: controlla che il compratore non possa accettare la vendita se prima non ha approvato il trasferimento dei fondi.
+        \end{itemize}
+        \subsubsection{Test sulla cancellazione di una vendita}
+        La funzione \verb|describe("Cancel sale", ...)| contiene i test che verificano il corretto funzionamento della cancellazione di una vendita.
+\begin{lstlisting}[style=ES6, title={La vendita viene correttamente cancellata}]
+it("Cancels the sale successfully", async () => {
+  try {
+      let initialSellerBalance = [];
+
+      for(const tokenOnSaleAddr of tokensOnSaleAddr) {
+          let tokenOnSaleInstance = await TokenTemplate.at(tokenOnSaleAddr);
+          
+          initialSellerBalance.push(await tokenOnSaleInstance.balanceOf(seller));
+      }
+
+      saleAddr = await createSale(seller, tokensOnSaleAddr, tokensToAcceptAddr, amountsOnSale, amountsToAccept);
+
+      const tokenSaleInstance = await TokenSale.at(saleAddr);
+
+      let i = 0;
+      for(const tokenOnSaleAddr of tokensOnSaleAddr) {
+        let tokenOnSaleInstance = await TokenTemplate.at(tokenOnSaleAddr);
+
+        assert.equal(await tokenOnSaleInstance.balanceOf(seller, { from: seller}), initialSellerBalance[i] - amountsOnSale[i], "[PRE-CANCEL] Seller transferred the tokens on sale");
+        i++;
+      }
+      
+
+      await tokenSaleInstance.cancelSale({ from: seller});
+
+      i = 0;
+      for(const tokenOnSaleAddr of tokensOnSaleAddr) {
+        let tokenOnSaleInstance = await TokenTemplate.at(tokenOnSaleAddr);
+        
+        assert.equal(await tokenOnSaleInstance.balanceOf(seller, { from: seller}), initialSellerBalance[i].toNumber(), "[POST-CANCEL] Seller got refunded");
+        i++;
+      }
+
+      assert.equal(await tokenSaleInstance.saleEnded(), true, "[POST-CANCEL] Sale has ended");
+    } catch(error) {
+      assertFailError(error);
+    }
+});
+\end{lstlisting}
 
         \newpage
         \section{Implementazione dell'interfaccia grafica}
