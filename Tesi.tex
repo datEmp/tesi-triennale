@@ -16,8 +16,8 @@
 \usepackage{biblatex}
 \usepackage{spverbatim}
 \usepackage{dirtree}
-\usepackage{dirtree}
 \usepackage{etoolbox}
+\usepackage[export]{adjustbox}
 \apptocmd{\dirtree}{\bigskip}{}{}
 \pretocmd{\dirtree}{\bigskip}{}{}
 \definecolor{purple}{RGB}{91, 72, 181}
@@ -45,7 +45,7 @@
 
 \lstdefinestyle{JSES6Base}{
   backgroundcolor=\color{white},
-  basicstyle=\ttfamily,
+  basicstyle=\linespread{1.2}\ttfamily\footnotesize,
   breakatwhitespace=false,
   breaklines=true,
   captionpos=b,
@@ -121,9 +121,18 @@
 \title{Progettazione e realizzazione di un exchange decentralizzato per lo scambio di token ERC20 per la piattaforma CommonsHood}
 
 \begin{document}
+    \renewcommand{\abstractname}{Abstract}
+    \begin{abstract}
+      CommonsHood è un’applicazione web basata su smart contract per blockchain Ethereum che ha lo scopo di fornire alla comunità strumenti per l’inclusione finanziaria e per supportare l’economia locale delle comunità di cittadini.
+      L’applicazione permette agli utenti di creare nuovi tipi di token crittografici che possono rappresentare  beni di valore o servizi. Tali token, quindi, possono essere utilizzati per creare campagne di crowdfunding, coupons e per altre funzionalità incluse all’interno di CommonsHood. È perciò necessario permettere agli utenti la compravendita e lo scambio dei token creati e distribuiti.
+      Lo scopo principale di questa tesi è l’implementazione delle funzionalità di vendita e acquisto dei token crittografici attraverso la progettazione e realizzazione di un exchange decentralizzato
+      Nella fase iniziale, attraverso l’uso del linguaggio Solidity, sono stati scritti gli smart contracts che definiscono le regole e il funzionamento delle compravendite (gestite attraverso il meccanismo di domanda e offerta), e, con l’uso del linguaggio Javascript, sono stati realizzati i test che ne verificano il corretto funzionamento.
+      Nella fase successiva è stata creata l’interfaccia web che permette l’utilizzo delle funzioni di compravendita. Questa è stata realizzata ancora tramite il linguaggio Javascript ed utilizzando il framework ReactJS e i componenti grafici inclusi nel framework Material-UI. Per collegare l’applicazione con la blockchain è stato utilizzato il framework web3.js.
+    \end{abstract}
+    \newpage
     \tableofcontents
     \newpage
-    \section{Background}
+    \section{Introduzione}
     \subsection{CommonsHood}
     CommonsHood è un’applicazione web basata su smart contract per blockchain Ethereum che ha lo scopo di fornire alla comunità strumenti per l’inclusione finanziaria e per supportare l’economia locale delle comunità di cittadini.
     Gli utenti, una volta registrati sulla piattaforma, possono creare monete, ossia token crittografici Ethereum basati sullo standard ERC-20, questi possono rappresentare beni di valore o servizi.
@@ -146,7 +155,7 @@
       \item privato: è come una password che l'utente utilizza per accedere ai propri fondi.
     \end{itemize}
     \begin{figure}[ht]
-      \includegraphics[scale=0.8]{node.png}
+      \includegraphics[scale=0.8, fbox]{node.png}
       \centering
       \caption{Rete di nodi}
       \centering
@@ -199,7 +208,7 @@
     \newline
     Gli NFT seguono lo standard dettato dall'EIP-721. I metodi più significativi richiesti dall'EIP-721 sono:
     \begin{itemize}
-      \item \verb|balanceOf(address _owner)|: restituise il numero di NFT posseduti da \verb|_owner|;
+      \item \verb|balanceOf(address _owner)|: restituisce il numero di NFT posseduti da \verb|_owner|;
       \item \verb|ownerOf(uint256 _tokenId)|: restituisce il proprietario del NFT identificato da \verb|_tokenId|;
       \item \verb|safeTransferFrom(address _from,address _to,uint256 _tokenId)|: trasferisce la proprietà del NFT \verb|_tokenId| da \verb|_from| a \verb|_to|.
             Fallisce se il chiamante della funzione non è il proprietario corrente, un operatore autorizzato o un indirizzato autorizzato per questo NFT.
@@ -248,10 +257,10 @@
         \item \verb|mapping|: per indicare un dizionario con chiavi di ricerca e valori associati\cite{soliditytypes}.
       \end{itemize}
       Alla riga 6 è stato dichiarato un evento, ossia uno strumento utile per fare logging delle transazioni e per permettere agli utenti di mettersi in ascolto di questi eventi.
-      Un evento può contenere dati aggiuntivi, in questo caso l'evento \verb|EsempioEvento| contiene il dato \verb|parametroEvento| di tipo uin256.
+      Un evento può contenere dati aggiuntivi, in questo caso l'evento \verb|EsempioEvento| contiene il dato \verb|parametroEvento| di tipo uint256.
       Per emettere un evento si utilizza \verb|emit [nome evento](dati evento)|, come mostrato alla riga 13.
       \newline
-      Alla riga 10 è stata dichiarata una funzione di nome \verb|esempioFunzione|, con visibilità \verb|public|, con parametro \verb|_parametro| e che restituisce un valore di tipo \verb|uin256|.
+      Alla riga 10 è stata dichiarata una funzione di nome \verb|esempioFunzione|, con visibilità \verb|public|, con parametro \verb|_parametro| e che restituisce un valore di tipo \verb|uint256|.
       Questa funzione esegue solo due operazioni: emette l'evento \verb|EsempioEvento| e restituisce un valore. 
 
     \subsection{OpenZeppelin}
@@ -447,9 +456,19 @@
         Nell'esempio si è utilizzato \verb|assert.equal()|, questo controlla che i due parametri passati siano uguali, in caso negativo il test fallisce e viene stampato il messaggio passato come terzo parametro.
         \newpage
 
+        \section{Progettazione}
+        \begin{figure}[H]
+          \includegraphics[width=\textwidth, fbox]{structure.png}
+          \centering
+          \caption{Informazioni di base di una vendita}
+          \centering
+          \label{fig:structure}
+        \end{figure}
+
         \section{Scrittura e test degli smart contracts}
         In questa fase sono stati, inizialmente, implementati gli smart contracts che realizzano la funzionalità dell'exchange. Sucessivamente sono stati realizzati i test per verificare il corretto funzionamento dei contratti implementati.
         \subsection{Scrittura degli smart contracts}
+        \label{writeContracts}
         Per la scrittura degli smart contracts è stato usato come codice di base i contratti di CommonsHood che implementano la funzionalità della crezione di monete.
         Gli smart contracts sono stati realizzati seguendo il modello "\emph{Factory Pattern}" per seguire lo standard utilizzato dagli altri contratti di CommonsHood. Quindi, seguendo il pattern, sono stati realizzati
         due smart contracts: la fabbrica \verb|SaleFactory|, il quale ha il compito di creare le vendite, e il prodotto \verb|TokenSale|, ossia la vendita vera e propria.
@@ -562,7 +581,7 @@ function cancelBatchSales(address[] memory _salesToCancel) public {
     TokenSale(_salesToCancel[i]).cancelSale();
   }
 }\end{lstlisting}
-        Questa funzione permette la cencallazione di multiple vendite in una volta sola. Prende come parametro la lista delle vendite da eliminare e, per ognuna di queste,
+        Questa funzione permette la cancellazione di multiple vendite in una volta sola. Prende come parametro la lista delle vendite da eliminare e, per ognuna di queste,
         Viene quindi chiamato il metodo di eliminazione su ogni vendita.
         \subsubsection{Smart Contract TokenSale}
         Il contratto \verb|TokenSale| rappresenta la struttura di una vendita e contiene le funzioni che consentono l'interazione con essa.
@@ -611,7 +630,7 @@ event SaleCancelled(
           \item \verb|SaleCancelled|: questo evento viene generato quando la vendita viene eliminata. Le informazioni contenute sono l'indirizzo dell'utente che ha cancellato la vendita e la data di cancellazione.
         \end{itemize}
         \paragraph{Funzione costruttore}
-\begin{lstlisting}[style=ES6, title={Funzione cancelBatchSales()}]
+\begin{lstlisting}[style=ES6, title={Funzione costruttore di TokenSale}]
 constructor(
   address[] memory _tokensOnSale,
   address[] memory _tokensToAccept,
@@ -642,7 +661,228 @@ constructor(
         e l'indirizzo di \verb|SaleFactory|. Non è necesario fare i controlli sui parametri in quanto sono già stati verificati nel metodo chiamante \verb|createSale()| contenuto in \verb|SaleFactory|.
         Per ogni indirizzo delle monete in vendita si ottiene l'istanza della moneta e questa viene inserita nell'array \verb|tokensOnSale|, l'indirizzo viene invece inserito in \verb|tokensOnSaleAddr|, nel \verb|mapping| \verb|amountsOnSale|
         viene associato all'indirizzo la quantità in vendita della moneta. Lo stesso viene eseguito anche per gli indirizzi delle monete da accettare. Successivamente vengono assegnati i valori alle variabili \verb|owner|, \verb|expiration| e \verb|factoryAddress| con i parametri passati.
-        In quanto una vendita nuova per definizione non è completata, \verb|saleEnded| è inizializzato a \verb|false|.
+        In quanto una vendita nuova per definizione non è completata, \verb|saleEnded| è inizializzata a \verb|false|.
+        \paragraph{Funzione acceptSale}
+\begin{lstlisting}[style=ES6, title={Funzione acceptSale()}]
+function acceptSale() public {
+  require(saleEnded == false, "Sale has to be still on going");
+  require(owner != msg.sender, "Buyer has to be different than the sale owner");
+
+  for(uint256 i = 0; i < tokensToAccept.length; i++) {
+    require(tokensToAccept[i].allowance(msg.sender, address(this)) >= amountsToAccept[tokensToAcceptAddr[i]], "Buyer has approved the sale contract to transfer enough tokens to accept");
+    tokensToAccept[i].transferFrom(msg.sender, owner, amountsToAccept[tokensToAcceptAddr[i]]);
+  }
+  
+  for(uint256 i = 0; i < tokensOnSale.length; i++) {
+    tokensOnSale[i].transfer(msg.sender, amountsOnSale[tokensOnSaleAddr[i]]);
+  }
+  
+  emit SaleCompleted(owner, msg.sender);
+  saleEnded = true;
+}\end{lstlisting}
+        Questa funzione permette al chiamante di accettare la vendita su cui è stata chiamata. La funzione controlla che la vendita non sia già terminata e che il chiamante non sia il venditore stesso.
+        Inoltre verifica che il contratto abbia l'autorizzazione del compratore a spendere le sue monete. Superati i controlli vengono trasferite le monete interessate dalla vendita. Quindi le monete in vendita vengono trasferite dal contratto all'indirizzo del compratore,
+        mentre le monete da accettare vengono trasferite dal compratore al proprietario della vendita. Infine viene emesso l'evento \verb|SaleCompleted| indicando gli indirizzi di venditore e compratore e, siccome la vendita è conclusa, \verb|saleEnded| viene posto a \verb|true|.
+        \paragraph{Funzione cancelSale}
+\begin{lstlisting}[style=ES6, title={Funzione cancelSale()}]
+function cancelSale() public {
+  require(msg.sender == owner || msg.sender == factoryAddress, "Only the sale creator or the factory can cancel it");
+  require(saleEnded == false, "Sale has to be still on going");
+
+  for(uint256 i = 0; i < tokensOnSale.length; i++) {
+    tokensOnSale[i].transfer(owner, amountsOnSale[tokensOnSaleAddr[i]]);
+  }
+  
+  saleEnded = true;
+
+  emit SaleCancelled(msg.sender, now);
+}\end{lstlisting}
+        Questa funzione permette al venditore di anullare la vendita su cui è chiamata. Verifica che il chiamante sia il proprietario della vendita e che la vendita sia ancora in corso. Successivamente restituisce le monete al vendite. Quindi trasferisce i fondi dal contratto al proprietario.
+        Infine pone \verb|saleEnded| a \verb|true| e emette l'evento \verb|SaleCancelled| indicando il chiamante della funzione e la data della chiamata.
+        \paragraph{Funzioni per ottenere informazioni}
+\begin{lstlisting}[style=ES6, title={Funzioni per ottenere informazioni}]
+function getTokensOnSaleAddr() public view returns(address[] memory) {
+    return tokensOnSaleAddr;
+  }
+
+function getTokensToAcceptAddr() public view returns(address[] memory) {
+  return tokensToAcceptAddr;
+}
+
+function getSaleExpiration() public view returns(uint256) {
+  return expiration;
+  }
+
+function getSaleOwner() public view returns(address) {
+  return owner;
+}
+
+function getSaleInfo() public view returns(address, bool, address[] memory, uint256[] memory, address[] memory, uint256[] memory, uint256) {
+  uint256[] memory retAmountsOnSale = new uint256[](tokensOnSaleAddr.length);
+  uint256[] memory retAmountsToAccept = new uint256[](tokensToAcceptAddr.length);
+
+  for(uint256 i = 0; i < tokensOnSaleAddr.length; i++) {
+    retAmountsOnSale[i] = amountsOnSale[tokensOnSaleAddr[i]];
+  }
+
+  for(uint256 i = 0; i < tokensToAcceptAddr.length; i++) {
+    retAmountsToAccept[i] = amountsToAccept[tokensToAcceptAddr[i]];
+  }
+
+  uint256 exp = expiration;
+
+  return (
+    owner,
+    saleEnded,
+    tokensOnSaleAddr,
+    retAmountsOnSale,
+    tokensToAcceptAddr,
+    retAmountsToAccept,
+    exp
+  );
+}\end{lstlisting}
+        Queste funzioni restituiscono informazioni sulla vendita su cui sono chiamate. Siccome non modificano dati hanno tutte la dicitura \verb|view|.
+        \begin{itemize}
+          \item \verb|getTokensOnSaleAddr()|: restituisce l'array delle monete in vendita;
+          \item \verb|getTokensToAcceptAddr()|: restituisce l'array delle monete da accettare;
+          \item \verb|getSaleExpiration()|: restituisce la data di scadenza della vendita;
+          \item \verb|getSaleOwner()|: restituisce l'indirizzo del venditore;
+          \item \verb|getSaleInfo()|: restituisce tutte le informazioni sulla vendita. Siccome in Solidity le funzioni non possono restituire oggetti di tipo \verb|mapping|, i valori di \verb|amountsOnSale| e \verb|amountsToAccept| sono stati prima trasferiti in due array.
+        \end{itemize}
+        \subsection{Test degli smart contract}
+        Per effettuare il test degli smart contracts descritti in \ref{writeContracts} è stato creato il file \verb|SaleFactoryAndTemplate.js| all'interno della cartella \verb|test/|. In questo sono stati implementati i vari test per verificare il corretto comportamento dei contratti.
+        I test sono stati suddivisi nelle tre funzionalità primarie da verificare: la creazione di una vendita, il completamento di una vendita e la cancellazione di una vendita.
+        \subsubsection{Variabili e funzioni di supporto}
+        Per facilitare la scrittura dei test sono stati definite alcune variabili e funzioni di supporto.
+        \paragraph{Variabili di supporto}
+        \label{testVars}
+\begin{lstlisting}[style=ES6, title={Variabili di supporto nel test}]
+const tokenOnSaleOne = {
+  name: "Sale Accept Token",
+  symbol: "CRACC",
+  decimals: 18,
+  logoURL:
+    "https://apollo-uploads-las.s3.amazonaws.com/1442324623/atlanta-hawks-logo-944556.png",
+  logoHash: web3.utils.toHex(
+    "0x4D021B157A49F472A48AB02A1F2F6E2986C169A7C78CC94179EDAEBD5E96E8E4"
+  ),
+  contractHash: web3.utils.toHex(
+    "0x4D021B157A49F472A48AB02A1F2F6E2986C169A7C78CC94179EDAEBD5E96E8E4"
+  ),
+  supply: 100000
+};
+
+const tokenOnSaleTwo = {
+  name: "Sale Accept Token Two",
+  symbol: "CRACT",
+  ...
+  supply: 100000
+};
+
+const tokenToAcceptOne = {
+  name: "Sale Give Token",
+  symbol: "CRGIV",
+  ...
+  supply: 100000
+};
+
+const tokenToAcceptTwo = {
+  name: "Sale Give Token Two",
+  symbol: "CRGIT",
+  ...
+  supply: 100000
+};
+
+const amountsOnSale = [1, 1];
+const amountsToAccept = [1, 1];
+
+const seller = accounts[0];
+const buyer = accounts[1];\end{lstlisting}
+        Sono state definite quattro monete da utilizzare per le vendite, due per le monete da vendere e due per le monete accettate. Le quantità delle monete in vendita e accettate sono state impostate a 1 e indicate da
+        \verb|amountsOnSale| e \verb|amountsToAccept|. \verb|seller| e \verb|buyer| contengono due indirizzi forniti dall'ambiente di test, il primo verrà usato per creare le vendite mentre il secondo per accettarle.
+        \paragraph{Funzioni di supporto}
+\begin{lstlisting}[style=ES6, title={Funzioni di supporto nel test}]
+async function setupContracts(seller, buyer, tokenOnSaleOne, tokenOnSaleTwo, tokenToAcceptOne, tokenToAcceptTwo) {
+  TokenFactoryInstance = await TokenFactory.new();
+
+  let tokensOnSaleAddr = [];
+  let tokensToAcceptAddr = [];
+
+  let transaction = await TokenFactoryInstance.createToken(
+    tokenOnSaleOne.name,
+    tokenOnSaleOne.symbol,
+    tokenOnSaleOne.decimals,
+    tokenOnSaleOne.logoURL,
+    tokenOnSaleOne.logoHash,
+    tokenOnSaleOne.supply,
+    tokenOnSaleOne.contractHash,
+    { from: seller }
+  );
+  tokensOnSaleAddr.push(transaction.receipt.logs[0].args._contractAddress);
+
+  transaction = await TokenFactoryInstance.createToken(
+    ...
+    { from: seller }
+  );
+  tokensOnSaleAddr.push(transaction.receipt.logs[0].args._contractAddress);
+
+  transaction = await TokenFactoryInstance.createToken(
+    ...
+    { from: buyer }
+  );
+  tokensToAcceptAddr.push(transaction.receipt.logs[0].args._contractAddress);
+
+  transaction = await TokenFactoryInstance.createToken(
+    ...
+    { from: buyer }
+  );
+  tokensToAcceptAddr.push(transaction.receipt.logs[0].args._contractAddress);
+
+  return [tokensOnSaleAddr, tokensToAcceptAddr];
+}
+
+async function createSale(seller, tokensOnSaleAddr, tokensToAcceptAddr, amountsOnSale, amountsToAccept) {
+  const saleFactoryInstance = await SaleFactory.new();
+
+  for(const tokenOnSaleAddr of tokensOnSaleAddr) {
+    let tokenOnSaleInstance = await TokenTemplate.at(tokenOnSaleAddr);
+
+    await tokenOnSaleInstance.approve(saleFactoryInstance.address, amountsOnSale[0], { from: seller });
+  }
+
+  const expiration = 0;
+
+  const transaction = await saleFactoryInstance.createSale(
+    tokensOnSaleAddr,
+    tokensToAcceptAddr,
+    amountsOnSale,
+    amountsToAccept,
+    expiration,
+    { from: seller }
+  )
+  const saleAddr = transaction.receipt.logs[0].args.saleAddr;
+
+  return saleAddr
+}
+
+const assertFailError = error => {
+    assert.fail(`
+      Should always be able to call smart contracts, got instead this error:
+      caused by: 
+      ${error.stack}
+      Reason: "${error.reason}"`);
+};
+\end{lstlisting}
+        La funzione \verb|setupContracts()| serve per creare le istanze delle monete dichiarate in \ref{testVars}, quelle in vendita vengono create dal venditore mentre quelle da accettare sono create dal compratore.
+        In questo modo entrambi gli account hanno i fondi per eseguire le loro azioni nei test. Per l'istanziazione viene prima creata l'istanza di \verb|TokenFactory|, ovvero lo smart contraact responsabile della creazione di monete,
+        e su questo viene chiamato il metodo \verb|createToken()| passando i dati della moneta da creare. La funzione restituisce gli array degli indirizzi delle monete in vendita e da accettare.
+        \newline
+        La funzione \verb|createSale()| è usata per creare le vendite. Viene prima creata l'istanza di \verb|SaleFactory|, il contratto responsabile per la creazione di vendite. Successivamente il venditore approva l'istanza di \verb|SaleFactory| a spendere le monete in vendita.
+        Per far questo, sulle istanze delle monete viene chiamata la funzione \verb|approve| e indicando, usando la dicitura \verb|from|, l'indirizzo del venditore come mittente della chiamata. Per comodità la data di scadenza è stata impostata a 0, ossia la vendita non ha data di scadenza.
+        Viene quindi creata la vendita con il metodo \verb|createSale()| fornito da \verb|SaleFactory| e ne viene restituito l'indirizzo.
+        \newline
+        La funzione \verb|assertFailError()| genera un errore nel test e stampa l'errore passato come parametro.
+        \subsubsection{Test sulla creazione di una vendita}
 
         \newpage
         \section{Implementazione dell'interfaccia grafica}
@@ -682,7 +922,7 @@ constructor(
         \subsubsection{Impostazione di Metamask}
         È necessario impostare correttamente \emph{Metamask} per permettere la corretta connessione con la \emph{blockchain} di test utilizzato nella fase precedente.
         Per far questo si prende l'informazione di \verb|RPC SERVER| da Ganache. Successivamente è necessario creare una nuova rete su \emph{Metamask}. Per far ciò, si entra nelle impostazioni delle reti dell'estensione del browser, si seleziona la voce "\emph{Aggiungi Reti}".
-        Nella pagina successiva, alla voce "\emph{Nuovo URL RPC}" si inserisce l'indirizzo \verb|RPC SERVER| dato da Ganache, invece alla voce "\emph{Chain ID}" si inserisce il numero 1337, come descritto dalla documentazion di \emph{Truffle}\cite{trufflechain}.
+        Nella pagina successiva, alla voce "\emph{Nuovo URL RPC}" si inserisce l'indirizzo \verb|RPC SERVER| dato da Ganache, invece alla voce "\emph{Chain ID}" si inserisce il numero 1337, come descritto dalla documentazione di \emph{Truffle}\cite{trufflechain}.
         Terminata questa operazione è possibile connettersi alla nuova rete collegata, ma è ancora necessario importare almeno un account fornito da \emph{Ganache}. Quindi, dalla pagina "\emph{I miei account}" di \emph{Metamask} si seleziona la voce "\emph{Importa account}".
         Alla voce "\emph{Incolla la tua chiave privata qui:}", si inserisce la chiave privata di un account di \emph{Ganache}. Per trovare questa chiave è necessario, dalla pagina principale di \emph{Ganache}, selezionare il simbolo di chiave associato a un account, nella finestra che si apre è presente la chiave privata alla voce "\verb|private key|".
         \subsubsection{Impostazione del file di configurazione}
@@ -757,7 +997,7 @@ export const saleCreate = async (web3, sellerAddress, coinsOnSaleAddr, amountsOn
         Le chiamate ad \verb|approve()|, inoltre, hanno bisogno alla fine del metodo \verb|send()|,
         questo perché le funzioni che modificano lo stato del contratto hanno bisogno di inviare una transazione. Questo viene eseguito, appunto, con \verb|send()|\cite{soliditysend}.
         \newline
-        Alla riga 15 si ottiene l'istanza del smart contraact \verb|SaleFactory|. Questo viene effettuato creando un nuovo ogggetto di tipo \verb|web3.eth.Contract|, passando come parametri l'ABI e l'indirizzo del contratto.
+        Alla riga 15 si ottiene l'istanza del smart contraact \verb|SaleFactory|. Questo viene effettuato creando un nuovo oggetto di tipo \verb|web3.eth.Contract|, passando come parametri l'ABI e l'indirizzo del contratto.
         Questo funziona, naturalmente, solo se è già stato fatto il deploy del contratto di cui si sta cercando di ottenere l'istanza.
         \newline
         Ottenuto l'istanza di \verb|SaleFactory|, si può creare la vendita. Questo è realizzato chiamando alla riga 20 il metodo \spverb|SaleFactoryInstance.methods .createSale()|, passando come parametri le opzioni della vendita,
@@ -848,11 +1088,11 @@ export const saleGetAll = async (web3, accountAddress) => {
         Quest'ultima ha bisogno alla fine del metodo \verb|call()|. Viene usato questo metodo al posto di \verb|send()| perché la funzione \verb|getAllSalesAddresses()| non altera lo stato dello smart contract,
         perciò non c'è necessità di inviare una transazione\cite{soliditycall}.
         \newline
-        Se la lista degli indirizzi delle vendite è di lunghezza 0, ovvero è vuota, la funzione termina restituendo al chiamante l'array vuoto. Altrimenti la funzione prosegue con le operazioni sucessive.
+        Se la lista degli indirizzi delle vendite è di lunghezza 0, ovvero è vuota, la funzione termina restituendo al chiamante l'array vuoto. Altrimenti la funzione prosegue con le operazioni successive.
         \newline
         Alla riga 15 vengono ottenute le istanze di tutti gli indirizzi delle vendite, queste vengono memorizzate all'interno di un array chiamato \verb|salesInstances|. Successivamente viene chiamata la funzione \verb|getAllSalesAddresses()| per ogni istanza di vendita,
         questa restituisce le informazioni della vendita che vengono salvate in alcune variabili. Tra queste informazioni sono presenti anche gli indirizzi dei token in vendita e da accettare, da questi si devono ottenere anche le informazioni sulle monete.
-        Questo viene eseguito nel blocco \verb|for| alla riga 33: su ogni indirizzo delle monete in vendita viene richiamato il metodo \verb|coinGetFullData()| che restituisce i dati della moneta passata come paramentro.
+        Questo viene eseguito nel blocco \verb|for| alla riga 33: su ogni indirizzo delle monete in vendita viene richiamato il metodo \verb|coinGetFullData()| che restituisce i dati della moneta passata come parametro.
         L'operazione precedente viene ripetuta nel \verb|for| alla riga 42 per le monete da accettare.
         Alla riga 49 viene chiamata la funzione \verb|getPastEvents()| su un'istanza di vendita passando come parametro "\emph{SaleCompleted}". Questa funzione restituisce l'evento specificato come parametro, se esiste, altrimenti restituisce \verb|null|.
         Alla riga 51 alla variabile \verb|buyer| viene assegnato l'indirizzo del compratore della vendita, in caso l'evento \verb|saleCompleted| esista, altrimenti ottiene il valore \verb|null|.
@@ -900,7 +1140,7 @@ export const saleAccept = async (web3, accountAddress, saleAddress, coinsToAccep
         Viene, poi, ottenuta l'istanza del token e viene chiamata la funzione \verb|approve| sull'istanza, passando come parametri l'indirizzo della vendita e la quantità della moneta. In questo modo il contratto della vendita ottiene il permesso
         di spendere la quantità di quella moneta.
         \newline
-        Successivamente si ottiene l'istanza della vendita e su questa viene chiamato il metodo \verb|acceptSale()| che conclude l'accettamento della vendita. Viene, quindi, resituito il valore \verb|true| al chiamante.
+        Successivamente si ottiene l'istanza della vendita e su questa viene chiamato il metodo \verb|acceptSale()| che conclude l'accettazione della vendita. Viene, quindi, restituito il valore \verb|true| al chiamante.
         In caso di fallimento viene restituito, invece, \verb|false| e viene fatto il reset della \emph{allowance} del contratto della vendita a 0 per tutte le monete passate in input.
 
         \subsubsection{saleCancel}
@@ -936,7 +1176,7 @@ export const saleCancelBatch = async (web3, accountAddress, saleAddresses) => {
     return false;
   }
 }\end{lstlisting}
-        La funzione \verb|saleCancel| permette di cancellare multiple vendite. Prende in input l'istanza di \verb|web3|, l'indirizzo del proprieario delle vendite e la lista degli indirizzi delle vendite da cancellare.
+        La funzione \verb|saleCancel| permette di cancellare multiple vendite. Prende in input l'istanza di \verb|web3|, l'indirizzo del proprietario delle vendite e la lista degli indirizzi delle vendite da cancellare.
         \newline
         Viene ottenuta l'istanza di \verb|saleFactory| e su questa viene richiamato il metodo \verb|cancelBatchSales| passando la lista delle vendite. In caso di successo viene restituito \verb|true|, altrimenti \verb|false|.
 
@@ -1059,7 +1299,7 @@ const handleAmountChange = (coin, amount) => {
     setErrorsAmounts(newSet);
   }
 }\end{lstlisting}
-        All'inserimento della quantità di una moneta viene richiamata la funzione \verb|handleAmountChange(coin, amount)| passando, come paramentri, la moneta interessata e la quantità inserita.
+        All'inserimento della quantità di una moneta viene richiamata la funzione \verb|handleAmountChange(coin, amount)| passando, come parametri, la moneta interessata e la quantità inserita.
         \newline
         La funzione inizia assegnando alla variabile \verb|isInputEmpty| il valore \verb|true| in caso il parametro \verb|amount| sia una stringa vuota, \verb|false| altrimenti. Inoltre, siccome \verb|amount| è una stringa, converte questo in un valore intero.
         \newline
@@ -1235,10 +1475,10 @@ const fetchSales = async () => {
   setShowingSalesList(onGoingSales);
   setLoadingSaleList(false);
 }\end{lstlisting}
-        Questa funzione genera inizialmente una variabile \verb|ownerHasExpiredSales| di tipo \verb|boolean| inzializzata a false, e tre array: \verb|onGoingSales|, \verb|endedSales| e \verb|expiredSales|.
+        Questa funzione genera inizialmente una variabile \verb|ownerHasExpiredSales| di tipo \verb|boolean| inizializzata a false, e tre array: \verb|onGoingSales|, \verb|endedSales| e \verb|expiredSales|.
         Viene assegnata, chiamando la funzione \verb|saleGetAll()|, alla variabile \verb|allSalesList| la lista di tutte le vendite. Per ogni vendita si controlla se è scaduta. Questa verifica, visibile alla riga 10, avviene controllando
-        che la vendita non sia terminata e che la data di scadenza sia diversa da 0 e che l'attuale data sia sucessiva alla data di scadenza. Nel caso di vendita scaduta oppure terminata, questa viene inserita in \verb|endedSales|, altrimenti
-        in \verb|onGoingSales|. Sucessivamente la funzione controlla se la vendita è scaduta ed è posseduta dall'utente, in questo caso la vendita viene inserita anche in \verb|expiredSales|. Viene poi aggioranto il valore di \verb|ownerHasExpiredSales|
+        che la vendita non sia terminata e che la data di scadenza sia diversa da 0 e che l'attuale data sia successiva alla data di scadenza. Nel caso di vendita scaduta oppure terminata, questa viene inserita in \verb|endedSales|, altrimenti
+        in \verb|onGoingSales|. Sucessivamente la funzione controlla se la vendita è scaduta ed è posseduta dall'utente, in questo caso la vendita viene inserita anche in \verb|expiredSales|. Viene poi aggiornato il valore di \verb|ownerHasExpiredSales|
         con il risultato dell'operazione "\emph{OR}" tra il vecchio valore della variabile e ed il controllo della vendita scaduta e posseduta dall'utente. Questa variabile, infatti, avrà valore \verb|true| se l'utente possiede almeno una vendita scaduta, \verb|false| altrimenti.
         Infine i tre array ed il valore boolean vengono assegnati alle rispettive variabili di stato.
         \subsubsection{Pop-up delle vendite scadute}
@@ -1272,7 +1512,7 @@ const calcRefund = () => {
 
   setCoinsToRefund(Array.from(tmpRefundMap.entries()));
 }\end{lstlisting}
-        La funzione genera la \verb|Map| \verb|tmpRefundMap|, sucessivamente per ogni moneta in vendita di ogni vendita all'interno di \verb|expiredSales|, ossia l'array contenente le vendite scadute dell'utente, controlla se l'indirizzo della moneta è presente come chiave
+        La funzione genera la \verb|Map| \verb|tmpRefundMap|, successivamente per ogni moneta in vendita di ogni vendita all'interno di \verb|expiredSales|, ossia l'array contenente le vendite scadute dell'utente, controlla se l'indirizzo della moneta è presente come chiave
         all'interno di \verb|tmpRefundMap|. Se non è presente inserisce il simbolo come chiave e il la quantità della moneta in vendita come valore associato. Altrimenti aggiunge la quantità al valore già presente.
         Alla fine delle iterazioni, \verb|tmpRefundMap| conterrà le monete e le loro quantità totali da rimborsare. Infine, \verb|tmpRefundMap| viene convertito in array e assegnato a \verb|coinsToRefund|, ossia l'array utilizzato dalla lista in \verb|SaleExpiredDialog|.
         \paragraph{Accettazione del rimborso}
