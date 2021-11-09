@@ -17,7 +17,10 @@
 \usepackage{spverbatim}
 \usepackage{dirtree}
 \usepackage{etoolbox}
+\usepackage{midpage}
 \usepackage[export]{adjustbox}
+\usepackage{svg}
+\usepackage{amsmath}
 \apptocmd{\dirtree}{\bigskip}{}{}
 \pretocmd{\dirtree}{\bigskip}{}{}
 \definecolor{purple}{RGB}{91, 72, 181}
@@ -32,7 +35,6 @@
 
 \addbibresource{./bibliografia/bibliografia.bib}
 
-\linespread{1.5}
 \graphicspath{ {./images/} }
 
 \setcounter{secnumdepth}{4}
@@ -119,25 +121,33 @@
 
 
 \title{Progettazione e realizzazione di un exchange decentralizzato per lo scambio di token ERC20 per la piattaforma CommonsHood}
-
+\linespread{1.5}
 \begin{document}
-    \renewcommand{\abstractname}{Abstract}
-    \begin{abstract}
+    \import{/home/shaohao/Projects/tesi/Tesi/frontespizio/}{Frontespizio.tex}
+
+    \section*{Abstract}
       CommonsHood è un’applicazione web basata su smart contract per blockchain Ethereum che ha lo scopo di fornire alla comunità strumenti per l’inclusione finanziaria e per supportare l’economia locale delle comunità di cittadini.
       L’applicazione permette agli utenti di creare nuovi tipi di token crittografici che possono rappresentare  beni di valore o servizi. Tali token, quindi, possono essere utilizzati per creare campagne di crowdfunding, coupons e per altre funzionalità incluse all’interno di CommonsHood. È perciò necessario permettere agli utenti la compravendita e lo scambio dei token creati e distribuiti.
       Lo scopo principale di questa tesi è l’implementazione delle funzionalità di vendita e acquisto dei token crittografici attraverso la progettazione e realizzazione di un exchange decentralizzato
       Nella fase iniziale, attraverso l’uso del linguaggio Solidity, sono stati scritti gli smart contracts che definiscono le regole e il funzionamento delle compravendite (gestite attraverso il meccanismo di domanda e offerta), e, con l’uso del linguaggio Javascript, sono stati realizzati i test che ne verificano il corretto funzionamento.
       Nella fase successiva è stata creata l’interfaccia web che permette l’utilizzo delle funzioni di compravendita. Questa è stata realizzata ancora tramite il linguaggio Javascript ed utilizzando il framework ReactJS e i componenti grafici inclusi nel framework Material-UI. Per collegare l’applicazione con la blockchain è stato utilizzato il framework web3.js.
-    \end{abstract}
+
     \newpage
     \tableofcontents
     \newpage
+    \begin{midpage}
+      \textit{``Dichiaro  di  essere  responsabile  del  contenuto  dell'elaborato  che  presento  al 
+      fine  del  conseguimento  del  titolo,  di  non  avere  plagiato  in  tutto  o  in  parte  il 
+      lavoro prodotto da altri e di aver citato le fonti originali in modo congruente alle 
+      normative  vigenti  in  materia  di  plagio  e  di  diritto  d'autore.  Sono  inoltre 
+      consapevole  che  nel  caso  la  mia  dichiarazione  risultasse  mendace,  potrei 
+      incorrere  nelle  sanzioni  previste  dalla  legge  e  la  mia  ammissione  alla  prova 
+      finale potrebbe essere negata.''}
+    \end{midpage}
     \section{Introduzione}
     \subsection{CommonsHood}
     CommonsHood è un’applicazione web basata su smart contract per blockchain Ethereum che ha lo scopo di fornire alla comunità strumenti per l’inclusione finanziaria e per supportare l’economia locale delle comunità di cittadini.
     Gli utenti, una volta registrati sulla piattaforma, possono creare monete, ossia token crittografici Ethereum basati sullo standard ERC-20, questi possono rappresentare beni di valore o servizi.
-    Un altro asset che gli utenti possono creare e possedere sono i coupon, questi sono rappresentati da token non fungibili basati sullo standard ERC-721, in questo modo ogni singolo coupon è univoco e diverso dagli altri.
-    Gli utenti possono utilizzare i coupon per ottenere prestazioni e servizi.
     \newline
     Un'altra funzionalità offerta dall'applicazione è la possibilità di creare crowdsales, questi sono usati per ottenere fondi per finanziare progetti o eventi, dando, in cambio, ai finanziatori monete oppure coupons.
     Un esempio di un'interazione con la piattaforma potrebbe essere: il negozio di attrezzature da sub \emph{"Sotto il Mar"} crea un account su CommonsHood. Crea, inoltre, una moneta chiamata \emph{"Doblone"}, questa può essere spesa in negozio
@@ -274,7 +284,7 @@
     \subsection{Metamask}
     Metamask è un'estensione del web browser. Questo software permette di connettere il browser con
     applicazioni decentralizzate basate sulla piattaforma Ethereum. Metamask permette la gestione di
-    wallet Ethereum, la ricezione e l'invio di criptomonete basate su Ethereum, e l'interazione con
+    wallet, ossia l'insieme dei token di un utente, Ethereum, la ricezione e l'invio di criptomonete basate su Ethereum, e l'interazione con
     applicazioni decentralizzate. L'estensione, inoltre, fornisce le API Ethereum web3, in questo
     modo le applicazioni sono in grado di leggere dati sulla blockchain\cite{metamask}.
 
@@ -458,15 +468,27 @@
 
         \section{Progettazione}
         \begin{figure}[H]
-          \includegraphics[width=\textwidth, fbox]{structure.png}
+          \includegraphics[scale=0.9, fbox]{structure.png}
           \centering
           \caption{Informazioni di base di una vendita}
           \centering
           \label{fig:structure}
         \end{figure}
+        Nella figura \ref{fig:structure} è rappresentato lo schema del funzionamento dello scambio di monete. L'interfaccia web è stata implementata utilizzando \emph{ReactJS} e sfruttando i componenti di \emph{Material-UI}.
+        Sono state create due pagine: "\emph{Create Sale}" e "\emph{Sales List}", la prima permette di creare vendite di monete, la seconda permette di visualizzare le vendite e, eventualmente, accettarle o cancellarle.
+        Queste pagine, per svolgere le loro funzioni, hanno bisogno di comunicare con gli smart contracts. Per far ciò utilizzano \emph{Metamask} per connettersi alla blockchain utilizzata. La blockchain è stata creata utilizzando \emph{Ganache} e
+        su questa sono stati eseguiti i deploy degli smart contracts che gestiscono la funzionalità dello scambio di monete.
+        \newline
+        La realizzazione dello scambio di monete è stata divisa in diverse fasi, nella prima sono stati implementati gli smart contraacts che regolano una vendita, successivamente si è verificato il corretto funzionamento dei contratti realizzando diversi test,
+        nell'ultima fase è stata creata l'interfaccia utente per interagire con i contratti.
+        \newline
+        Gli smart contracts sono stati realizzati seguendo il modello "\emph{Factory pattern}", in cui un oggetto "fabbrica" crea oggetti "prodotti". In questo caso il prodotto della fabbrica è la vendita di monete.
+        Sono stati creati, perciò, due smart contracts: \verb|SaleFactory|, ovvero la fabbrica, e \verb|TokenSale|, ovvero lo schema del prodotto. Una vendita rappresenta, quindi, lo scambio di monete tra due utenti: da un lato è presente
+        il venditore, ovvero colui che ha creato la vendita e offre delle monete in cambio di altre, dall'altro lato è presente il compratore, ovvero colui che accetta i termini della vendita e completa lo scambio.
+        Per evitare errori ed eventuali abusi del sistema da parte di utenti, sono state poste delle restrizioni nella gestione delle vendite. In dettaglio si è impedita la creazione di vendite.
 
         \section{Scrittura e test degli smart contracts}
-        In questa fase sono stati, inizialmente, implementati gli smart contracts che realizzano la funzionalità dell'exchange. Sucessivamente sono stati realizzati i test per verificare il corretto funzionamento dei contratti implementati.
+        In questa fase sono stati, inizialmente, implementati gli smart contracts che realizzano la funzionalità dell'exchange. Successivamente sono stati realizzati i test per verificare il corretto funzionamento dei contratti implementati.
         \subsection{Scrittura degli smart contracts}
         \label{writeContracts}
         Per la scrittura degli smart contracts è stato usato come codice di base i contratti di CommonsHood che implementano la funzionalità della crezione di monete.
@@ -986,43 +1008,44 @@ try {
 \begin{lstlisting}[style=ES6, title={La vendita viene correttamente cancellata}]
 it("Cancels the sale successfully", async () => {
   try {
-      let initialSellerBalance = [];
+    let initialSellerBalance = [];
 
-      for(const tokenOnSaleAddr of tokensOnSaleAddr) {
-          let tokenOnSaleInstance = await TokenTemplate.at(tokenOnSaleAddr);
-          
-          initialSellerBalance.push(await tokenOnSaleInstance.balanceOf(seller));
-      }
-
-      saleAddr = await createSale(seller, tokensOnSaleAddr, tokensToAcceptAddr, amountsOnSale, amountsToAccept);
-
-      const tokenSaleInstance = await TokenSale.at(saleAddr);
-
-      let i = 0;
-      for(const tokenOnSaleAddr of tokensOnSaleAddr) {
-        let tokenOnSaleInstance = await TokenTemplate.at(tokenOnSaleAddr);
-
-        assert.equal(await tokenOnSaleInstance.balanceOf(seller, { from: seller}), initialSellerBalance[i] - amountsOnSale[i], "[PRE-CANCEL] Seller transferred the tokens on sale");
-        i++;
-      }
+    for(const tokenOnSaleAddr of tokensOnSaleAddr) {
+      let tokenOnSaleInstance = await TokenTemplate.at(tokenOnSaleAddr);
       
-
-      await tokenSaleInstance.cancelSale({ from: seller});
-
-      i = 0;
-      for(const tokenOnSaleAddr of tokensOnSaleAddr) {
-        let tokenOnSaleInstance = await TokenTemplate.at(tokenOnSaleAddr);
-        
-        assert.equal(await tokenOnSaleInstance.balanceOf(seller, { from: seller}), initialSellerBalance[i].toNumber(), "[POST-CANCEL] Seller got refunded");
-        i++;
-      }
-
-      assert.equal(await tokenSaleInstance.saleEnded(), true, "[POST-CANCEL] Sale has ended");
-    } catch(error) {
-      assertFailError(error);
+      initialSellerBalance.push(await tokenOnSaleInstance.balanceOf(seller));
     }
+
+    saleAddr = await createSale(seller, tokensOnSaleAddr, tokensToAcceptAddr, amountsOnSale, amountsToAccept);
+
+    const tokenSaleInstance = await TokenSale.at(saleAddr);
+
+    let i = 0;
+    for(const tokenOnSaleAddr of tokensOnSaleAddr) {
+      let tokenOnSaleInstance = await TokenTemplate.at(tokenOnSaleAddr);
+
+      assert.equal(await tokenOnSaleInstance.balanceOf(seller, { from: seller}), initialSellerBalance[i] - amountsOnSale[i], "[PRE-CANCEL] Seller transferred the tokens on sale");
+      i++;
+    }
+    
+
+    await tokenSaleInstance.cancelSale({ from: seller});
+
+    i = 0;
+    for(const tokenOnSaleAddr of tokensOnSaleAddr) {
+      let tokenOnSaleInstance = await TokenTemplate.at(tokenOnSaleAddr);
+      
+      assert.equal(await tokenOnSaleInstance.balanceOf(seller, { from: seller}), initialSellerBalance[i].toNumber(), "[POST-CANCEL] Seller got refunded");
+      i++;
+    }
+
+    assert.equal(await tokenSaleInstance.saleEnded(), true, "[POST-CANCEL] Sale has ended");
+  } catch(error) {
+    assertFailError(error);
+  }
 });
 \end{lstlisting}
+        In questo test il venditore crea una vendita e poi la cancella chiamando la funzione \verb|cancelSale()|. Viene controllato che il venditore, dopo la cencallazione della vendita, riceva indietro le monete trasferite durante la creazione della vendita. Si veriifica, inoltre, il termine della vendita.
 
         \newpage
         \section{Implementazione dell'interfaccia grafica}
@@ -1561,7 +1584,8 @@ const createSale = async () => {
 
         \subsection{Pagina "Sales List"}
         \begin{figure}[H]
-          \includegraphics[width=\textwidth]{salesList.png}
+          \includegraphics[scale=0.16]{salesList.png}
+          \centering
           \caption{Pagina con la lista delle vendita}
           \centering
           \label{fig:salesList}
@@ -1618,7 +1642,7 @@ const fetchSales = async () => {
         Questa funzione genera inizialmente una variabile \verb|ownerHasExpiredSales| di tipo \verb|boolean| inizializzata a false, e tre array: \verb|onGoingSales|, \verb|endedSales| e \verb|expiredSales|.
         Viene assegnata, chiamando la funzione \verb|saleGetAll()|, alla variabile \verb|allSalesList| la lista di tutte le vendite. Per ogni vendita si controlla se è scaduta. Questa verifica, visibile alla riga 10, avviene controllando
         che la vendita non sia terminata e che la data di scadenza sia diversa da 0 e che l'attuale data sia successiva alla data di scadenza. Nel caso di vendita scaduta oppure terminata, questa viene inserita in \verb|endedSales|, altrimenti
-        in \verb|onGoingSales|. Sucessivamente la funzione controlla se la vendita è scaduta ed è posseduta dall'utente, in questo caso la vendita viene inserita anche in \verb|expiredSales|. Viene poi aggiornato il valore di \verb|ownerHasExpiredSales|
+        in \verb|onGoingSales|. Successivamente la funzione controlla se la vendita è scaduta ed è posseduta dall'utente, in questo caso la vendita viene inserita anche in \verb|expiredSales|. Viene poi aggiornato il valore di \verb|ownerHasExpiredSales|
         con il risultato dell'operazione "\emph{OR}" tra il vecchio valore della variabile e ed il controllo della vendita scaduta e posseduta dall'utente. Questa variabile, infatti, avrà valore \verb|true| se l'utente possiede almeno una vendita scaduta, \verb|false| altrimenti.
         Infine i tre array ed il valore boolean vengono assegnati alle rispettive variabili di stato.
         \subsubsection{Pop-up delle vendite scadute}
@@ -1804,6 +1828,8 @@ const handleAcceptSale = async () => {
         La funzione esegue la chiamata al metodo \verb|saleAccept()|, funzione importata dal file \verb|sale.js|, passando come parametri \verb|saleAddress|, ossia l'indirizzo della vendita, e \verb|coinsToAccept|, ovvero la lista delle monete che la vendita necessita come pagamento.
         Infine mostra all'utente il risultato dell'accettazione e chiude la finestra.
 
+        \newpage
+        \section{Conclusioni}
         \newpage
         \printbibliography
 \end{document}
