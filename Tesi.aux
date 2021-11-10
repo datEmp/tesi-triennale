@@ -70,93 +70,95 @@
 \abx@aux@segm{0}{0}{truffleframeworks}
 \@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.8.4}Test degli smart contracts}{22}{}\protected@file@percent }
 \@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {2}Progettazione}{24}{}\protected@file@percent }
-\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Informazioni di base di una vendita}}{24}{}\protected@file@percent }
-\newlabel{fig:structure}{{2}{24}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {3}Scrittura e test degli smart contracts}{25}{}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Scrittura degli smart contracts}{25}{}\protected@file@percent }
-\newlabel{writeContracts}{{3.1}{25}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.1}Smart Contract SaleFactory}{26}{}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {3.1.1.1}Variabili ed eventi}{26}{}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {3.1.1.2}Funzione createSale}{27}{}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {3.1.1.3}Funzioni getAllSalesAddresses e getPossesedSalesAddresses}{30}{}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {3.1.1.4}Funzione cancelBatchSales}{30}{}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.2}Smart Contract TokenSale}{31}{}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {3.1.2.1}Variabili ed eventi}{31}{}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {3.1.2.2}Funzione costruttore}{33}{}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {3.1.2.3}Funzione acceptSale}{34}{}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {3.1.2.4}Funzione cancelSale}{35}{}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {3.1.2.5}Funzioni per ottenere informazioni}{36}{}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Test degli smart contract}{38}{}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.1}Variabili e funzioni di supporto}{38}{}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {3.2.1.1}Variabili di supporto}{38}{}\protected@file@percent }
-\newlabel{testVars}{{3.2.1.1}{38}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {3.2.1.2}Funzioni di supporto}{40}{}\protected@file@percent }
-\newlabel{supportFun}{{3.2.1.2}{40}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.2}Test sulla creazione di una vendita}{43}{}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.3}Test sul completamento di una vendita}{44}{}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.4}Test sulla cancellazione di una vendita}{47}{}\protected@file@percent }
+\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Schema scambio di monete}}{25}{}\protected@file@percent }
+\newlabel{fig:structure}{{2}{25}}
+\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Creazione e accettazione di una vendita}}{27}{}\protected@file@percent }
+\newlabel{fig:saleInteraction}{{3}{27}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {3}Scrittura e test degli smart contracts}{28}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Scrittura degli smart contracts}{28}{}\protected@file@percent }
+\newlabel{writeContracts}{{3.1}{28}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.1}Smart Contract SaleFactory}{28}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {3.1.1.1}Variabili ed eventi}{28}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {3.1.1.2}Funzione createSale}{29}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {3.1.1.3}Funzioni getAllSalesAddresses e getPossesedSalesAddresses}{32}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {3.1.1.4}Funzione cancelBatchSales}{33}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.2}Smart Contract TokenSale}{33}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {3.1.2.1}Variabili ed eventi}{33}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {3.1.2.2}Funzione costruttore}{35}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {3.1.2.3}Funzione acceptSale}{37}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {3.1.2.4}Funzione cancelSale}{38}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {3.1.2.5}Funzioni per ottenere informazioni}{39}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Test degli smart contract}{40}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.1}Variabili e funzioni di supporto}{41}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {3.2.1.1}Variabili di supporto}{41}{}\protected@file@percent }
+\newlabel{testVars}{{3.2.1.1}{41}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {3.2.1.2}Funzioni di supporto}{42}{}\protected@file@percent }
+\newlabel{supportFun}{{3.2.1.2}{42}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.2}Test sulla creazione di una vendita}{45}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.3}Test sul completamento di una vendita}{47}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.4}Test sulla cancellazione di una vendita}{49}{}\protected@file@percent }
 \abx@aux@cite{boilerplate}
 \abx@aux@segm{0}{0}{boilerplate}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {4}Implementazione dell'interfaccia grafica}{49}{}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Struttura dell'applicazione web}{49}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {4}Implementazione dell'interfaccia grafica}{52}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Struttura dell'applicazione web}{52}{}\protected@file@percent }
 \abx@aux@cite{trufflechain}
 \abx@aux@segm{0}{0}{trufflechain}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Azioni preliminari}{50}{}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.1}Impostazione di Metamask}{50}{}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.2}Impostazione del file di configurazione}{51}{}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}File sale.js}{51}{}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.1}saleCreate}{51}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Azioni preliminari}{53}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.1}Impostazione di Metamask}{53}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.2}Impostazione del file di configurazione}{54}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}File sale.js}{54}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.1}saleCreate}{54}{}\protected@file@percent }
 \abx@aux@cite{soliditysend}
 \abx@aux@segm{0}{0}{soliditysend}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.2}saleGetAll}{54}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.2}saleGetAll}{57}{}\protected@file@percent }
 \abx@aux@cite{soliditycall}
 \abx@aux@segm{0}{0}{soliditycall}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.3}saleAccept}{57}{}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.4}saleCancel}{59}{}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.5}saleCancelBatch}{60}{}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Pagina "Create Sale"}{61}{}\protected@file@percent }
-\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Componenti comuni}}{61}{}\protected@file@percent }
-\newlabel{fig:commonComponents}{{3}{61}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.1}Caricamento della pagina}{62}{}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.2}Box di ricerca}{63}{}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.3}Step 1: scelta dei token da vendere}{65}{}\protected@file@percent }
-\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Pagina per la scelta dei token in vendita}}{65}{}\protected@file@percent }
-\newlabel{fig:selectCoinsToSell}{{4}{65}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {4.4.3.1}Inserimento di una quantità di una moneta}{65}{}\protected@file@percent }
-\newlabel{insertCoinsToSell}{{4.4.3.1}{65}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {4.4.3.2}Quantità errata}{67}{}\protected@file@percent }
-\newlabel{quantityerror}{{4.4.3.2}{67}}
-\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Sopra un inserimento di quantità errata, sotto un inserimento corretto}}{67}{}\protected@file@percent }
-\newlabel{fig:errorMessage}{{5}{67}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {4.4.3.3}Avanzamento al passo 2}{69}{}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.4}Step 2: scelta dei token da accettare}{69}{}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.5}Step 3: riepilogo finale}{70}{}\protected@file@percent }
-\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Pagina di riepilogo della creazione di una vendita}}{70}{}\protected@file@percent }
-\newlabel{fig:resume}{{6}{70}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {4.4.5.1}Creazione di una vendita}{71}{}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Pagina "Sales List"}{73}{}\protected@file@percent }
-\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Pagina con la lista delle vendita}}{73}{}\protected@file@percent }
-\newlabel{fig:salesList}{{7}{73}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.1}Caricamento della pagina}{74}{}\protected@file@percent }
-\newlabel{expiredSales}{{4.5.1}{74}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.2}Pop-up delle vendite scadute}{76}{}\protected@file@percent }
-\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Pop-up mostrato se l'utente ha vendite scadute}}{76}{}\protected@file@percent }
-\newlabel{fig:Pop-up}{{8}{76}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {4.5.2.1}Calcolo del rimborso}{77}{}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {4.5.2.2}Accettazione del rimborso}{78}{}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.3}Filtro delle vendite}{79}{}\protected@file@percent }
-\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Filtro delle vendite}}{79}{}\protected@file@percent }
-\newlabel{fig:salesFilter}{{9}{79}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.4}Rappresentazione grafica di una vendita}{82}{}\protected@file@percent }
-\newlabel{moreInfo}{{4.5.4}{82}}
-\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Informazioni di base di una vendita}}{82}{}\protected@file@percent }
-\newlabel{fig:sale}{{10}{82}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.5}Finestra di dialogo di una vendita}{83}{}\protected@file@percent }
-\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Informazioni di base di una vendita}}{83}{}\protected@file@percent }
-\newlabel{fig:sale}{{11}{83}}
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {4.5.5.1}Eliminazione della vendita}{84}{}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {4.5.5.2}Accettazione della vendita}{84}{}\protected@file@percent }
-\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {5}Conclusioni}{86}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.3}saleAccept}{60}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.4}saleCancel}{62}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.5}saleCancelBatch}{63}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Pagina "Create Sale"}{64}{}\protected@file@percent }
+\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Componenti comuni}}{64}{}\protected@file@percent }
+\newlabel{fig:commonComponents}{{4}{64}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.1}Caricamento della pagina}{65}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.2}Box di ricerca}{66}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.3}Step 1: scelta dei token da vendere}{68}{}\protected@file@percent }
+\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Pagina per la scelta dei token in vendita}}{68}{}\protected@file@percent }
+\newlabel{fig:selectCoinsToSell}{{5}{68}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {4.4.3.1}Inserimento di una quantità di una moneta}{68}{}\protected@file@percent }
+\newlabel{insertCoinsToSell}{{4.4.3.1}{68}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {4.4.3.2}Quantità errata}{70}{}\protected@file@percent }
+\newlabel{quantityerror}{{4.4.3.2}{70}}
+\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Sopra un inserimento di quantità errata, sotto un inserimento corretto}}{70}{}\protected@file@percent }
+\newlabel{fig:errorMessage}{{6}{70}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {4.4.3.3}Avanzamento al passo 2}{72}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.4}Step 2: scelta dei token da accettare}{72}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.5}Step 3: riepilogo finale}{73}{}\protected@file@percent }
+\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Pagina di riepilogo della creazione di una vendita}}{73}{}\protected@file@percent }
+\newlabel{fig:resume}{{7}{73}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {4.4.5.1}Creazione di una vendita}{74}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Pagina "Sales List"}{76}{}\protected@file@percent }
+\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Pagina con la lista delle vendita}}{76}{}\protected@file@percent }
+\newlabel{fig:salesList}{{8}{76}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.1}Caricamento della pagina}{77}{}\protected@file@percent }
+\newlabel{expiredSales}{{4.5.1}{77}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.2}Pop-up delle vendite scadute}{79}{}\protected@file@percent }
+\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Pop-up mostrato se l'utente ha vendite scadute}}{79}{}\protected@file@percent }
+\newlabel{fig:Pop-up}{{9}{79}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {4.5.2.1}Calcolo del rimborso}{80}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {4.5.2.2}Accettazione del rimborso}{81}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.3}Filtro delle vendite}{82}{}\protected@file@percent }
+\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Filtro delle vendite}}{82}{}\protected@file@percent }
+\newlabel{fig:salesFilter}{{10}{82}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.4}Rappresentazione grafica di una vendita}{85}{}\protected@file@percent }
+\newlabel{moreInfo}{{4.5.4}{85}}
+\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Informazioni di base di una vendita}}{85}{}\protected@file@percent }
+\newlabel{fig:sale}{{11}{85}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.5}Finestra di dialogo di una vendita}{86}{}\protected@file@percent }
+\@writefile{lof}{\defcounter {refsection}{0}\relax }\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Informazioni di base di una vendita}}{86}{}\protected@file@percent }
+\newlabel{fig:sale}{{12}{86}}
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {4.5.5.1}Eliminazione della vendita}{87}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {paragraph}{\numberline {4.5.5.2}Accettazione della vendita}{87}{}\protected@file@percent }
+\@writefile{toc}{\defcounter {refsection}{0}\relax }\@writefile{toc}{\contentsline {section}{\numberline {5}Conclusioni}{89}{}\protected@file@percent }
 \abx@aux@read@bbl@mdfivesum{681D618817880D5C36653D2B701485AA}
 \abx@aux@refcontextdefaultsdone
 \abx@aux@defaultrefcontext{0}{ethereum}{nty/global//global/global}
@@ -180,4 +182,4 @@
 \abx@aux@defaultrefcontext{0}{blockchain1}{nty/global//global/global}
 \abx@aux@defaultrefcontext{0}{eip20}{nty/global//global/global}
 \gdef\svg@ink@ver@settings{{\m@ne }{inkscape}{\m@ne }}
-\gdef \@abspage@last{89}
+\gdef \@abspage@last{92}

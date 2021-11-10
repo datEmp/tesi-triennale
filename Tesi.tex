@@ -467,10 +467,24 @@
         \newpage
 
         \section{Progettazione}
+        L'obiettivo della tesi è lo sviluppo di un sistema di scambio di monete all'interno di CommonsHood. Questo sistema è basato interamante sul meccanismo di domanda e offerta.
+        Un utente può, quindi, decidere di non avere più necessità di alcune sue monete, le offre perciò in cambio di altre monete. Un altro utente, che possiede le monete a cui il primo utente è interessato, può accettare lo scambio.
+        A questo punto lo scambio è completato e il primo utente riceve le monete che gli interessavano, il secondo utente riceve le monete offerte dal primo utente. In uno scambio, quindi, sono presenti solo due attori:
+        da un lato c'è l'utente che crea l'offerta dello scambio definendo le monete coinvolte in questo, dall'altro lato c'è un altro utente che è interessato allo scambio e ne accetta i termini.
+        Entrambi, però, hanno un interesse in comune: che lo scambio di monete avvenga correttamente, ovvero i due utenti vogliono assicurarsi che, al termine dello scambio, loro ricevano le monete corrette, ossia vogliono essere certi che l'altro utente
+        non possa imbrogliare e non mandare le monete promesse.
+        \newline
+        Per fare questo, sono state implementate degli smart contracts a cui sono state affidate la gestione del sistema di scambio. Questi smart contraacts definiscono le regole e i criteri di uno smart contracts.
+        Siccome gli smart contracts sono scritti in codice informatico liberamente consultabile, gli utenti sono certi del funzionamento di uno scambio. A questo punto è solo necessario un'interfaccia grafica per consentire agli utenti
+        di usufruire della funzionalità degli scambi.
+        \newline
+        In questa tesi viene utilizzato il termine "\emph{vendita}" per riferirsi ad uno scambio, le parti di una vendita sono il "\emph{venditore}", colui che crea l'offerta di scambio, e "\emph{compratore}", colui che accetta lo scambio.
+        Le monete coinvolte in uno scambio sono state chiamate "\emph{monete da vendere}", ovvero le monete offerte dal venditore, e "\emph{monete da accettare}", ovvero le monete a cui il venditore è interessato e che il compratore deve possedere per poter
+        accettare lo scambio.
         \begin{figure}[H]
           \includegraphics[scale=0.9, fbox]{structure.png}
           \centering
-          \caption{Informazioni di base di una vendita}
+          \caption{Schema scambio di monete}
           \centering
           \label{fig:structure}
         \end{figure}
@@ -484,8 +498,27 @@
         \newline
         Gli smart contracts sono stati realizzati seguendo il modello "\emph{Factory pattern}", in cui un oggetto "fabbrica" crea oggetti "prodotti". In questo caso il prodotto della fabbrica è la vendita di monete.
         Sono stati creati, perciò, due smart contracts: \verb|SaleFactory|, ovvero la fabbrica, e \verb|TokenSale|, ovvero lo schema del prodotto. Una vendita rappresenta, quindi, lo scambio di monete tra due utenti: da un lato è presente
-        il venditore, ovvero colui che ha creato la vendita e offre delle monete in cambio di altre, dall'altro lato è presente il compratore, ovvero colui che accetta i termini della vendita e completa lo scambio.
-        Per evitare errori ed eventuali abusi del sistema da parte di utenti, sono state poste delle restrizioni nella gestione delle vendite. In dettaglio si è impedita la creazione di vendite.
+        il venditore, ovvero colui che ha creato la vendita e offre delle monete in cambio di altre monete che sceglie, dall'altro lato è presente il compratore, ovvero colui che accetta i termini della vendita e completa lo scambio.
+        Un utente può interagire in due modi con una vendita: accettarla oppure annullarla. Una vendita si può trovare in tre stati: 
+        \begin{itemize}
+          \item in corso: la vendita è ancora accettabile;
+          \item cancellata: il venditore ha annullato la vendita;
+          \item completata: un utente ha accettato lo scambio.
+        \end{itemize}
+        \begin{figure}[H]
+          \includegraphics[scale=0.45, fbox]{saleInteraction.png}
+          \centering
+          \caption{Creazione e accettazione di una vendita}
+          \centering
+          \label{fig:saleInteraction}
+        \end{figure}
+        Quando un venditore crea una vendita deve inviare al suo indirizzo le monete che offre. In questo modo l'utente non può spendere le monete che si trovano già in una vendita. Per assicurarsi che il trasferimento delle monete avvenga, questo viene
+        eseguito dal contratto \verb|SaleFactory|, perciò l'utente deve autorizzare la fabbrica a inviare le monete prima che la vendita sia ancora creata. Similarmente, anche quando un utente vuole accettare una vendita deve autorizzare il trasferimento delle monete accettate dalla vendita, ma,
+        siccome l'esecutore del trasferimento è in questo caso la vendita, l'approvazione deve essere data all'indirizzo della vendita. Questo è visibile nello schema in figura \ref{fig:saleInteraction}.
+        \newline
+        Per evitare errori ed eventuali abusi del sistema da parte di utenti, sono state poste delle restrizioni nella gestione delle vendite. In dettaglio si è impedita la creazione di vendite con quantità di monete negative o nulle, vendite con monete da vendere o accettate duplicate.
+        Viene inoltre impedita la creazione di una vendita se l'utente non ha approvato il trasferimento delle monete da vendere. Un utente, per accettare una vendita, non deve essere il proprietario della vendita, inoltre deve aver autorizzato la vendita a trasferire le monete accettate.
+        Un utente non può accettare una vendita già completata oppure annullata.
 
         \section{Scrittura e test degli smart contracts}
         In questa fase sono stati, inizialmente, implementati gli smart contracts che realizzano la funzionalità dell'exchange. Successivamente sono stati realizzati i test per verificare il corretto funzionamento dei contratti implementati.
