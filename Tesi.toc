@@ -38,7 +38,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {1.5}Metamask}{19}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.6}ReactJS}{19}{}%
+\contentsline {subsection}{\numberline {1.6}ReactJS}{20}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {1.6.1}Caratteristiche di ReactJS}{20}{}%
 \defcounter {refsection}{0}\relax 
@@ -50,7 +50,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {1.7}Material-UI}{23}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.8}Truffle e Ganache}{23}{}%
+\contentsline {subsection}{\numberline {1.8}Truffle e Ganache}{24}{}%
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {1.8.1}Creazione di un progetto Truffle}{24}{}%
 \defcounter {refsection}{0}\relax 
@@ -60,108 +60,108 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {1.8.4}Test degli smart contracts}{26}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2}Progettazione}{28}{}%
+\contentsline {section}{\numberline {2}Progettazione}{29}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3}Scrittura e test degli smart contracts}{32}{}%
+\contentsline {section}{\numberline {3}Scrittura e test degli smart contracts}{33}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.1}Scrittura degli smart contracts}{32}{}%
+\contentsline {subsection}{\numberline {3.1}Scrittura degli smart contracts}{33}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.1.1}Smart Contract SaleFactory}{32}{}%
+\contentsline {subsubsection}{\numberline {3.1.1}Smart Contract SaleFactory}{33}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\numberline {3.1.1.1}Variabili ed eventi}{32}{}%
+\contentsline {paragraph}{\numberline {3.1.1.1}Variabili ed eventi}{33}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\numberline {3.1.1.2}Funzione createSale}{33}{}%
+\contentsline {paragraph}{\numberline {3.1.1.2}Funzione createSale}{34}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\numberline {3.1.1.3}Funzioni getAllSalesAddresses e getPossesedSalesAddresses}{36}{}%
+\contentsline {paragraph}{\numberline {3.1.1.3}Funzioni getAllSalesAddresses e getPossesedSalesAddresses}{37}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\numberline {3.1.1.4}Funzione cancelBatchSales}{37}{}%
+\contentsline {paragraph}{\numberline {3.1.1.4}Funzione cancelBatchSales}{38}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.1.2}Smart Contract TokenSale}{37}{}%
+\contentsline {subsubsection}{\numberline {3.1.2}Smart Contract TokenSale}{38}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\numberline {3.1.2.1}Variabili ed eventi}{37}{}%
+\contentsline {paragraph}{\numberline {3.1.2.1}Variabili ed eventi}{38}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\numberline {3.1.2.2}Funzione costruttore}{39}{}%
+\contentsline {paragraph}{\numberline {3.1.2.2}Funzione costruttore}{40}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\numberline {3.1.2.3}Funzione acceptSale}{41}{}%
+\contentsline {paragraph}{\numberline {3.1.2.3}Funzione acceptSale}{42}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\numberline {3.1.2.4}Funzione cancelSale}{42}{}%
+\contentsline {paragraph}{\numberline {3.1.2.4}Funzione cancelSale}{43}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\numberline {3.1.2.5}Funzioni per ottenere informazioni}{43}{}%
+\contentsline {paragraph}{\numberline {3.1.2.5}Funzioni per ottenere informazioni}{44}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.2}Test degli smart contract}{44}{}%
+\contentsline {subsection}{\numberline {3.2}Test degli smart contract}{45}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.2.1}Variabili e funzioni di supporto}{45}{}%
+\contentsline {subsubsection}{\numberline {3.2.1}Variabili e funzioni di supporto}{46}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\numberline {3.2.1.1}Variabili di supporto}{45}{}%
+\contentsline {paragraph}{\numberline {3.2.1.1}Variabili di supporto}{46}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\numberline {3.2.1.2}Funzioni di supporto}{46}{}%
+\contentsline {paragraph}{\numberline {3.2.1.2}Funzioni di supporto}{47}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.2.2}Test sulla creazione di una vendita}{49}{}%
+\contentsline {subsubsection}{\numberline {3.2.2}Test sulla creazione di una vendita}{50}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.2.3}Test sul completamento di una vendita}{51}{}%
+\contentsline {subsubsection}{\numberline {3.2.3}Test sul completamento di una vendita}{52}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.2.4}Test sulla cancellazione di una vendita}{53}{}%
+\contentsline {subsubsection}{\numberline {3.2.4}Test sulla cancellazione di una vendita}{54}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4}Implementazione dell'interfaccia grafica}{56}{}%
+\contentsline {section}{\numberline {4}Implementazione dell'interfaccia grafica}{57}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.1}Struttura dell'applicazione web}{56}{}%
+\contentsline {subsection}{\numberline {4.1}Struttura dell'applicazione web}{57}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.2}Azioni preliminari}{57}{}%
+\contentsline {subsection}{\numberline {4.2}Azioni preliminari}{58}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.2.1}Impostazione di Metamask}{57}{}%
+\contentsline {subsubsection}{\numberline {4.2.1}Impostazione di Metamask}{58}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.2.2}Impostazione del file di configurazione}{58}{}%
+\contentsline {subsubsection}{\numberline {4.2.2}Impostazione del file di configurazione}{59}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.3}File sale.js}{58}{}%
+\contentsline {subsection}{\numberline {4.3}File sale.js}{59}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.3.1}saleCreate}{58}{}%
+\contentsline {subsubsection}{\numberline {4.3.1}saleCreate}{59}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.3.2}saleGetAll}{61}{}%
+\contentsline {subsubsection}{\numberline {4.3.2}saleGetAll}{62}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.3.3}saleAccept}{64}{}%
+\contentsline {subsubsection}{\numberline {4.3.3}saleAccept}{65}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.3.4}saleCancel}{66}{}%
+\contentsline {subsubsection}{\numberline {4.3.4}saleCancel}{67}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.3.5}saleCancelBatch}{67}{}%
+\contentsline {subsubsection}{\numberline {4.3.5}saleCancelBatch}{68}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.4}Pagina "Create Sale"}{68}{}%
+\contentsline {subsection}{\numberline {4.4}Pagina "Create Sale"}{69}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.4.1}Caricamento della pagina}{69}{}%
+\contentsline {subsubsection}{\numberline {4.4.1}Caricamento della pagina}{70}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.4.2}Box di ricerca}{70}{}%
+\contentsline {subsubsection}{\numberline {4.4.2}Box di ricerca}{71}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.4.3}Step 1: scelta dei token da vendere}{72}{}%
+\contentsline {subsubsection}{\numberline {4.4.3}Step 1: scelta dei token da vendere}{73}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\numberline {4.4.3.1}Inserimento di una quantità di una moneta}{72}{}%
+\contentsline {paragraph}{\numberline {4.4.3.1}Inserimento di una quantità di una moneta}{74}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\numberline {4.4.3.2}Quantità errata}{74}{}%
+\contentsline {paragraph}{\numberline {4.4.3.2}Quantità errata}{75}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\numberline {4.4.3.3}Avanzamento al passo 2}{76}{}%
+\contentsline {paragraph}{\numberline {4.4.3.3}Avanzamento al passo 2}{77}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.4.4}Step 2: scelta dei token da accettare}{76}{}%
+\contentsline {subsubsection}{\numberline {4.4.4}Step 2: scelta dei token da accettare}{78}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.4.5}Step 3: riepilogo finale}{77}{}%
+\contentsline {subsubsection}{\numberline {4.4.5}Step 3: riepilogo finale}{79}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\numberline {4.4.5.1}Creazione di una vendita}{78}{}%
+\contentsline {paragraph}{\numberline {4.4.5.1}Creazione di una vendita}{80}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.5}Pagina "Sales List"}{80}{}%
+\contentsline {subsection}{\numberline {4.5}Pagina "Sales List"}{82}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.5.1}Caricamento della pagina}{81}{}%
+\contentsline {subsubsection}{\numberline {4.5.1}Caricamento della pagina}{83}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.5.2}Pop-up delle vendite scadute}{83}{}%
+\contentsline {subsubsection}{\numberline {4.5.2}Pop-up delle vendite scadute}{85}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\numberline {4.5.2.1}Calcolo del rimborso}{84}{}%
+\contentsline {paragraph}{\numberline {4.5.2.1}Calcolo del rimborso}{86}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\numberline {4.5.2.2}Accettazione del rimborso}{85}{}%
+\contentsline {paragraph}{\numberline {4.5.2.2}Accettazione del rimborso}{87}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.5.3}Filtro delle vendite}{86}{}%
+\contentsline {subsubsection}{\numberline {4.5.3}Filtro delle vendite}{88}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.5.4}Rappresentazione grafica di una vendita}{89}{}%
+\contentsline {subsubsection}{\numberline {4.5.4}Rappresentazione grafica di una vendita}{91}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {4.5.5}Finestra di dialogo di una vendita}{90}{}%
+\contentsline {subsubsection}{\numberline {4.5.5}Finestra di dialogo di una vendita}{92}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\numberline {4.5.5.1}Eliminazione della vendita}{91}{}%
+\contentsline {paragraph}{\numberline {4.5.5.1}Eliminazione della vendita}{93}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {paragraph}{\numberline {4.5.5.2}Accettazione della vendita}{91}{}%
+\contentsline {paragraph}{\numberline {4.5.5.2}Accettazione della vendita}{93}{}%
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5}Conclusioni}{93}{}%
+\contentsline {section}{\numberline {5}Conclusioni}{95}{}%

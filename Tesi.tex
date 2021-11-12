@@ -250,7 +250,8 @@
       \item \verb|balanceOf(address _owner)|: restituisce la quantità di token posseduto da \verb|_owner|;
       \item \verb|transfer(address _to, uint256 _value)|: trasferisce una quantità di token indicata da \verb|_value| all'indirizzo \verb|_to|;
       \item \verb|transferFrom(address _from, address _to, uint256 _value)|:\newline trasferisce una quantità \verb|_value| di token dall'indirizzo \verb|_from| all'indirizzo \verb|_to|;
-      \item \verb|approve(address _spender, uint256 _value)|: permette all'indirizzo \verb|_spender| di ritirare fino a \verb|_value| token dall'account\cite{eip20}.
+      \item \verb|approve(address _spender, uint256 _value)|: permette all'indirizzo \verb|_spender|, usando la funzione \verb|transferFrom()|, di spendere fino a \verb|_value| token dall'account\cite{eip20}. Un esempio di utilizzo di questa funzione potrebbe essere:
+            l'account A chiama la funzione \verb|approve()| passando come parametri l'indirizzo di account B e 100. L'account B potrà, quindi, spendere dal saldo di account A fino a 100 unità della moneta su cui è stata chiamata \verb|approve()|.
     \end{itemize}
 
     \paragraph{NFT}
@@ -1434,7 +1435,8 @@ export const saleCancelBatch = async (web3, accountAddress, saleAddresses) => {
         \end{itemize}
         In tutti e tre gli step sono presenti alcuni componenti grafici comuni, questi sono visibili nell'immagine \ref{fig:commonComponents}.
         \begin{figure}[H]
-          \includegraphics[width=\textwidth]{commonComponents.png}
+          \includegraphics[scale=0.6, fbox]{commonComponents.png}
+          \centering
           \caption{Componenti comuni}
           \centering
           \label{fig:commonComponents}
@@ -1482,6 +1484,7 @@ export const saleCancelBatch = async (web3, accountAddress, saleAddresses) => {
           setCoinsList(newCoinsList);
           setActiveCoinsList(newCoinsList);
         }\end{lstlisting}
+        Questa funzione, chiamando la funzione \verb|coinGetListOnlyOwned()|, assegna a \verb|coinsList| e a \verb|activeCoinsList| la lista di tutte le monete che l'utente possiede,
 
         \subsubsection{Box di ricerca}
         \begin{lstlisting}[style=ES6, title={Funzione fetchCoins}]
@@ -1511,7 +1514,8 @@ export const saleCancelBatch = async (web3, accountAddress, saleAddresses) => {
 
         \subsubsection{Step 1: scelta dei token da vendere}
         \begin{figure}[H]
-          \includegraphics[width=\textwidth]{coinsToSell.png}
+          \includegraphics[scale=0.16]{coinsToSell.png}
+          \centering
           \caption{Pagina per la scelta dei token in vendita}
           \centering
           \label{fig:selectCoinsToSell}
@@ -1558,7 +1562,7 @@ const handleAmountChange = (coin, amount) => {
         \paragraph{Quantità errata}
         \label{quantityerror}
         \begin{figure}[ht]
-          \includegraphics[scale=0.5]{errorMessage.png}
+          \includegraphics[scale=0.5, fbox]{errorMessage.png}
           \centering
           \caption{Sopra un inserimento di quantità errata, sotto un inserimento corretto}
           \label{fig:errorMessage}
@@ -1616,7 +1620,8 @@ setActiveCoinsList(newCoinsList);\end{lstlisting}
 
         \subsubsection{Step 3: riepilogo finale}
         \begin{figure}[H]
-          \includegraphics[width=\textwidth]{resume.png}
+          \includegraphics[scale=0.16]{resume.png}
+          \centering
           \caption{Pagina di riepilogo della creazione di una vendita}
           \centering
           \label{fig:resume}
@@ -1728,7 +1733,7 @@ const fetchSales = async () => {
         Infine i tre array ed il valore boolean vengono assegnati alle rispettive variabili di stato.
         \subsubsection{Pop-up delle vendite scadute}
         \begin{figure}[H]
-          \includegraphics[scale=0.5]{expiredSales.png}
+          \includegraphics[scale=0.5, fbox]{expiredSales.png}
           \centering
           \caption{Pop-up mostrato se l'utente ha vendite scadute}
           \centering
@@ -1785,7 +1790,7 @@ const acceptRefund = async () => {
         Viene, quindi, mostrato un messaggio che comunica all'utente il risultato dell'operazione e, infine, il pop-up viene chiuso.
         \subsubsection{Filtro delle vendite}
         \begin{figure}[ht]
-          \includegraphics[scale=0.7]{saleFilter.png}
+          \includegraphics[scale=0.7, fbox]{saleFilter.png}
           \centering
           \caption{Filtro delle vendite}
           \centering
@@ -1847,7 +1852,7 @@ const changeShowingSales = (selectedFilter, salesStatus) => {
         \subsubsection{Rappresentazione grafica di una vendita}
         \label{moreInfo}
         \begin{figure}[H]
-          \includegraphics[scale=0.7]{sale.png}
+          \includegraphics[scale=0.7, fbox]{sale.png}
           \centering
           \caption{Informazioni di base di una vendita}
           \centering
@@ -1858,7 +1863,7 @@ const changeShowingSales = (selectedFilter, salesStatus) => {
         Al punto 3 sono rappresentate, nella colonna a sinistra, le monete in vendita e, nella colonna a destra, le monete accettate come pagamento dalla vendita. Infine al punto 4 è presente un pulsante che, alla pressione, apre una finestra di dialogo in cui l'utente può interagire con la vendita.
         \subsubsection{Finestra di dialogo di una vendita}
         \begin{figure}[H]
-          \includegraphics[scale=0.5]{saleInfo.png}
+          \includegraphics[scale=0.5, fbox]{saleInfo.png}
           \centering
           \caption{Informazioni di base di una vendita}
           \centering
