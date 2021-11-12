@@ -200,7 +200,7 @@
     Una blockchain, come dice anche il nome, è una catena di blocchi. Un blocco è un insieme di transazioni ed è collegato ad un altro blocco grazie al concetto di "\emph{One-way hash function}".
     Una \emph{one-way hash function} è una funzione che, passando in input dei dati, restituisce in output una stringa univoca di dimensione fissa chiamata "\emph{hash}". Questo significa che, cambiando anche
     solo leggermente i dati in input, l'hash risultante cambia completamente. E' \emph{one-way} perché avendo un hash è molto difficile o quasi impossibile ottenere il messaggio originale.
-    Ogni blocco, quindi, contiene al suo interno l'hash del blocco precedente, questa informazione è chiamata "\emph{PrevHash}". L'unico blocco all'interno di una blockchain a non avere la PrevHash è il primo blocco,
+    Ogni blocco, quindi, contiene al suo interno l'hash del blocco precedente, e questa informazione è chiamata "\emph{PrevHash}". L'unico blocco all'interno di una blockchain a non avere la PrevHash è il primo blocco,
     questo è chiamato anche "\emph{blocco di genesi}". Questi collegamenti tra i blocchi determinano, quindi, la struttura a catena della blockchain. Siccome la blockchain è decentralizzata, ogni nodo della rete ha una copia
     della catena. Prima che una transazione venga aggiunta a un blocco, questa deve essere verificata. Quando un utente genera una transazione applica alla transazione una firma. Quest'ultima è un hash generato dall'uso di una funzione di hash sul messaggio della transazione e la chiave privata dell'utente.
     Per verificare l'autenticità della transazione, ossia che sia stato effettivamente un particolare utente a generare la transazione, viene usata una funzione che, dati in input il messaggio della transazione, la firma della transazione e la chiave pubblica dell'utente, restituisce \verb|true| se la chiave pubblica
@@ -217,12 +217,12 @@
     \end{itemize}
     \paragraph{Proof-of-Work}
     Nella \emph{Proof-of-Work} la prova di veridicità è determinata dalla quantità di lavoro computazionale svolto. Un nodo, quando costruisce un blocco e deve validarlo, deve trovare e inserire nel blocco un numero chiamato "\emph{nonce}".
-    Questo lavoro è complicato perché si deve trovare un \emph{nonce} per cui l'hash del blocco inizi con una sequenza di zeri di una certa lunghezza determinata. Una volta che il nodo trova questo valore, il blocco è considerato verificato e viene trasmesso agli altri nodi che lo accetteranno come blocco sucessivo nella loro catena.
+    Questo lavoro è complicato perché si deve trovare un \emph{nonce} per cui l'hash del blocco inizi con una sequenza di zeri di una certa lunghezza determinata. Una volta che il nodo trova questo valore, il blocco è considerato verificato e viene trasmesso agli altri nodi che lo accetteranno come blocco successivo nella loro catena.
     Questo processo di validazione dei blocchi è anche chiamato "\emph{mining}" e i nodi vengono chiamati "\emph{miner}".
     In caso i nodi ricevano due blocchi contrastanti, ovvero puntano allo stesso blocco precedente, si crea una biforcazione e i miner continuano a validare i blocchi su entrambi i rami e, quindi, a estendere le biforcazioni. Quando una delle biforcazioni
     diventa più lunga, questa viene considerata la versione della blockchain corretta. Ovvero la biforcazione con più lavoro computazionale svolto viene considerata veritiera. 
     Un ipotetico malintenzionato che vuole aggiungere un blocco falso dovrebbe riuscire a validare i blocchi più velocemente del resto dell'intera rete per riuscire a mantenere la biforcazione, creata a partire dal suo blocco, la più lunga. Questo richiede una insostenibile potenza computazionale che difficilmente una singola entità possiede.
-    Per riuscire ad attaccare con successo una rete che adotta la Pow, l'attaccante dovrebbe possedere almeno il 51\% della potenza computazionale dell'intera blockchain e questo è molto difficile che accada.
+    Per riuscire ad attaccare con successo una rete che adotta la PoW, l'attaccante dovrebbe possedere almeno il 51\% della potenza computazionale dell'intera blockchain e questo è molto difficile che accada.
     \paragraph{Proof-of-Stake}
     In un sistema basato sull'approccio \emph{Proof-of-Stake} viene selezionato un nodo casuale per validare il prossimo blocco. Un nodo, per poter partecipare all'operazione di validazione di blocchi, deve bloccare nella rete un certo quantitativo di criptovalute della blockchain. Questa quota bloccata è chiamata anche "\emph{stake}" e il nodo
     non può spendere queste monete finché sono bloccate. Maggiore è la quota bloccata e maggiore è la probabilità del nodo di essere selezionato come prossimo validatore. Una volta verificate le transazioni all'interno del blocco, questo verrà firmato dal nodo e aggiunto alla blockchain. A questo punto
@@ -266,6 +266,7 @@
       \item \verb|safeTransferFrom(address _from,address _to,uint256 _tokenId)|: trasferisce la proprietà del NFT \verb|_tokenId| da \verb|_from| a \verb|_to|.
             Fallisce se il chiamante della funzione non è il proprietario corrente, un operatore autorizzato o un indirizzo autorizzato per questo NFT.
             Inoltre, il metodo fallisce se: \verb|_from| non è il proprietario corrente, \verb|_to| è l'indirizzo zero e \verb|_tokenId| non è un NFT valido\cite{eip1155}.
+            Un esempio di uso potrebbe essere: l'account A possiede l'NFT con id 130, chiamando la funzione \verb|safeTransferFrom()| con parametri l'indirizzo di account B e l'id della NFT, il possesso del token passerebbe a quest'ultimo account.
     \end{itemize}
     \subsubsection{Smart contracts in Ethereum}
     In Ethereum gli smart contracts sono considerati come account, questo significa che hanno un saldo e possono inviare transazioni sulla rete. A differenza di un normale account, però,
@@ -329,6 +330,8 @@
     \item Gestione del controllo degli accessi agli smart contracts;
     \item Componenti Solidity riutilizzabili per creare smart contracts\cite{openzeppelin}.
     \end{itemize}
+    Questa libreria è stata utilizzata perché il sistema costruito in questa tesi permette lo scambio di token ERC-20, e queste implementano le interfacce fornite da \emph{OpenZeppelin}.
+    Perciò, per lo sviluppo degli smart contract che implementano lo scambio, sono state utilizzate funzioni fornite dalla libreria.
 
     \subsection{Metamask}
     Metamask è un'estensione del web browser. Questo software permette di connettere il browser con
@@ -516,14 +519,14 @@
         \newpage
 
         \section{Progettazione}
-        L'obiettivo della tesi è lo sviluppo di un sistema di scambio di monete all'interno di CommonsHood. Questo sistema è basato interamante sul meccanismo di domanda e offerta.
+        L'obiettivo della tesi è lo sviluppo di un sistema di scambio di monete all'interno di CommonsHood. Questo sistema è basato interamente sul meccanismo di domanda e offerta.
         Un utente può, quindi, decidere di non avere più necessità di alcune sue monete, le offre perciò in cambio di altre monete. Un altro utente, che possiede le monete a cui il primo utente è interessato, può accettare lo scambio.
         A questo punto lo scambio è completato e il primo utente riceve le monete che gli interessavano, il secondo utente riceve le monete offerte dal primo utente. In uno scambio, quindi, sono presenti solo due attori:
         da un lato c'è l'utente che crea l'offerta dello scambio definendo le monete coinvolte in questo, dall'altro lato c'è un altro utente che è interessato allo scambio e ne accetta i termini.
         Entrambi, però, hanno un interesse in comune: che lo scambio di monete avvenga correttamente, ovvero i due utenti vogliono assicurarsi che, al termine dello scambio, loro ricevano le monete corrette, ossia vogliono essere certi che l'altro utente
         non possa imbrogliare e non mandare le monete promesse.
         \newline
-        Per fare questo, sono state implementate degli smart contracts a cui sono state affidate la gestione del sistema di scambio. Questi smart contraacts definiscono le regole e i criteri di uno smart contracts.
+        Per fare questo, sono state implementate degli smart contracts a cui sono state affidate la gestione del sistema di scambio. Questi smart contracts definiscono le regole e i criteri di uno smart contracts.
         Siccome gli smart contracts sono scritti in codice informatico liberamente consultabile, gli utenti sono certi del funzionamento di uno scambio. A questo punto è solo necessario un'interfaccia grafica per consentire agli utenti
         di usufruire della funzionalità degli scambi.
         \newline
@@ -542,7 +545,7 @@
         Queste pagine, per svolgere le loro funzioni, hanno bisogno di comunicare con gli smart contracts. Per far ciò utilizzano \emph{Metamask} per connettersi alla blockchain utilizzata. La blockchain è stata creata utilizzando \emph{Ganache} e
         su questa sono stati eseguiti i deploy degli smart contracts che gestiscono la funzionalità dello scambio di monete.
         \newline
-        La realizzazione dello scambio di monete è stata divisa in diverse fasi, nella prima sono stati implementati gli smart contraacts che regolano una vendita, successivamente si è verificato il corretto funzionamento dei contratti realizzando diversi test,
+        La realizzazione dello scambio di monete è stata divisa in diverse fasi, nella prima sono stati implementati gli smart contracts che regolano una vendita, successivamente si è verificato il corretto funzionamento dei contratti realizzando diversi test,
         nell'ultima fase è stata creata l'interfaccia utente per interagire con i contratti.
         \newline
         Gli smart contracts sono stati realizzati seguendo il modello "\emph{Factory pattern}", in cui un unico oggetto "fabbrica" crea oggetti "prodotti". In questo caso il prodotto della fabbrica è la vendita di monete.
@@ -573,7 +576,7 @@
         In questa fase sono stati, inizialmente, implementati gli smart contracts che realizzano la funzionalità dell'exchange. Successivamente sono stati realizzati i test per verificare il corretto funzionamento dei contratti implementati.
         \subsection{Scrittura degli smart contracts}
         \label{writeContracts}
-        Per la scrittura degli smart contracts è stato usato come codice di base i contratti di CommonsHood che implementano la funzionalità della crezione di monete.
+        Per la scrittura degli smart contracts è stato usato come codice di base i contratti di CommonsHood che implementano la funzionalità della creazione di monete.
         Gli smart contracts sono stati realizzati seguendo il modello "\emph{Factory Pattern}" per seguire lo standard utilizzato dagli altri contratti di CommonsHood. Quindi, seguendo il pattern, sono stati realizzati
         due smart contracts: la fabbrica \verb|SaleFactory|, il quale ha il compito di creare le vendite, e il prodotto \verb|TokenSale|, ossia la vendita vera e propria.
         \subsubsection{Smart Contract SaleFactory}
@@ -979,7 +982,7 @@ const assertFailError = error => {
 };
 \end{lstlisting}
         La funzione \verb|setupContracts()| serve per creare le istanze delle monete dichiarate in \ref{testVars}, quelle in vendita vengono create dal venditore mentre quelle da accettare sono create dal compratore.
-        In questo modo entrambi gli account hanno i fondi per eseguire le loro azioni nei test. Per l'istanziazione viene prima creata l'istanza di \verb|TokenFactory|, ovvero lo smart contraact responsabile della creazione di monete,
+        In questo modo entrambi gli account hanno i fondi per eseguire le loro azioni nei test. Per l'istanziazione viene prima creata l'istanza di \verb|TokenFactory|, ovvero lo smart contract responsabile della creazione di monete,
         e su questo viene chiamato il metodo \verb|createToken()| passando i dati della moneta da creare. La funzione restituisce gli array degli indirizzi delle monete in vendita e da accettare.
         \newline
         La funzione \verb|createSale()| è usata per creare le vendite. Viene prima creata l'istanza di \verb|SaleFactory|, il contratto responsabile per la creazione di vendite. Successivamente il venditore approva l'istanza di \verb|SaleFactory| a spendere le monete in vendita.
@@ -1127,7 +1130,7 @@ it("Cancels the sale successfully", async () => {
   }
 });
 \end{lstlisting}
-        In questo test il venditore crea una vendita e poi la cancella chiamando la funzione \verb|cancelSale()|. Viene controllato che il venditore, dopo la cencallazione della vendita, riceva indietro le monete trasferite durante la creazione della vendita. Si veriifica, inoltre, il termine della vendita.
+        In questo test il venditore crea una vendita e poi la cancella chiamando la funzione \verb|cancelSale()|. Viene controllato che il venditore, dopo la cancellazione della vendita, riceva indietro le monete trasferite durante la creazione della vendita. Si verifica, inoltre, il termine della vendita.
 
         \newpage
         \section{Implementazione dell'interfaccia grafica}
@@ -1154,7 +1157,7 @@ it("Cancels the sale successfully", async () => {
         Questo albero rappresenta la struttura del progetto che implementa l'interfaccia grafica. La cartella \verb|APIs/| contiene i file che implementano i metodi per comunicare con la blockchain.
         Inizialmente è presente il solo file \verb|coin.js|, ossia il file che contiene le funzioni che gestiscono i token.
         \newline
-        \verb|assets/| contiene le immmagini utilizzate dall'applicazione.
+        \verb|assets/| contiene le immagini utilizzate dall'applicazione.
         \newline
         \verb|components/| contiene tutti i componenti \emph{ReactJS} creati e utilizzati nelle pagine dell'applicazione.
         \newline
@@ -1242,7 +1245,7 @@ export const saleCreate = async (web3, sellerAddress, coinsOnSaleAddr, amountsOn
         Le chiamate ad \verb|approve()|, inoltre, hanno bisogno alla fine del metodo \verb|send()|,
         questo perché le funzioni che modificano lo stato del contratto hanno bisogno di inviare una transazione. Questo viene eseguito, appunto, con \verb|send()|\cite{soliditysend}.
         \newline
-        Alla riga 15 si ottiene l'istanza del smart contraact \verb|SaleFactory|. Questo viene effettuato creando un nuovo oggetto di tipo \verb|web3.eth.Contract|, passando come parametri l'ABI e l'indirizzo del contratto.
+        Alla riga 15 si ottiene l'istanza del smart contract \verb|SaleFactory|. Questo viene effettuato creando un nuovo oggetto di tipo \verb|web3.eth.Contract|, passando come parametri l'ABI e l'indirizzo del contratto.
         Questo funziona, naturalmente, solo se è già stato fatto il deploy del contratto di cui si sta cercando di ottenere l'istanza.
         \newline
         Ottenuto l'istanza di \verb|SaleFactory|, si può creare la vendita. Questo è realizzato chiamando alla riga 20 il metodo \spverb|SaleFactoryInstance.methods .createSale()|, passando come parametri le opzioni della vendita,
@@ -1509,7 +1512,7 @@ export const saleCancelBatch = async (web3, accountAddress, saleAddresses) => {
         questo viene, quindi, convertito in caratteri minuscoli ed assegnato alla variabile \verb|searchInput|. Alla riga 4 viene chiamata la funzione filter sull'array \verb|coinsList|,
         questo metodo ritorna un nuovo array dopo aver filtrato gli elementi della lista secondo un certo criterio. In questo caso, il criterio, visibile alle righe 7 e 8,
         è che il nome o il simbolo della moneta che si sta controllando contenga la stringa da cercare contenuta in \verb|searchInput|. In caso positivo la moneta viene aggiunta all'array da ritornare.
-        Una volta terminata la funzione di filtro si ha quindi una lista contenete solo monete che includono il termine di ricerca. Dopodichè questa lista viene assegnata alla variabile di stato \verb|activeCoinsList| usando,
+        Una volta terminata la funzione di filtro si ha quindi una lista contenete solo monete che includono il termine di ricerca. Dopodiché questa lista viene assegnata alla variabile di stato \verb|activeCoinsList| usando,
         perciò, la funzione \verb|setActiveCoinsList()|. In questo modo verranno mostrate a video le monete filtrate. 
 
         \subsubsection{Step 1: scelta dei token da vendere}
@@ -1916,6 +1919,13 @@ const handleAcceptSale = async () => {
 
         \newpage
         \section{Conclusioni}
+        In questa tesi è stato sviluppato un sistema decentralizzato per lo scambio di token crittografici, chiamate anche criptomonete, tra gli utenti della piattaforma Commmonshood. Questo sistema è stato costruito implementando
+        due smart contract, uno con il ruolo di "fabbrica" e l'altro di "prodotto", scritti con il linguaggio Solidity. Questi contratti hanno il compito di gestire gli eventi di creazione, eliminazione e accettazione di vendite in cui vengono offerte delle monete in cambio di altre.
+        Per verificare il corretto funzionamento degli smart contract sono stati sviluppati dei file di test che controllano il comportamento dei contratti in diverse situazioni. Per eseguire i test è stato utilizzato \emph{Truffle}. Passati i test, sono stati fatti i deploy degli smart contract
+        su una blockchain locale di test creata con \emph{Ganache}.
+        Successivamente è stato sviluppato un'applicazione web, a partire da un boilerplate, che implementa le funzionalità delle vendite. La web app, sviluppata con il framework \emph{ReactJS} e con i componenti grafici della libreria \emph{Material-UI}, ha due pagine in cui sono divise le funzioni
+        di creazione, eliminazione e accettazione delle vendite. Per connettere l'app ai contratti all'interno della blockchain locale, viene utilizzato \emph{Metamask}. Siccome gli smart contracts sono implementati all'interno di una blockchain locale di prova e l'applicazione web sviluppata è separata dalla
+        piattaforma di CommonsHood, il prossimo obiettivo nello sviluppo futuro è quello di integrare il lavoro di questa tesi all'interno della piattaforma principale di CommonsHood.
         \newpage
         \printbibliography
 \end{document}
