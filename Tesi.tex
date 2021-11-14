@@ -100,7 +100,11 @@
     Button, ContatoreConTitolo, handleSearch, searchInput, target, value, setActiveCoinsList, coinsList, coinName, coinSymbol, coin,
     coinsToSellAmounts, setCoinsToSellAmounts, coinsToAcceptAmounts, setCoinsToAcceptAmounts, setCoinsList, activeCoinsList,
     activeStep, setActiveStep, web3Instance, userAccount, fetchCoins, setLoadingCoinList, newCoinsList, Contratto, saleCreate, web3,
-    sellerAddress, coinsOnSaleAddr, amountsOnSale, coinsToAcceptAddr, amountsToAccept, expirationDate, coinInstance, SaleFactoryInstance, creationResponse, saleAddr},
+    sellerAddress, coinsOnSaleAddr, amountsOnSale, coinsToAcceptAddr, amountsToAccept, expirationDate, coinInstance, SaleFactoryInstance, creationResponse, saleAddr,
+    handleAcceptSale, handleCancelSale, changeShowingSales, handleSalesStatusSelection, handleChangeFilter, acceptRefund, calcRefund, fetchSales, createSale,
+    showCoinError, handleAmountChange, saleCancelBatch, saleCancel, saleAccept, saleGetAll, assertFailError, setupContracts, tokensOnSaleAddr, tokensToAcceptAddr,
+    expiration, seller, buyer, tokenOnSaleOne, tokenOnSaleTwo, tokenToAcceptOne, tokenToAcceptTwo, getTokensOnSaleAddr, getTokensToAcceptAddr, getSaleExpiration, getSaleOwner, getSaleInfo,
+    owner, saleEnded, retAmountsOnSale, retAmountsToAccept, exp, cancelSale, acceptSale, constructor, cancelBatchSales, getPossesedSalesAddresses, getAllSalesAddresses, EsempioContratto, },
   morekeywords=[5]{},
   sensitive,
   morecomment=[s]{/*}{*/},
@@ -124,11 +128,12 @@
 \linespread{1.5}
 \begin{document}
     \import{/home/shaohao/Projects/tesi/Tesi/frontespizio/}{Frontespizio.tex}
+    \restoregeometry
 
     \section*{Abstract}
       CommonsHood è un’applicazione web basata su smart contract per blockchain Ethereum che ha lo scopo di fornire alla comunità strumenti per l’inclusione finanziaria e per supportare l’economia locale delle comunità di cittadini.
       L’applicazione permette agli utenti di creare nuovi tipi di token crittografici che possono rappresentare  beni di valore o servizi. Tali token, quindi, possono essere utilizzati per creare campagne di crowdfunding, coupons e per altre funzionalità incluse all’interno di CommonsHood. È perciò necessario permettere agli utenti la compravendita e lo scambio dei token creati e distribuiti.
-      Lo scopo principale di questa tesi è l’implementazione delle funzionalità di vendita e acquisto dei token crittografici attraverso la progettazione e realizzazione di un exchange decentralizzato
+      Lo scopo principale di questa tesi è l’implementazione delle funzionalità di vendita e acquisto dei token crittografici attraverso la progettazione e realizzazione di un exchange decentralizzato.
       Nella fase iniziale, attraverso l’uso del linguaggio Solidity, sono stati scritti gli smart contracts che definiscono le regole e il funzionamento delle compravendite (gestite attraverso il meccanismo di domanda e offerta), e, con l’uso del linguaggio Javascript, sono stati realizzati i test che ne verificano il corretto funzionamento.
       Nella fase successiva è stata creata l’interfaccia web che permette l’utilizzo delle funzioni di compravendita. Questa è stata realizzata ancora tramite il linguaggio Javascript ed utilizzando il framework ReactJS e i componenti grafici inclusi nel framework Material-UI. Per collegare l’applicazione con la blockchain è stato utilizzato il framework web3.js.
 
@@ -1564,12 +1569,6 @@ const handleAmountChange = (coin, amount) => {
         Per far questo basta controllare che \verb|errorsAmounts| non sia vuoto.
         \paragraph{Quantità errata}
         \label{quantityerror}
-        \begin{figure}[ht]
-          \includegraphics[scale=0.5, fbox]{errorMessage.png}
-          \centering
-          \caption{Sopra un inserimento di quantità errata, sotto un inserimento corretto}
-          \label{fig:errorMessage}
-        \end{figure}
         Il componente \verb|SelectCoins| ha una props chiamata \verb|showCoinError| a cui viene passato il riferimento ad una funzione chiamata \verb|showCoinError()|.
         \begin{lstlisting}[style=ES6, title={Funzione showCoinError}]
 const showCoinError = (coin, balance) => {
@@ -1581,7 +1580,13 @@ const showCoinError = (coin, balance) => {
         Questa funzione prende in input due parametri: \verb|coin|, ossia una moneta, e \verb|balance|, la quantità di \verb|coin| che l'utente possiede. La funzione inizia controllando che l'attuale step sia lo 0,
         questo perché è solo nello step iniziale che possono presentarsi errori nell'inserimento di quantità. La funzione prosegue, quindi, controllando che \verb|coinsToSellAmounts| abbia l'oggetto \verb|coin|, e che il valore associato a \verb|coin| in \verb|coinsToSellAmounts| sia superiore a \verb|balance|.
         In questo caso vuol dire che l'utente ha inserito \verb|coin| tra le monete da vendere, ma ha inserito una quantita che non possiede, quindi la funzione restituisce \verb|true|.
-        \newline
+        \begin{figure}[H]
+          \includegraphics[scale=0.5, fbox]{errorMessage.png}
+          \centering
+          \caption{Sopra un inserimento di quantità errata, sotto un inserimento corretto}
+          \centering
+          \label{fig:errorMessage}
+        \end{figure}
         Il componente \verb|<SelectCoins>| quando genera i vari \verb|<TokenListItem>| di ogni moneta, ossia i componenti che contengono i box di inserimento delle quantità, aggiunge loro una props \verb|showError| contenente la chiamata alla funzione \verb|showCoinError()|,
         passando la moneta e il bilancio della moneta.
         \begin{lstlisting}[style=ES6, title={Funzione showCoinError}]
@@ -1639,7 +1644,7 @@ setActiveCoinsList(newCoinsList);\end{lstlisting}
         valore della data selezionata sotto forma di "\emph{unix timestamp}", ovvero la data viene rappresentata come i numeri di secondi passati dal 1° Gennaio 1970 (UTC).
         \paragraph{Creazione di una vendita}
         Premendo il pulsante "\emph{Create Sale}" viene richiamata la funzione \verb|createSale()|.
-\begin{lstlisting}[style=ES6, title={Scelta di TextField da mostrare}]
+\begin{lstlisting}[style=ES6, title={Funzione createSale()}]
 const createSale = async () => {
   const coinsToSellAddr = [];
   const coinsToSell = Array.from(coinsToSellAmounts.keys());
@@ -1926,6 +1931,20 @@ const handleAcceptSale = async () => {
         Successivamente è stato sviluppato un'applicazione web, a partire da un boilerplate, che implementa le funzionalità delle vendite. La web app, sviluppata con il framework \emph{ReactJS} e con i componenti grafici della libreria \emph{Material-UI}, ha due pagine in cui sono divise le funzioni
         di creazione, eliminazione e accettazione delle vendite. Per connettere l'app ai contratti all'interno della blockchain locale, viene utilizzato \emph{Metamask}. Siccome gli smart contracts sono implementati all'interno di una blockchain locale di prova e l'applicazione web sviluppata è separata dalla
         piattaforma di CommonsHood, il prossimo obiettivo nello sviluppo futuro è quello di integrare il lavoro di questa tesi all'interno della piattaforma principale di CommonsHood.
+        \newpage
+        Vorrei, infine, dedicare una pagina per ringraziare tutte le persone che mi hanno permesso di raggiungere questo traguardo.
+        \\
+        \\
+        Inanzitutto ringrazio il mio relatore, il Professore Claudio Schifanella, che mi ha guidato per tutto il periodo dello stage e della scrittura della tesi, e che mi ha dato l'opportunità
+        di conoscere questo nuovo ambito. Ringrazio per la pazienza che mi ha dedicato a rispondere a tutti i miei dubbi e a spiegarmi tutti i concetti.
+        \\
+        \\
+        Vorrei poi, inoltre, ringraziare i miei genitori e mia sorella Giada che mi hanno spronato nell'intraprendere il percorso universitario e che mi hanno sempre supportato in tutto questo tempo.
+        \\
+        \\
+        Infine un grande ringraziamento ai miei colleghi di corso, ma soprattutto amici: Giulia, Michela, Nicolò e Sandro, che sono sempre stati con me in questo percorso durato 3 anni e con loro ho condiviso le depressioni pre-esami e le gioie post-esami.
+        Grazie a loro ho passato un bellissimo triennio pieno di ricordi divertenti e felici. Ancora mi incapacito di come abbiano sopportato i miei molteplici lati negativi per questo lungo tempo.  Quindi, nuovamente, per tutto questo e altro ancora, \textbf{\emph{Grazie}}.
+
         \newpage
         \printbibliography
 \end{document}

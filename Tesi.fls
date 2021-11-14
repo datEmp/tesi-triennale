@@ -1004,12 +1004,14 @@ INPUT /home/shaohao/Projects/tesi/Tesi/./images//saleInfo.png
 INPUT /home/shaohao/Projects/tesi/Tesi/./images//saleInfo.png
 INPUT /home/shaohao/Projects/tesi/Tesi/./images//saleInfo.png
 INPUT /home/shaohao/Projects/tesi/Tesi/./images//saleInfo.png
+INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmbxti10.tfm
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmcsc10.tfm
 INPUT /home/shaohao/Projects/tesi/Tesi/Tesi.aux
 INPUT /home/shaohao/Projects/tesi/Tesi/Tesi.run.xml
 OUTPUT /home/shaohao/Projects/tesi/Tesi/Tesi.run.xml
 INPUT /usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
+INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb
 INPUT /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb
